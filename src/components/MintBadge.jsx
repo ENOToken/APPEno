@@ -3,45 +3,33 @@ import { ethers } from 'ethers'; // Esta es la importación correcta
 import contractABI from '../ABIs/mintBadgeParisABI.json';
 import badgeVideo from '../assets/badgepariseno.webm';
 import badgeFallback from '../assets/badgepariseno.png';
+import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
+import useMetaMaskConnector from '../hooks/useMetaMaskConnector'; // Asegúrate de importar tu hook
 
 const contractAddress = "0xE6cA5D7370567728DCac1a3C1B7644E8A7Cba740";
 
 function MintBadge() {
-  const changeNetwork = useCallback(async () => {
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0xa4b1' }], // Chain ID de Arbitrum. Asegúrate de que este sea el chainId correcto
-      });
-    } catch (switchError) {
-      if (switchError.code === 4902) {
-        try {
-          // Intenta agregar la red (esto es opcional y depende de tu caso de uso)
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [{ /* Parámetros de la red */ }], // Deberías especificar los parámetros de la red aquí
-          });
-        } catch (addError) {
-          console.error(addError);
-        }
-      }
-      console.error(switchError);
-    }
-  }, []);
+ 
+  const changeNetwork = useNetworkSwitcher();
+  const { isConnected, connectMetaMask } = useMetaMaskConnector(); // Usamos la función del hook
 
   useEffect(() => {
-    changeNetwork(); // Verifica y cambia la red cuando el componente se monta
-  }, [changeNetwork]);
+    if (!isConnected) {
+      connectMetaMask();
+    }
+    changeNetwork();
+  }, [isConnected, connectMetaMask, changeNetwork]);
 
   const mintNFT = useCallback(async () => {
-    if (window.ethereum) {
+    if (!isConnected) {
+      // Si no está conectado, intentamos conectar
+      connectMetaMask();
+    } else {
+      // Aquí va la lógica de minteo si el usuario está conectado
       try {
-        await changeNetwork();
-
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);        
+        const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
         const transaction = await nftContract.mint(await signer.getAddress());
         await transaction.wait();
         alert('Mint successful!');
@@ -49,10 +37,8 @@ function MintBadge() {
         console.error(error);
         alert('Mint failed: ' + error.message);
       }
-    } else {
-      alert('Ethereum wallet is not detected. Please install MetaMask or another Ethereum wallet.');
     }
-  }, []);
+  }, [isConnected, connectMetaMask]);
 
   return (
     <div className="container">
@@ -61,7 +47,12 @@ function MintBadge() {
         <source src={badgeVideo} type="video/webm" />
         <img src={badgeFallback} alt="NFT Preview" />
       </video>
-      <button id="mintButton" className="hero__btn color-1" onClick={mintNFT}>Mint</button>
+      <button 
+        id="mintButton" 
+        className="hero__btn color-1" 
+        onClick={mintNFT}>
+        {isConnected ? 'Mint' : 'Connect to MetaMask'}
+      </button>
     </div>
 
   );
