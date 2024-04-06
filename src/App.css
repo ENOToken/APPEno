@@ -1,0 +1,434 @@
+:root {
+	--legion-blue: #0a2a36;
+	--shady-glade: #02735e;
+	--black-eno: #040f13;
+	--bleached-aqua: #bde0e2;
+	--chalk-violet: #9183a4;
+	--chalk-violet-strong: #894cdf;
+	--contract-color: #009268;
+	--golden-kiwi: #f2d541;
+	--main-color: #ffffff;
+	--button-hover: #049a6d;
+	--blue-vortex: #101a29;
+	--section-title: 25px;
+	--section-subtitle: 20px;
+	--typeface: "Stop Normal TypeFace", sans-serif;
+	--grotesk-regular: "Grotesk Regular", sans-serif;
+	--grotesk-semi-bold: "Grotesk Semi Bold", sans-serif;
+	--grotesk-bold: "Grotesk Bold", sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+
+@font-face {
+	font-family: "Stop Normal TypeFace";
+	src: url("./fonts/Stop Normal TypeFace.ttf");
+}
+
+@font-face {
+	font-family: "Grotesk Regular";
+	src: url("./fonts/FoundersGrotesk-Regular.ttf");
+}
+
+@font-face {
+	font-family: "Grotesk Semi Bold";
+	src: url("./fonts/FoundersGrotesk-Semibold.ttf");
+}
+
+@font-face {
+	font-family: "Grotesk Bold";
+	src: url("./fonts/FoundersGrotesk-Bold.ttf");
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Texto blanco */
+    font-family: 'Arial', sans-serif; /* Fuente moderna */
+    background-image: linear-gradient(to bottom, #021b29 0%, #033140 25%, #03475e 50%, #033140 75%, #021b29 100%);
+    height: auto;
+    min-height: 100vh; /* Ocupa al menos la altura completa de la pantalla */
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    max-width: 500px; /* Un máximo razonable para el ancho */
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin:50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #0c122c; /* Color de fondo más oscuro para mayor profundidad */
+    background-image: linear-gradient(145deg, rgba(12, 18, 44, 0.9) 0%, rgba(6, 23, 37, 0.9) 100%);
+    border-radius: 10px; /* Bordes redondeados para suavizar la apariencia */
+    box-shadow: 0 0 1.7rem var(--shady-glade);
+    backdrop-filter: blur(5px); /* Suaviza el fondo detrás del contenedor, añadiendo profundidad */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil para definición */
+}
+
+.container:hover {
+    box-shadow: 0 0 2.2rem var(--shady-glade);
+}
+
+
+.nft-preview {
+    width: 100%; /* Ajustar a la anchura del contenedor */
+    border-radius: 5px; /* Bordes redondeados para el video/imagen */
+    margin-bottom: 20px; /* Espacio antes del botón */
+}
+
+/* Respetar el diseño responsivo */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* Un poco más ancho en pantallas grandes */
+        margin-top:20px;
+    }
+
+    .hero__btn {
+        width: 250px !important;
+    }
+
+    h1 {
+        font-size: 2.5em; /* Título más grande en pantallas grandes */
+    }
+
+    button {
+        font-size: 1.2em; /* Botón más grande y fácil de leer/clickear */
+    }
+}
+
+@media (max-width: 350px) {
+    .container {
+        width: 90%; /* Un poco más ancho en pantallas grandes */
+        margin-top:0px;
+    }
+
+    .hero__title{
+        font-size:35px !important;
+    }
+
+    .hero__btn {
+        width: 230px !important;
+    }
+
+    h1 {
+        font-size: 2.5em; /* Título más grande en pantallas grandes */
+    }
+
+    button {
+        font-size: 1.2em; /* Botón más grande y fácil de leer/clickear */
+    }
+}
+
+.hero__title {
+	color: var(--main-color);
+	font-size: 45px;
+    text-align: center !important;
+	font-family: var(--grotesk-bold);
+	background-image: linear-gradient(to right, var(--chalk-violet) 30%, var(--bleached-aqua) 40%, var(--contract-color) 60%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.hero__title {
+    color: var(--main-color);
+    text-align: left;
+    padding: 25px 0;
+    margin: 0;
+    background-image: linear-gradient(to right, var(--chalk-violet) 30%, var(--bleached-aqua) 40%, var(--contract-color) 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero__btn {
+    cursor: pointer;
+    border: none;
+    background-size: 300% 100%;
+    transition: all 0.4s ease-in-out;
+}
+
+.hero__btn {
+	width: 250px;
+	font-size: 25px;
+	font-weight: 800;
+	font-family: var(--grotesk-bold);
+	color: var(--main-color);
+	padding: 12px 0;
+    padding-top:18px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50px;
+	-o-transition: all 0.4s ease-in-out;
+	-webkit-transition: all 0.4s ease-in-out;
+}
+
+.hero__btn a {
+	text-decoration: none;
+	color: var(--main-color);
+}
+
+.hero__btn:hover {
+	background-position: 100% 0;
+	-o-transition: all 0.4s ease-in-out;
+	-webkit-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+    transform: scale(1.03);
+}
+
+.hero__btn:focus {
+	outline: none;
+}
+
+.hero__btn.color-1 {
+	background-color: transparent;
+	border: 2px solid #fff;
+}
+
+.hero__btn.color-1:hover {
+	background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
+	box-shadow: 0 0 15px 0 var(--golden-kiwi);
+	border: 2px solid var(--golden-kiwi);
+}
+
+/* Estilos para el encabezado y el botón de 'My Badges' */
+.site-header {
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: transparent;
+    overflow: visible;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.header-buttons {
+    display: flex;
+    margin-right: 2rem;
+    gap: 10px;
+}
+
+.logo {
+    font-family: var(--typeface);
+    font-size: 1.5rem;
+    color: var(--bleached-aqua);
+}
+
+.secondary-btn {
+    font-family: var(--grotesk-regular);
+    font-size: 1rem;
+    white-space: nowrap; /* Esto evitará que el texto dentro del botón se envuelva */
+    overflow: visible; /* Permite que el contenido sobresalga si es más grande que el botón */
+    padding: 0.5rem 1rem; /* Ajusta el padding según sea necesario */
+    padding-top:12px;
+    font-size:18px;
+    background: var(--blue-vortex);
+    color: var(--bleached-aqua);
+    border: 2px solid var(--bleached-aqua);
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    z-index: 1001;
+    text-decoration: none;
+}
+
+.secondary-btn:hover {
+    background: var(--button-hover);
+    border-color: var(--golden-kiwi);
+    color: var(--main-color);
+}
+
+
+/* --------------------------------------
+------------------------------------- GRID
+------------------------------------ */
+
+.nft-grid {
+    display: grid;
+    justify-content: center; /* Centra la cuadrícula en sí misma en el contenedor */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta la cuadrícula basándose en el ancho del elemento */
+    gap: 20px; /* Espacio entre los elementos */
+    padding: 20px; /* Espacio alrededor de toda la cuadrícula */
+    justify-items: center; /* Centra los elementos dentro de sus celdas */
+  }
+  
+  
+  /* Ahora no necesitas media queries porque auto-fit se encargará de ajustar los elementos según el ancho disponible */
+  
+  
+
+  /* --------------------------------------
+------------------------------------- NFTS
+------------------------------------ */
+
+.nft-card {
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    position: relative;
+    width: 300px; /* Define un ancho fijo */
+    height: 300px; /* Define una altura fija, igual al ancho para mantenerlo cuadrado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nft-card:hover {
+    transform: translateY(-5px);
+}
+
+.nft-media, .nft-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* Ajusta el contenido para cubrir el área asignada sin perder la proporción */
+}
+
+.nft-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Un fondo oscuro semitransparente para que el texto resalte */
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    display: none; /* Ocultar inicialmente la información */
+}
+
+.nft-card:hover .nft-info {
+    display: block; /* Mostrar la información al pasar el mouse */
+}
+
+.nft-name, .nft-description {
+    margin: 0; /* Remueve márgenes por defecto */
+    padding: 0; /* Remueve paddings por defecto */
+    text-align: center; /* Centra el texto */
+}
+
+
+  /* --------------------------------------
+------------------------------------- MENU
+------------------------------------ */
+
+
+.menu-btn {
+    display: none; /* Ocultar por defecto */
+    /* Estilos adicionales para el botón hamburguesa */
+  }
+  
+  .menu-overlay {
+    display: none; /* Ocultar por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mobile-menu {
+    display: none; /* Ocultar por defecto */
+    position: fixed;
+    top: 0;
+    left: -50%; /* Empieza fuera de la pantalla */
+    width: 50%; /* Media pantalla */
+    height: 100%;
+    background: #021b29; /* Fondo del menú */
+    transition: left 0.3s ease;
+    z-index: 100;
+    /* Estilos adicionales para el menú */
+  }
+  
+  .mobile-menu.open,
+  .menu-overlay.open {
+    display: block;
+    opacity: 1;
+    left: 0; /* Trae el menú a la vista */
+  }
+  
+  @media (max-width: 768px) {
+    .menu-btn {
+      display: block; /* Mostrar en dispositivos móviles */
+    }
+  
+    .header-buttons {
+      display: none; /* Ocultar botones */
+    }
+  
+    .mobile-menu .secondary-btn {
+      display: block; /* Estilos para los botones dentro del menú */
+      margin: 1rem 0;
+    }
+  }
+  
+
+  .mobile-menu .secondary-btn {
+    display: block;
+    width: calc(100% - 20px); /* Resta 20px para tener un poco de margen */
+    margin: 10px; /* Añade un margen alrededor de los botones para espacio */
+    padding: 10px 0; /* Aumenta el padding para hacer los botones más altos */
+    padding-top:15px;
+    background: var(--contract-color); /* Cambia el fondo para que se destaque */
+    color: var(--main-color); /* Texto en blanco */
+    border-radius: 25px; /* Bordes redondeados para un aspecto más moderno */
+    text-align: center; /* Asegura que el texto esté centrado */
+    font-size: 18px; /* Aumenta el tamaño del texto para mejor legibilidad */
+    transition: background-color 0.3s ease; /* Suaviza la transición del color de fondo */
+    border: none; /* Elimina el borde para un aspecto más limpio */
+    text-decoration: none;
+  }
+  
+  .mobile-menu .secondary-btn:hover {
+    background: var(--golden-kiwi); /* Cambia el color de fondo al pasar el mouse */
+    color: black;
+  }
+  
+  /* Añade un icono antes del texto en los botones */
+  .mobile-menu .secondary-btn::before {
+    content: '';
+    display: inline-block;
+    margin-right: 10px;
+    /* Aquí puedes usar un SVG o una imagen para el ícono */
+  }
+
+  /* Estilos adicionales para el botón hamburguesa */
+.menu-btn {
+    z-index: 101; /* Asegúrate de que esté por encima del menú */
+    position: fixed; /* Fija el botón en una posición */
+    top: 20px; /* Ajusta la posición vertical según sea necesario */
+    right: 30px; /* Ajusta la posición horizontal según sea necesario */
+    background: none;
+    border: none;
+    font-size: 40px; /* Tamaño del icono hamburguesa */
+    color: var(--main-color); /* Color del icono */
+    cursor: pointer;
+    transition: color 0.3s ease; /* Suaviza la transición del color */
+  }
+  
+  .menu-btn:hover {
+    color: var(--golden-kiwi); /* Cambia el color al pasar el mouse */
+  }
+  
+  /* Estilos para el overlay para mejorar la usabilidad en dispositivos táctiles */
+  .menu-overlay.open {
+    cursor: pointer; /* Cambia el cursor para indicar que puede hacer clic */
+  }
+  
+  /* Asegúrate de que el logo no se superponga con el botón de menú */
+  .logo {
+    z-index: 2; /* Menor que el botón del menú */
+  }
+  
