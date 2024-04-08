@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import enoLogo from '../assets/ENOLogo.svg';
+import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { changeNetwork, testnet } = useNetworkSwitcher();
 
   // Botones que se mostrarán tanto en el menú móvil como en pantallas más grandes
   const navButtons = (
@@ -18,6 +20,7 @@ function Header() {
       <a href="https://enotoken.io/" rel="noreferrer" target="_blank">
         <img src={enoLogo} alt="ENOLogo" className="logo" />
       </a>
+      {testnet && <span className="testnet-indicator">Testnet ON</span>} {/* Muestra un mensaje si testnet es true */}
       <button className="menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         &#9776; {/* Icono de hamburguesa */}
       </button>

@@ -49,17 +49,48 @@ body, html {
     padding: 0;
     justify-content: center;
     align-items: center;
-    color: #fff; /* Texto blanco */
-    font-family: 'Arial', sans-serif; /* Fuente moderna */
+    color: #fff; 
+    font-family: 'Arial', sans-serif; 
     background-image: linear-gradient(to bottom, #021b29 0%, #033140 25%, #03475e 50%, #033140 75%, #021b29 100%);
     height: auto;
-    min-height: 100vh; /* Ocupa al menos la altura completa de la pantalla */
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
+html, html body, html body.chakra-ui-light {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    background-image: linear-gradient(to bottom, #021b29 0%, #033140 25%, #03475e 50%, #033140 75%, #021b29 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }  
+
 .container {
     text-align: center;
-    max-width: 500px; /* Un máximo razonable para el ancho */
+    width: 500px; /* Usa todo el ancho disponible */
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin:50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #0c122c; /* Color de fondo más oscuro para mayor profundidad */
+    background-image: linear-gradient(145deg, rgba(12, 18, 44, 0.9) 0%, rgba(6, 23, 37, 0.9) 100%);
+    border-radius: 10px; /* Bordes redondeados para suavizar la apariencia */
+    box-shadow: 0 0 1.7rem var(--shady-glade);
+    backdrop-filter: blur(5px); /* Suaviza el fondo detrás del contenedor, añadiendo profundidad */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil para definición */
+}
+
+.container2 {
+    text-align: center;
+    width: 100%; /* Usa todo el ancho disponible */
+    max-width: none; /* Elimina la restricción, o ajusta según sea necesario */
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
@@ -253,13 +284,39 @@ body, html {
 
 .nft-grid {
     display: grid;
-    justify-content: center; /* Centra la cuadrícula en sí misma en el contenedor */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta la cuadrícula basándose en el ancho del elemento */
     gap: 20px; /* Espacio entre los elementos */
     padding: 20px; /* Espacio alrededor de toda la cuadrícula */
     justify-items: center; /* Centra los elementos dentro de sus celdas */
-  }
-  
+}
+
+/* Pantallas grandes: intenta mostrar 5 elementos por fila */
+@media (min-width: 1500px) {
+    .nft-grid {
+        grid-template-columns: repeat(5, minmax(250px, 1fr));
+    }
+}
+
+/* Pantallas medianas: muestra 3 elementos por fila */
+@media (max-width: 1499px) and (min-width: 1000px) {
+    .nft-grid {
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
+    }
+}
+
+/* Pantallas pequeñas: muestra 2 elementos por fila */
+@media (max-width: 999px) and (min-width: 500px) {
+    .nft-grid {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+}
+
+/* Pantallas muy pequeñas: muestra 1 elemento por fila */
+@media (max-width: 499px) {
+    .nft-grid {
+        grid-template-columns: repeat(1, minmax(250px, 1fr));
+    }
+}
+
   
   /* Ahora no necesitas media queries porque auto-fit se encargará de ajustar los elementos según el ancho disponible */
   
@@ -314,7 +371,6 @@ body, html {
     padding: 0; /* Remueve paddings por defecto */
     text-align: center; /* Centra el texto */
 }
-
 
   /* --------------------------------------
 ------------------------------------- MENU
