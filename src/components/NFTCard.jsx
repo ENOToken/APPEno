@@ -1,31 +1,29 @@
-import React, { useState } from 'react';
-
-function NFTMedia({ src }) {
-  const [isVideo, setIsVideo] = useState(true);
-
-  const handleVideoError = () => {
-    // Si hay un error cargando el video, cambia a imagen
-    setIsVideo(false);
-  };
-
-  return (
-    isVideo ? (
-      <video className="nft-media" loop autoPlay muted playsInline onError={handleVideoError}>
-        <source src={src} type="video/mp4" />
-      </video>
-    ) : (
-      <img src={src} alt="NFT" className="nft-image" />
-    )
-  );
-}
+import React from 'react';
 
 function NFTCard({ nft }) {
+  // Decide si el contenido es un video basándose en la URL (por ejemplo, si termina en .mp4)
+  const isVideo = nft.videoUrl.endsWith('.mp4');
+
   return (
     <div className="nft-card">
-      <NFTMedia src={nft.image} />
+      {isVideo ? (
+        // Se utiliza un elemento <video> para reproducir el archivo MP4.
+        <video
+          src={nft.videoUrl}
+          alt={nft.title || "NFT"}
+          className="nft-media"
+          controls
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      ) : (
+        // Este caso para imágenes queda como fallback, pero según tu nueva especificación quizás no sea necesario.
+        <img src={nft.videoUrl} alt={nft.title || "NFT"} className="nft-image" />
+      )}
       <div className="nft-info">
-        <h5 className="nft-name">{nft.name}</h5>
-        <p className="nft-description">{nft.description}</p>
+        {nft.title && <h5 className="nft-name">{nft.title}</h5>}
       </div>
     </div>
   );

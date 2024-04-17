@@ -40,7 +40,7 @@ function MintBadge() {
   let contractAddress = "0xa38860c7F14383904129D5fB3157bFE06FA67980"; // Testnet
 
   if (!testnet){
-    contractAddress = ""; // Mainnet 
+    contractAddress = "0xAe737D827cE3997822169A18CC761F2f60BEC9Ac"; // Mainnet 
   }
 
   useEffect(() => {

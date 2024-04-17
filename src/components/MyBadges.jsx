@@ -6,9 +6,13 @@ import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
 import { useToast, Spinner } from '@chakra-ui/react';
 
+import badgeImage from '../assets/badgepariseno.mp4';
+import badgeBlackbox from '../assets/BlackBox.mp4';
+
 // Listas de direcciones de tus contratos NFT para testnet y mainnet
 const nftContractsMainnet = [
   '0xd36f98e23796BC5D24aAf6108BB73c0bED041150',
+  '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac',
   // Añade más según sea necesario para mainnet
 ];
 
@@ -18,6 +22,18 @@ const nftContractsTestnet = [
   '0xa38860c7F14383904129D5fB3157bFE06FA67980',
   // Añade más según sea necesario para testnet
 ];
+
+const nftInfo = {
+  '0xd36f98e23796BC5D24aAf6108BB73c0bED041150': {
+    title: 'Título del NFT 1',
+    videoUrl: badgeBlackbox
+  },
+  '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac': {
+    title: 'Badge PBW 2024',
+    videoUrl: badgeImage
+  },
+  // Agrega más contratos y su información aquí
+};
 
 function MyBadges() {
   const [nfts, setNfts] = useState([]);
@@ -76,56 +92,62 @@ function MyBadges() {
 
   async function loadNFTs() {
     setIsLoading(true);
+    console.log("Cargando NFTs...");
 
     try {
-      // Filtra el array para eliminar cadenas vacías
       const validContracts = nftContracts.filter(address => address);
-      // Si el array filtrado está vacío, no hacer nada
+      console.log(`Contratos válidos: ${validContracts}`);
+
       if (!validContracts.length) {
-        console.log("No NFT contracts specified for the current network.");
+        console.log("No hay contratos NFT especificados para la red actual.");
         return;
       }
+
       if (window.ethereum) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
+        console.log(`Dirección del firmante: ${address}`);
         const nftsTemp = [];
 
-        for (const contractAddress of nftContracts) {
+        for (const contractAddress of validContracts) {
+          console.log(`Procesando contrato: ${contractAddress}`);
           const contract = new ethers.Contract(contractAddress, erc721ABI, provider);
 
           const balance = await contract.balanceOf(address);
+          console.log(`Balance para el contrato ${contractAddress}: ${balance.toNumber()}`);
+
           for (let i = 0; i < balance.toNumber(); i++) {
             const tokenId = await contract.tokenOfOwnerByIndex(address, i);
-            const tokenURI = await contract.tokenURI(tokenId);
-            const response = await fetch(tokenURI);
-            const metadata = await response.json();
+            const nftData = nftInfo[contractAddress]; // Usa la información predefinida
 
             nftsTemp.push({
-              image: metadata.image,
-              name: metadata.name,
-              description: metadata.description,
+              videoUrl: nftData.videoUrl, // Usa la URL del video
+              title: nftData.title, // Usa el título
               contractAddress,
-              tokenId
+              tokenId: tokenId.toString()
             });
           }
         }
 
+        console.log(`NFTs cargados:`, nftsTemp);
         setNfts(nftsTemp);
       }
     } catch (error) {
-      console.error("Failed to load NFTs:", error);
+      console.error("Error al cargar NFTs:", error);
       toast({
         title: "Error",
-        description: "Failed to load NFTs. Please check your connection and try again.",
+        description: "Error al cargar NFTs. Por favor verifica tu conexión e inténtalo de nuevo.",
         status: "error",
         duration: 9000,
         isClosable: true,
       });
     } finally {
-      setIsLoading(false); // Finaliza la carga
+      setIsLoading(false);
     }
-  };
+}
+
+  
 
   if (!isConnected) {
     return (
