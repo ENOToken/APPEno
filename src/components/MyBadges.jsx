@@ -8,11 +8,15 @@ import { useToast, Spinner } from '@chakra-ui/react';
 
 import badgeImage from '../assets/badgepariseno.mp4';
 import badgeBlackbox from '../assets/BlackBox.mp4';
+import ImagesDuFuture from '../assets/ImagesDuFuture.mp4'
+import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
 
 // Listas de direcciones de tus contratos NFT para testnet y mainnet
 const nftContractsMainnet = [
   '0xd36f98e23796BC5D24aAf6108BB73c0bED041150',
   '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac',
+  '0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a',
+  '0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea',
   // Añade más según sea necesario para mainnet
 ];
 
@@ -25,12 +29,20 @@ const nftContractsTestnet = [
 
 const nftInfo = {
   '0xd36f98e23796BC5D24aAf6108BB73c0bED041150': {
-    title: 'Título del NFT 1',
+    title: 'Badge Black Box 1.1',
     videoUrl: badgeBlackbox
   },
   '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac': {
     title: 'Badge PBW 2024',
     videoUrl: badgeImage
+  },
+  '0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a': {
+    title: 'Badge Images Du Futur',
+    videoUrl: ImagesDuFuture
+  },
+  '0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea': {
+    title: 'Badge Bosque Real',
+    videoUrl: BadgeBosqueReal
   },
   // Agrega más contratos y su información aquí
 };

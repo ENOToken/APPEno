@@ -1,17 +1,62 @@
 import React, { useCallback, useEffect } from 'react';
 import { ethers } from 'ethers'; // Esta es la importación correcta
 import contractABI from '../ABIs/mintBadgeParisABI.json';
-import badgeVideo from '../assets/badgepariseno.mp4';
-import badgeFallback from '../assets/badgepariseno.png';
 import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector'; // Asegúrate de importar tu hook
 import { useToast } from '@chakra-ui/react';
+import BadgeMintCard from './BadgeMintCard';
+import badgeImage from '../assets/badgepariseno.mp4';
+import badgeBlackbox from '../assets/BlackBox.mp4';
+import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
+import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
 
 function MintBadge() {
  
   const { changeNetwork, testnet , error} = useNetworkSwitcher();
   const { isConnected, connectMetaMask, message } = useMetaMaskConnector(); // Usamos la función del hook
   const toast = useToast();
+
+  // Listas de badges para testnet y mainnet
+  const badgesMainnet = [
+    {
+      title: "Badge Paris ENO",
+      videoUrl: badgeImage,
+      contractAddress: "0xAe737D827cE3997822169A18CC761F2f60BEC9Ac",
+    },
+    {
+      title: "Badge Images Du Futur",
+      videoUrl: ImagesDuFuture,
+      contractAddress: "0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a",
+    },
+    {
+      title: "Badge Bosque Real",
+      videoUrl: BadgeBosqueReal,
+      contractAddress: "0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea",
+    },
+    // Agrega más badges según sea necesario para mainnet
+  ];
+
+  const badgesTestnet = [
+    {
+      title: "Testnet Badge 1",
+      videoUrl: badgeImage,
+      contractAddress: "0xa38860c7F14383904129D5fB3157bFE06FA67980",
+    },
+    {
+      title: "Testnet Badge 2",
+      videoUrl: badgeBlackbox,
+      contractAddress: "0xa38860c7F14383904129D5fB3157bFE06FA67980",
+    },
+    // Agrega más badges según sea necesario para testnet
+  ];
+
+/*   let contractAddress = "0xa38860c7F14383904129D5fB3157bFE06FA67980"; // Testnet
+
+  if (!testnet){
+    contractAddress = "0xAe737D827cE3997822169A18CC761F2f60BEC9Ac"; // Mainnet 
+  } */
+
+  const badgesToMint = testnet ? badgesTestnet : badgesMainnet;
 
   useEffect(() => {
     if (message) {
@@ -37,12 +82,6 @@ function MintBadge() {
     }
   }, [error, toast]);
 
-  let contractAddress = "0xa38860c7F14383904129D5fB3157bFE06FA67980"; // Testnet
-
-  if (!testnet){
-    contractAddress = "0xAe737D827cE3997822169A18CC761F2f60BEC9Ac"; // Mainnet 
-  }
-
   useEffect(() => {
     if (!isConnected) {
       connectMetaMask();
@@ -50,7 +89,7 @@ function MintBadge() {
     changeNetwork();
   }, [isConnected, connectMetaMask, changeNetwork]);
 
-  const mintNFT = useCallback(async () => {
+  const mintNFT = useCallback(async (contractAddress) => {
     if (!isConnected) {
       connectMetaMask();
     } else {
@@ -85,24 +124,18 @@ function MintBadge() {
         });
       }
     }
-  }, [isConnected, connectMetaMask, toast, contractAddress]);
+  }, [isConnected, connectMetaMask, toast]);
   
 
   return (
     <div className="container">
-      <h1 className="hero__title">ENO PBW 2024</h1>
-      <video className="nft-preview" autoPlay loop muted playsInline>
-        <source src={badgeVideo} type="video/mp4" />
-        <img src={badgeFallback} alt="NFT Preview" />
-      </video>
-      <button 
-        id="mintButton" 
-        className="hero__btn color-1" 
-        onClick={mintNFT}>
-        {isConnected ? 'Mint' : 'Connect to MetaMask'}
-      </button>
+      <h1 className="hero__title">Mint Your Badges</h1>
+      <div className="nft-grid">
+        {badgesToMint.map(badge => (
+          <BadgeMintCard key={badge.contractAddress} badge={badge} mintFunction={mintNFT} />
+        ))}
+      </div>
     </div>
-
   );
 }
 

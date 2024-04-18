@@ -10,7 +10,7 @@ function Header() {
   // Botones que se mostrarán tanto en el menú móvil como en pantallas más grandes
   const navButtons = (
     <>
-      <Link to="/" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Mint PBW</Link>
+      <Link to="/" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Mint Badges</Link>
       <Link to="/my-badges" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>My Badges</Link>
     </>
   );

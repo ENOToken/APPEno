@@ -72,7 +72,7 @@ html, html body, html body.chakra-ui-light {
 
 .container {
     text-align: center;
-    width: 500px; /* Usa todo el ancho disponible */
+    width: 100%; /* Usa todo el ancho disponible */
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
