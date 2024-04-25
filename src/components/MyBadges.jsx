@@ -1,10 +1,13 @@
+//MyBadges.jsx
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import NFTCard from './NFTCard';
 import erc721ABI from '../ABIs/mintBadgeParisABI.json';
 import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
-import { useToast, Spinner } from '@chakra-ui/react';
+import { useToast, Spinner, Flex, Button } from '@chakra-ui/react';
+
+import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
 
 import badgeImage from '../assets/badgepariseno.mp4';
 import badgeBlackbox from '../assets/BlackBox.mp4';
@@ -31,6 +34,10 @@ const nftInfo = {
   '0xd36f98e23796BC5D24aAf6108BB73c0bED041150': {
     title: 'Badge Black Box 1.1',
     videoUrl: badgeBlackbox
+  },
+  '0xa38860c7F14383904129D5fB3157bFE06FA67980': { //testnet
+    title: 'Badge PBW 2024',
+    videoUrl: badgeImage
   },
   '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac': {
     title: 'Badge PBW 2024',
@@ -192,7 +199,16 @@ function MyBadges() {
   return (
     <>
         <div className="container2">
-            <h1 className="hero__title">My Badges</h1>
+          <Flex justifyContent="center" width="100%" alignItems="center">
+            <Flex alignItems="center">
+              <h1 className="hero__title">My Badges</h1>
+              <Link to="/mint-badges">
+                <Button colorScheme="teal" size="md" ml="4">
+                  Mint Badges
+                </Button>
+              </Link>
+            </Flex>
+          </Flex>
             
             <div className="nft-grid">
                 {nfts.map((nft, index) => (

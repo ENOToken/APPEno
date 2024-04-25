@@ -1,3 +1,4 @@
+//NFTCard.jsx
 import React from 'react';
 
 function NFTCard({ nft }) {

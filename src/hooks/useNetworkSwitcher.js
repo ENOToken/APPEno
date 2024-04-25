@@ -1,7 +1,7 @@
 // hooks/useNetworkSwitcher.js
 import { useState, useCallback } from 'react';
 
-const testnet = false;
+const testnet = true;
 let chain = "0xa4b1";
 
 if (testnet){

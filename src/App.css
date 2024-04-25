@@ -488,3 +488,44 @@ html, html body, html body.chakra-ui-light {
     z-index: 2; /* Menor que el botón del menú */
   }
   
+  .nft-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Esto coloca el contenido del contenedor en una columna vertical */
+  }
+  
+  .nft-purchase-card {
+    border: 1px solid #ccc; /* Borde para destacar la tarjeta */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 16px; /* Espaciado interior */
+    max-width: 300px; /* Ancho máximo para la tarjeta */
+    margin: auto; /* Centrado horizontal */
+    background: white; /* Fondo blanco o cualquier color que prefieras */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+    display: flex; /* Usa flexbox para estructurar el contenido */
+    flex-direction: column; /* Orientación vertical */
+    align-items: center; /* Alineación horizontal */
+    gap: 8px; /* Espaciado entre elementos */
+}
+
+.nft-purchase-card:hover {
+    transform: translateY(-5px);
+}
+
+.nft-purchase-card video {
+    border-radius: 8px; /* Bordes redondeados para el video */
+    max-width: 100%; /* Asegúrate de que el video no exceda el ancho de la tarjeta */
+  }
+  
+  .nft-purchase-card p {
+    margin: 4px 0; /* Espaciado vertical para los párrafos */
+    text-align: center; /* Centrado de texto */
+    width: 100%; /* Fuerza el texto a ocupar todo el ancho disponible */
+    color: #021b29;
+  }
+  
+  .nft-purchase-card button {
+    width: 100%; /* Fuerza los botones a ocupar todo el ancho disponible */
+    margin-top: 4px; /* Espaciado superior para separar del texto */
+  }

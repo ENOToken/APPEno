@@ -1,10 +1,14 @@
+//MintBadge.jsx
 import React, { useCallback, useEffect } from 'react';
 import { ethers } from 'ethers'; // Esta es la importación correcta
 import contractABI from '../ABIs/mintBadgeParisABI.json';
 import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector'; // Asegúrate de importar tu hook
-import { useToast } from '@chakra-ui/react';
+import { useToast, Button, Flex } from '@chakra-ui/react';
 import BadgeMintCard from './BadgeMintCard';
+import { Link } from 'react-router-dom';
+
+//imagenes
 import badgeImage from '../assets/badgepariseno.mp4';
 import badgeBlackbox from '../assets/BlackBox.mp4';
 import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
@@ -42,11 +46,11 @@ function MintBadge() {
       videoUrl: badgeImage,
       contractAddress: "0xa38860c7F14383904129D5fB3157bFE06FA67980",
     },
-    {
+/*     {
       title: "Testnet Badge 2",
       videoUrl: badgeBlackbox,
       contractAddress: "0xa38860c7F14383904129D5fB3157bFE06FA67980",
-    },
+    }, */
     // Agrega más badges según sea necesario para testnet
   ];
 
@@ -57,37 +61,6 @@ function MintBadge() {
   } */
 
   const badgesToMint = testnet ? badgesTestnet : badgesMainnet;
-
-  useEffect(() => {
-    if (message) {
-      toast({
-        title: isConnected ? 'Success' : 'Error',
-        description: message,
-        status: isConnected ? 'success' : 'error',
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  }, [isConnected, message, toast]);
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        title: 'Network Error',
-        description: error,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  }, [error, toast]);
-
-  useEffect(() => {
-    if (!isConnected) {
-      connectMetaMask();
-    }
-    changeNetwork();
-  }, [isConnected, connectMetaMask, changeNetwork]);
 
   const mintNFT = useCallback(async (contractAddress) => {
     if (!isConnected) {
@@ -129,7 +102,19 @@ function MintBadge() {
 
   return (
     <div className="container">
-      <h1 className="hero__title">Mint Your Badges</h1>
+
+      <Flex justifyContent="center" width="100%" alignItems="center">
+        <Flex alignItems="center">
+          <h1 className="hero__title">Mint Your Badges</h1>
+          <Link to="/my-badges">
+            <Button colorScheme="teal" size="md" ml="4">
+              My Badges
+            </Button>
+          </Link>
+        </Flex>
+      </Flex>
+
+
       <div className="nft-grid">
         {badgesToMint.map(badge => (
           <BadgeMintCard key={badge.contractAddress} badge={badge} mintFunction={mintNFT} />

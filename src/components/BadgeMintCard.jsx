@@ -1,3 +1,4 @@
+//BadgeMintCard.jsx
 import React from 'react';
 
 function BadgeMintCard({ badge, mintFunction }) {
