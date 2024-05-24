@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@chakra-ui/react';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
+import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
 import { Link } from 'react-router-dom';
 import NFTPurchaseCard from './NFTPurchaseCard';
 
@@ -11,7 +12,8 @@ const ImagesDuFuture = 'https://storage.googleapis.com/intercellar-assets/Coquer
 
 const usdtContractAddress = "0x0997ff490B1cA814C55eB0854A0969431fCDaa1e";
 
-export const initialNFTs = [
+// Lista de NFTs para testnet
+export const testnetNFTs = [
   {
     title: "Champagne Carbon",
     image: BadgeBosqueReal,
@@ -27,16 +29,32 @@ export const initialNFTs = [
   // Añade más NFTs aquí según sea necesario
 ];
 
+// Lista de NFTs para mainnet
+export const mainnetNFTs = [
+
+  // Añade más NFTs aquí según sea necesario
+];
+
 const NFTPurchase = () => {
   const { isConnected, connectMetaMask } = useMetaMaskConnector();
+  const { testnet } = useNetworkSwitcher(); // Usa el hook para obtener el estado de testnet
   const toast = useToast();
-  const [nfts, setNfts] = useState(initialNFTs);
+  const [nfts, setNfts] = useState([]);
 
   useEffect(() => {
     if (!isConnected) {
       connectMetaMask();
     }
   }, [isConnected, connectMetaMask]);
+
+
+  useEffect(() => {
+    if (testnet) {
+      setNfts(testnetNFTs); // Carga los NFTs de testnet si testnet es true
+    } else {
+      setNfts(mainnetNFTs); // Carga los NFTs de mainnet si testnet es false
+    }
+  }, [testnet]);
 
   return (
     <div className="container">

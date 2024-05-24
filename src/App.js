@@ -17,8 +17,9 @@ function App() {
           <Route path="/my-badges" element={<MyBadges />} />
           <Route path="/nft/:contractAddress" element={<NFTPurchaseDetails />} />
           <Route path="/launchpad" element={<Launchpad />} />
-          <Route path="/" element={<Navigate replace to="/launchpad" />} /> {/* Redirige desde la raíz a /launchpad */}
+          <Route path="/" element={<Navigate replace to="/mint-badges" />} /> {/* Redirige desde la raíz a /launchpad */}
         </Routes>
+        
       </Router>
     </ChakraProvider>
   );

@@ -10,7 +10,7 @@ function Header() {
   // Botones que se mostrarán tanto en el menú móvil como en pantallas más grandes
   const navButtons = (
     <>
-      <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link>
+      {/* <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link> */}
       <Link to="/mint-badges" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Badges</Link>
 
       

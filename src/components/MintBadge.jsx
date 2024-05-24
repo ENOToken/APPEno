@@ -13,6 +13,8 @@ import badgeImage from '../assets/badgepariseno.mp4';
 import badgeBlackbox from '../assets/BlackBox.mp4';
 import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
 import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
+import Blackbox12 from '../assets/BadgeBB2_BAJA.mp4';
+import Unlock2024 from '../assets/UNLOCK.mp4';
 
 function MintBadge() {
  
@@ -23,9 +25,19 @@ function MintBadge() {
   // Listas de badges para testnet y mainnet
   const badgesMainnet = [
     {
-      title: "Badge Paris ENO",
-      videoUrl: badgeImage,
-      contractAddress: "0xAe737D827cE3997822169A18CC761F2f60BEC9Ac",
+      title: "Badge Unlock Summit 2024",
+      videoUrl: Unlock2024,
+      contractAddress: "0x77aA6a734222738B8a442a866b9E3a6a5D25A506",
+    },
+    {
+      title: "Badge Blackbox 1.2",
+      videoUrl: Blackbox12,
+      contractAddress: "0xD2DDe978DA57D144dcc00D2d36053ae9968756A7",
+    },
+    {
+      title: "Badge Bosque Real",
+      videoUrl: BadgeBosqueReal,
+      contractAddress: "0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea",
     },
     {
       title: "Badge Images Du Futur",
@@ -33,10 +45,22 @@ function MintBadge() {
       contractAddress: "0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a",
     },
     {
-      title: "Badge Bosque Real",
-      videoUrl: BadgeBosqueReal,
-      contractAddress: "0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea",
+      title: "Badge Paris ENO",
+      videoUrl: badgeImage,
+      contractAddress: "0xAe737D827cE3997822169A18CC761F2f60BEC9Ac",
     },
+    {
+      title: "Badge Blackbox 1.1",
+      videoUrl: badgeBlackbox,
+      contractAddress: "0xd36f98e23796BC5D24aAf6108BB73c0bED041150",
+    },
+
+
+    
+
+
+
+
     // Agrega más badges según sea necesario para mainnet
   ];
 
@@ -105,10 +129,10 @@ function MintBadge() {
 
       <Flex justifyContent="center" width="100%" alignItems="center">
         <Flex alignItems="center">
-          <h1 className="hero__title">Mint Your Badges</h1>
+          <h1 className="hero__title">Mint NFT Badges</h1>
           <Link to="/my-badges">
             <Button colorScheme="teal" size="md" ml="4">
-              My Badges
+              My NFT Badges
             </Button>
           </Link>
         </Flex>
