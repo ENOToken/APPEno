@@ -12,8 +12,6 @@ function Header() {
     <>
       <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link>
       <Link to="/mint-badges" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Badges</Link>
-
-      
     </>
   );
 
@@ -22,10 +20,10 @@ function Header() {
       <a href="https://enotoken.io/" rel="noreferrer" target="_blank">
         <img src={enoLogo} alt="ENOLogo" className="logo" />
       </a>
-      {testnet && <span className="testnet-indicator">Testnet ON</span>} {/* Muestra un mensaje si testnet es true */}
-      <button className="menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        &#9776; {/* Icono de hamburguesa */}
-      </button>
+      {testnet && <span className="testnet-indicator">Connected ON</span>} {/* Muestra un mensaje si testnet es true */}
+      {/* <button className="menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        &#9776;
+      </button>*}
       {/* Overlay para móvil */}
       <div className={`menu-overlay ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(false)}></div>
       {/* Menú para móvil */}

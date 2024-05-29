@@ -1,4 +1,4 @@
-//NFTCard.jsx
+// NFTCard.jsx
 import React from 'react';
 
 function NFTCard({ nft }) {
@@ -13,7 +13,6 @@ function NFTCard({ nft }) {
           src={nft.videoUrl}
           alt={nft.title || "NFT"}
           className="nft-media"
-          controls
           autoPlay
           loop
           muted
@@ -25,6 +24,7 @@ function NFTCard({ nft }) {
       )}
       <div className="nft-info">
         {nft.title && <h5 className="nft-name">{nft.title}</h5>}
+        {nft.tokenId && <p className="nft-token-id">Token ID: {nft.tokenId}</p>}
       </div>
     </div>
   );

@@ -3,6 +3,9 @@ import { Button, useToast } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
 import usdtAbi from '../ABIs/usdtAbi.json';
+import './NFTPurchaseCard.css';
+import './NFTPurchaseCard.css';
+
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -119,6 +122,21 @@ const NFTPurchaseCard = ({ nft }) => {
       }
   };
 
+ const NFTPurchaseCard = ({ nft }) => {
+  const history = useHistory();
+
+  const handleCardClick = () => {
+    history.push(`/nft/${nft.id}`);
+  };
+
+  return (
+    <div className="nft-purchase-card" onClick={handleCardClick}>
+      <img src={nft.image} alt={nft.title} />
+      <p>{nft.title}</p>
+    </div>
+  );
+ };
+
   return (
     <div className="nft-purchase-card">
       <video
@@ -129,9 +147,11 @@ const NFTPurchaseCard = ({ nft }) => {
         loop
         style={{ maxWidth: '300px', width: '100%' }}
       />
-      {/* <p>{nft.title}</p> */}
-      <p>Minted: {totalMinted} / {maxSupply} NFTs</p>
-      <p>Price: {priceUsdt} USDT / {priceEth} ETH</p>
+      <div className='purchase__container'>
+      <p className='purchase__title'>{nft.title}</p> 
+      <p className='text__content'>Minted: {totalMinted} | {maxSupply} NFTs</p>
+      <p className='text__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p>
+      </div>
       <Button colorScheme="teal" size="sm" onClick={buyWithUSDT}>
         Buy with USDT
       </Button>

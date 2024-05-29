@@ -1,0 +1,18 @@
+{
+  "champagne-carbon": {
+    "contractAddress": "0xE37852873468F1e3793b0BCf984FB564a7Fd57dF",
+    "usdtContractAddress":"0x0997ff490B1cA814C55eB0854A0969431fCDaa1e",
+    "title": "Champagne Carbon",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "buttonLabel": "Acquire",
+    "video": "https://storage.googleapis.com/intercellar-assets/Champagne-Carbon.mp4"
+  },
+  "coquerel-calvados": {
+    "contractAddress": "0xef5e02fE00208153c234b52ad8b2289484B849C1",
+    "usdtContractAddress":"0x0997ff490B1cA814C55eB0854A0969431fCDaa1e",
+    "title": "Coquerel Calvados",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.",
+    "buttonLabel": "Acquire",
+    "video": "https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4"
+  }
+}
