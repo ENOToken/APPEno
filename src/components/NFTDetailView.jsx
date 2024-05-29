@@ -8,6 +8,8 @@ import nftAbi from '../ABIs/nftAbi.json';
 import usdtAbi from '../ABIs/usdtAbi.json';
 import './NFTDetailView.css';
 
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+
 const NFTDetailView = () => {
   const { nftId } = useParams();
   const navigate = useNavigate();
