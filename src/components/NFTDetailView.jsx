@@ -6,11 +6,10 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
 import usdtAbi from '../ABIs/usdtAbi.json';
+import demo from '../assets/BlackBox.mp4';
 import './NFTDetailView.css';
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-const NFTDetailView = () => {
+const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible }) => {
   const { nftId } = useParams();
   const navigate = useNavigate();
   const toast = useToast();
@@ -89,6 +88,48 @@ const NFTDetailView = () => {
     setMaxSupply(maxSupplyNumber.toNumber());
   }, [provider]);
 
+  useEffect(() => {
+    if (nftDetails) {
+      fetchPrices(nftDetails);
+      fetchMintedAndMaxSupply(nftDetails);
+      const intervalId = setInterval(() => {
+        fetchPrices(nftDetails);
+        fetchMintedAndMaxSupply(nftDetails);
+      }, 5000); // Establecer el intervalo para ejecutar cada 5 segundos
+
+      return () => clearInterval(intervalId); // Limpiar el intervalo cuando el componente se desmonte
+    }
+  }, [nftDetails, fetchPrices, fetchMintedAndMaxSupply]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 1024) { // Tablets y móviles
+        setHeaderVisible(false);
+        setFooterVisible(false);
+        setNavBarVisible(false);
+      } else {
+        setHeaderVisible(true);
+        setFooterVisible(true);
+        setNavBarVisible(true);
+      }
+    };
+
+    // Configurar el evento de redimensionamiento
+    window.addEventListener('resize', handleResize);
+
+    // Llamar a handleResize inicialmente para configurar el estado correcto
+    handleResize();
+
+    // Limpiar el evento al desmontar el componente
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      setHeaderVisible(true);
+      setFooterVisible(true);
+      setNavBarVisible(true);
+    };
+  }, [setHeaderVisible, setFooterVisible, setNavBarVisible]);
+
   const validateContractAddresses = () => {
     if (!nftDetails) {
       console.error('NFT details not available');
@@ -130,7 +171,17 @@ const NFTDetailView = () => {
   };
 
   const buyWithUSDT = async () => {
-    if (!signer || !nftDetails || !validateContractAddresses()) return;
+    if (!signer || !nftDetails || !validateContractAddresses() || !priceUsdt) {
+      console.error('Price USDT is invalid or empty');
+      toast({
+        title: 'Invalid USDT price',
+        description: 'The USDT price is invalid or not available.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
     try {
       const nftContract = new ethers.Contract(nftDetails.contractAddress, nftAbi, signer);
       const usdtContract = new ethers.Contract(nftDetails.usdtContractAddress, usdtAbi, signer);
@@ -156,24 +207,47 @@ const NFTDetailView = () => {
       });
       navigate('/my-nft'); // Redirigir después de la compra exitosa
     } catch (error) {
-      console.error('Error during transaction:', error);
-      toast({
-        title: 'Purchase Failed',
-        description: `An error occurred during the transaction: ${error.message}`,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      if (error.code === 4001) {
+        // User denied transaction signature
+        toast({
+          title: 'Transaction Denied',
+          description: 'You denied the transaction signature.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        console.error('Error during transaction:', error);
+        toast({
+          title: 'Purchase Failed',
+          description: `An error occurred during the transaction: ${error.message}`,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
     }
   };
 
   const buyWithETH = async () => {
-    if (!signer || !nftDetails || !validateContractAddresses()) return;
+    if (!signer || !nftDetails || !validateContractAddresses() || !priceEth) {
+      console.error('Price ETH is invalid or empty');
+      toast({
+        title: 'Invalid ETH price',
+        description: 'The ETH price is invalid or not available.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     try {
       const nftContract = new ethers.Contract(nftDetails.contractAddress, nftAbi, signer);
-
       const priceInETH = ethers.utils.parseEther(priceEth);
+
       await nftContract.buyNFTWithETH({ value: priceInETH });
+
       toast({
         title: 'Purchase Successful',
         description: 'You have successfully purchased the NFT with ETH.',
@@ -181,17 +255,32 @@ const NFTDetailView = () => {
         duration: 5000,
         isClosable: true,
       });
+
       navigate('/my-nft'); // Redirigir después de la compra exitosa
     } catch (error) {
-      console.error('Error during transaction:', error);
-      toast({
-        title: 'Purchase Failed',
-        description: `An error occurred during the transaction: ${error.message}`,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      handleTransactionError(error);
     }
+  };
+
+  // Función para manejar errores de transacción
+  const handleTransactionError = (error) => {
+    const errorMessage = extractErrorMessage(error);
+
+    toast({
+      title: 'Purchase Cancelled',
+      description: `You cancelled the transaction: ${errorMessage}`,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    });
+  };
+
+  // Función para extraer el mensaje de error relevante
+  const extractErrorMessage = (error) => {
+    if (error.code === 4001) {
+      return 'user rejected transaction';
+    }
+    return 'an unknown error occurred';
   };
 
   if (!nftDetails) {
@@ -199,33 +288,51 @@ const NFTDetailView = () => {
   }
 
   return (
-    <div className="nft-detail-container">
-      <a
-        href='/launchpad'
-        className='back__button'
-        rel="noopener noreferrer"
-      >
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </a>
-      <div className="nft-detail-video">
-        <video src={nftDetails.video} autoPlay loop muted></video>
-      </div>
-      <div className="nft-detail-content">
-        <div className='NFT__line-container'>
-          <p className='NFT__line'></p>
+    <>
+      <div className="nft-detail-container">
+        <a href='/launchpad' className='back__button' rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </a>
+        <div className="nft-detail-video">
+          <video src={nftDetails.video} autoPlay loop muted></video>
         </div>
-        <h2 className='NFT__title'>{nftDetails.title}</h2>
-        <p className='NFT__description'>{nftDetails.description}</p>
-        <div className='NFT__buttons'>
-          <Button colorScheme="teal" size="sm" onClick={buyWithUSDT}>
-            Buy with USDT
-          </Button>
-          <Button colorScheme="teal" size="sm" onClick={buyWithETH}>
+        <div className="nft-detail-content">
+          <div className='NFT__line-container'>
+            <p className='NFT__line'></p>
+          </div>
+          <h2 className='NFT__title'>{nftDetails.title}</h2>
+          <div className='NFT__description'>
+            <div className='NFT__buttons'>
+              <p className='NFT__content'>Minted: {totalMinted} | {maxSupply}</p>
+              <p className='NFT__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p>
+            </div>
+            <h2 className='about__nft'>ABOUT NFT</h2>
+            <p>{nftDetails.description}</p>
+          </div>
+          <div className='NFT__btnETH'>
+          <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithETH}>
             Buy with ETH
           </Button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* ======= What Are Eno Badges - Video ======= */}
+      <div className="badges__container">
+        <div className="container__NFT__left">
+          <h2 className="hero__NFT__title">What are ENO Badges?</h2>
+          <p className="text__NFT__subtitle">ENO‘s Badges are NFTs that verify your participation in an activity within our social ecosystem.</p>
+          <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer" className='NFT__container'>
+            <button className="NFT__btn">
+              Read More in Whitepaper
+            </button>
+          </a>
+        </div>
+        <div className="container__NFT__right">
+          <video src={demo} autoPlay loop muted></video>
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -75,7 +75,7 @@ const NFTPurchase = () => {
         <div className="newspaper__left">
           <h2 className="hero__title">What are ENO Badges?</h2>
           <p className="text__subtitle">ENO‘s Badges are NFTs that verify your participation in an activity within our social ecosystem.</p>
-          <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer">
+          <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer" className='button__NFT'>
             <button className="hero__btn color-1">
               Read More in Whitepaper
             </button>

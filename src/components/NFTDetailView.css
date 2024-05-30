@@ -58,7 +58,7 @@
     flex-direction: column;
 }
 
-.nft-detail-container a{
+.nft-detail-container a {
     cursor: pointer;
 }
 
@@ -67,11 +67,19 @@
 .nft-detail-video video {}
 
 .nft-detail-content {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
     padding: 30px;
-    margin: -15px 0 0 0;
-    height: 50vh;
+    margin: -10px 0 0 0;
+    height: 60%;
     background-color: white;
-    border-radius: 20px 20px 0 0;
+    border-radius: 30px 30px 0 0;
+}
+
+.video-container {
+    margin-top: 0; /* Asegúrate de que el margen superior esté en 0 */
+    padding-top: 0; /* Asegúrate de que el padding superior esté en 0 */
 }
 
 .NFT__title {
@@ -80,6 +88,7 @@
     font-family: var(--grotesk-bold);
     font-weight: 700;
     margin-top: 20px;
+    text-align: left;
 }
 
 .NFT__description {
@@ -95,24 +104,65 @@
     margin-top: 30px;
 }
 
-.NFT__line-container{
+.NFT__line-container {
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
 }
 
-.NFT__line{
+.NFT__line {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #b9b9b9b1;
+    background-color: #d9d9d9ae;
     width: 35%;
     height: .4rem;
     border-radius: 30px;
 }
 
+.NFT__btnETH {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
 
-.back__button{
+a.getNFT {
+    width: 100%;
+    color: var(--main-color);
+    font-family: var(--grotesk-bold);
+    font-size: 20px;
+}
+
+/* --------- section --------- */
+
+.hero__NFT__title {
+    margin-top: 35px;
+    color: var(--black-eno);
+    font-size: 28px;
+    text-align: center !important;
+    font-family: var(--grotesk-bold);
+    /* background-image: linear-gradient(to right, var(--chalk-violet) 30%, var(--bleached-aqua) 40%, var(--contract-color) 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+
+.text__NFT__subtitle {
+    color: var(--black-eno);
+    font-family: var(--grotesk-regular);
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 0px 15px;
+    text-align: center;
+}
+
+.section__right {}
+
+.section__right video {
+    margin-top: 20px;
+    border-radius: 32px;
+}
+
+.back__button {
     display: flex;
     justify-content: center;
     background-color: var(--main-color);
@@ -126,7 +176,7 @@
     z-index: 1;
 }
 
-.back__button a{
+.back__button a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,28 +184,69 @@
     color: var(--golden-kiwi);
 }
 
-/* Hero button */
+/* ------------- Buy Button ------------- */
+
+button.chakra-button.NFT__btn.color-1.css-moltat,
+.hero__btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: 300% 100%;
+    background-color: var(--button-hover);
+    border: 2px solid #fff;
+    cursor: pointer;
+    color: var(--main-color);
+    font-size: 25px;
+    font-weight: 800;
+    font-family: var(--grotesk-regular);
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.4s ease-in-out;
+    outline: none;
+    padding: 30px 0;
+    width: 350px;
+}
+
+.hero__btn a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.hero__btn:hover,
+button.chakra-button.NFT__btn.color-1.css-moltat:hover {
+    background-position: 100% 0;
+    background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
+    box-shadow: 0 0 15px 0 var(--golden-kiwi);
+    border: 2px solid var(--golden-kiwi);
+}
+
+/* -------------  NFT Button------------- */
+
+.badges__container {
+    background-color: var(--main-color);
+}
 
 .NFT__btn {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    cursor: pointer;
+    align-items: center;
+    text-align: center;
     background-size: 300% 100%;
-    background-color: var(--button-content);
-    width: 90%;
+    border: 2px solid var(--black-eno);
+    cursor: pointer;
+    color: var(--black-eno);
     font-size: 25px;
     font-weight: 800;
-    font-family: var(--grotesk-bold);
-    color: var(--main-color);
-    padding: 12px 0;
-    padding-top: 16px;
-    text-align: center;
+    font-family: var(--grotesk-regular);
     text-decoration: none;
-    border: 2px solid transparent;
     border-radius: 50px;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
+    outline: none;
+    padding: 15px 0;
+    width: 350px;
 }
 
 .NFT__btn a {
@@ -163,21 +254,77 @@
     color: var(--main-color);
 }
 
-.NFT__btn:hover {
+.NFT__btn:hover,
+button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     background-position: 100% 0;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-}
-
-.NFT__btn:focus {
-    outline: none;
-}
-
-.NFT__btn.color-1:hover {
     background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
     box-shadow: 0 0 15px 0 var(--golden-kiwi);
     border: 2px solid var(--golden-kiwi);
+    color: var(--main-color);
+}
+
+.NFT__container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.text__NFT__subtitle,
+.hero__NFT__title {
+    color: var(--black-eno);
+}
+
+.NFT__button {
+    display: flex;
+    justify-content: center;
+}
+
+/* ------------- Badges Container T ------------- */
+
+.about__nft {
+    font-size: 22px;
+    font-weight: 900;
+    font-family: var(--grotesk-bold);
+    margin-top: 22px;
+    margin-right: 10px;
+}
+
+.badges__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--main-color);
+    padding-bottom: 90px;
+}
+
+.container__NFT__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container__NFT__right video{
+    display: flex;
+    justify-content: center;
+    border-radius: 32px;
+    margin-top: 50px;
+    width: 50%;
+}
+
+/* ------------- Buttons ------------- */
+
+.NFT__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 20px;
+
+}
+
+.NFT__content {
+    font-weight: 800;
+    color: var(--button-content);
+    text-align: left;
 }
 
 /* ------------- Desktop ------------- */
@@ -234,6 +381,13 @@
         text-align: left;
         color: var(--main-color);
         font-size: 18px;
+        font-family: var(--grotesk-regular);
+        flex-direction: column;
+    }
+
+    .NFT__content {
+        font-family: var(--grotesk-regular);
+        color: var(--main-color);
     }
 
     .nft-detail-title {
@@ -246,13 +400,129 @@
         margin-bottom: 20px;
     }
 
-    .nft-detail-content button {
+    /* .nft-detail-content button {
+        background-color: var(--button-content);
+        border: 2px solid var(--main-color);
         margin-top: 30px;
         padding: 10px 0;
+        width: 30%;
+    } */
+
+    .back__button {
+        display: none;
+    }
+
+    /* ------------ NFT button -----------  */
+
+    button.chakra-button.NFT__btn.color-1.css-moltat,
+    .hero__btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-size: 300% 100%;
+        background-color: transparent;
+        border: 2px solid #fff;
+        cursor: pointer;
+        color: var(--main-color);
+        font-size: 25px;
+        font-weight: 800;
+        font-family: var(--grotesk-regular);
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.4s ease-in-out;
+        outline: none;
+        padding: 30px 0;
+        width: 350px;
+    }
+
+    .hero__btn:hover,
+    button.chakra-button.NFT__btn.color-1.css-moltat:hover {
+        background-position: 100% 0;
+        background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
+        box-shadow: 0 0 15px 0 var(--golden-kiwi);
+        border: 2px solid var(--golden-kiwi);
+    }
+
+    .NFT__container button:hover{
+        color: var(--main-color)!important;
+    }
+
+    /* ------------- Badges Container ------------- */
+
+    .badges__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        margin-bottom: 150px;
+        padding: 0 180px;
+    }
+
+    .about__nft {
+        font-size: 18px;
+        font-weight: 900;
+        font-family: var(--grotesk-bold);
+        margin-right: 10px;
+    }
+    
+    .NFT__btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-size: 300% 100%;
+        border: 2px solid var(--main-color);
+        cursor: pointer;
+        color: var(--main-color);
+        font-size: 25px;
+        font-weight: 800;
+        font-family: var(--grotesk-regular);
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.4s ease-in-out;
+        outline: none;
+        padding: 15px 0;
+        width: 350px;
+    }
+
+    .NFT__btn:active{
+        color: var(--main-color);
+    }
+
+    .hero__NFT__title{
+        text-align: left;
+        color: var(--main-color);
+    }
+
+    .text__NFT__subtitle{
+        color: var(--main-color);
+        font-size: 22px;
+        text-align: left;
+    }
+
+    .container__NFT__left{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        align-items:flex-start;
+    } 
+
+    .container__NFT__right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 50%;
     }
 
-    .back__button{
-        display: none;
+    .container__NFT__right video{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 32px;
+        width: 65%;
     }
 }

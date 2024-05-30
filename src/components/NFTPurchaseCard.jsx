@@ -4,7 +4,6 @@ import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
 import usdtAbi from '../ABIs/usdtAbi.json';
 import './NFTPurchaseCard.css';
-import './NFTPurchaseCard.css';
 
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -31,7 +30,6 @@ const NFTPurchaseCard = ({ nft }) => {
     setPriceEth(ethPriceString);
   }, [nft.contractAddress]);
   
-
   useEffect(() => {
     fetchPrices();
     const interval = setInterval(fetchPrices, 5000); // Actualiza los precios cada 5 segundos
@@ -152,12 +150,17 @@ const NFTPurchaseCard = ({ nft }) => {
       <p className='text__content'>Minted: {totalMinted} | {maxSupply} NFTs</p>
       <p className='text__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p>
       </div>
-      <Button colorScheme="teal" size="sm" onClick={buyWithUSDT}>
+      <a href='/nft-detail'  colorScheme="teal" size="sm" className='getNFT'>
+        <button>
+          Get NFT
+        </button>
+      </a>
+      {/* <Button colorScheme="teal" size="sm" onClick={buyWithUSDT}>
         Buy with USDT
       </Button>
       <Button colorScheme="teal" size="sm" onClick={buyWithETH}>
         Buy with ETH
-      </Button>
+      </Button> */}
     </div>
   );
 };

@@ -385,6 +385,7 @@ a {
 /* ---------- Newspaper ---------- */
 .newspaper {
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
     margin-top: 50px;
@@ -398,8 +399,15 @@ a {
 .newspaper video {
     margin-top: 30px;
     margin-bottom: 100px;
-    width: 80%;
+    width: 70%;
     border-radius: 16px;
+}
+
+a.button__NFT {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ---------- Footer ---------- */
