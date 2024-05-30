@@ -303,15 +303,15 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
           <h2 className='NFT__title'>{nftDetails.title}</h2>
           <div className='NFT__description'>
             <div className='NFT__buttons'>
-              <p className='NFT__content'>Minted: {totalMinted} | {maxSupply}</p>
-              <p className='NFT__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p>
+              <p className='NFT__content'>Minted: {totalMinted} / {maxSupply}</p>
+              <p className='NFT__content'>Price: {priceUsdt} ENO</p>
             </div>
             <h2 className='about__nft'>ABOUT NFT</h2>
             <p>{nftDetails.description}</p>
           </div>
           <div className='NFT__btnETH'>
-          <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithETH}>
-            Buy with ETH
+          <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithUSDT}>
+            Buy with ENO
           </Button>
           </div>
         </div>
