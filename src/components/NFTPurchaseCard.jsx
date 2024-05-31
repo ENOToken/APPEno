@@ -1,10 +1,10 @@
-import React, {useHistory, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, useToast } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
 import usdtAbi from '../ABIs/enoAbi.json';
 import './NFTPurchaseCard.css';
-
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -14,6 +14,7 @@ const NFTPurchaseCard = ({ nft }) => {
   const [totalMinted, setTotalMinted] = useState(0);
   const [maxSupply, setMaxSupply] = useState(0);
   const toast = useToast();
+  const navigate = useNavigate(); // Reemplazado useHistory con useNavigate
 
   const fetchPrices = useCallback(async () => {
     const nftContract = new ethers.Contract(nft.contractAddress, nftAbi, provider);
@@ -120,47 +121,14 @@ const NFTPurchaseCard = ({ nft }) => {
       }
   };
 
- const NFTPurchaseCard = ({ nft }) => {
-  const history = useHistory();
-
   const handleCardClick = () => {
-    history.push(`/nft/${nft.id}`);
+    navigate(`/nft/${nft.id}`); // Reemplazado history.push con navigate
   };
 
   return (
     <div className="nft-purchase-card" onClick={handleCardClick}>
       <img src={nft.image} alt={nft.title} />
       <p>{nft.title}</p>
-    </div>
-  );
- };
-
-  return (
-    <div className="nft-purchase-card">
-      <video
-        src={nft.image}
-        alt="NFT Video"
-        autoPlay
-        muted
-        loop
-        style={{ maxWidth: '300px', width: '100%' }}
-      />
-      <div className='purchase__container'>
-      <p className='purchase__title'>{nft.title}</p> 
-{/*       <p className='text__content'>Minted: {totalMinted} | {maxSupply} NFTs</p>
-      <p className='text__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p> */}
-      </div>
-      <a href='/nft-detail'  colorScheme="teal" size="sm" className='getNFT'>
-        <button>
-          Get NFT
-        </button>
-      </a>
-      {/* <Button colorScheme="teal" size="sm" onClick={buyWithUSDT}>
-        Buy with USDT
-      </Button>
-      <Button colorScheme="teal" size="sm" onClick={buyWithETH}>
-        Buy with ETH
-      </Button> */}
     </div>
   );
 };
