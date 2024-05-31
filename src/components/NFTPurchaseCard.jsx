@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Cambiado useHistory a useNavigate
 import { Button, useToast } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
@@ -127,8 +127,30 @@ const NFTPurchaseCard = ({ nft }) => {
 
   return (
     <div className="nft-purchase-card" onClick={handleCardClick}>
-      <img src={nft.image} alt={nft.title} />
-      <p>{nft.title}</p>
+      <video
+        src={nft.image}
+        alt="NFT Video"
+        autoPlay
+        muted
+        loop
+        style={{ maxWidth: '300px', width: '100%' }}
+      />
+      <div className='purchase__container'>
+        <p className='purchase__title'>{nft.title}</p>
+{/*         <p className='text__content'>Minted: {totalMinted} | {maxSupply} NFTs</p>
+        <p className='text__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p> */}
+      </div>
+      <a href='/nft-detail' colorScheme="teal" size="sm" className='getNFT'>
+        <button>
+          Get NFT
+        </button>
+      </a>
+{/*       <Button colorScheme="teal" size="sm" onClick={buyWithUSDT}>
+        Buy with USDT
+      </Button>
+      <Button colorScheme="teal" size="sm" onClick={buyWithETH}>
+        Buy with ETH
+      </Button> */}
     </div>
   );
 };
