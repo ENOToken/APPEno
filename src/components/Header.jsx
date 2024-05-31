@@ -20,7 +20,7 @@ function Header() {
       <a href="https://enotoken.io/" rel="noreferrer" target="_blank">
         <img src={enoLogo} alt="ENOLogo" className="logo" />
       </a>
-      {testnet && <span className="testnet-indicator">Connected ON</span>} {/* Muestra un mensaje si testnet es true */}
+      {testnet && <span className="testnet-indicator">Testnet ON</span>} {/* Muestra un mensaje si testnet es true */}
       {/* <button className="menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         &#9776;
       </button>*}

@@ -27,17 +27,17 @@ const nftContractsMainnet = [
 ];
 
 const nftContractsTestnet = [
-  '0xE37852873468F1e3793b0BCf984FB564a7Fd57dF',
-  '0xef5e02fE00208153c234b52ad8b2289484B849C1',
+  '0x543eaf118C5B2667f70AFf54860262Eb1c199E9c',
+  '0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c',
 ];
 
 const nftInfo = {
-  '0xE37852873468F1e3793b0BCf984FB564a7Fd57dF': {
+  '0x543eaf118C5B2667f70AFf54860262Eb1c199E9c': {
     title: 'Champagne Carbon',
     videoUrl: ChampagneCarbon,
   },
 
-  '0xef5e02fE00208153c234b52ad8b2289484B849C1': {
+  '0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c': {
     title: 'Coquerel Calvados',
     videoUrl: CoquerelCalvados,
   },
@@ -188,7 +188,7 @@ function MyBadges() {
         <Flex justifyContent="center" width="100%" alignItems="center">
           <Flex alignItems="center">
             <h2 className="hero__title">My NFT's</h2>
-            <Link to="/mint-badges">
+            <Link to="/launchpad">
               <Button colorScheme="teal" size="md" ml="4">
                 Mint Launchpad
               </Button>

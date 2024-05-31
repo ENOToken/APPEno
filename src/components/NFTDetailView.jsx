@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, useToast } from '@chakra-ui/react';
+import { Button, useToast, Spinner } from '@chakra-ui/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
-import usdtAbi from '../ABIs/usdtAbi.json';
+import enoAbi from '../ABIs/enoAbi.json';
 import demo from '../assets/BlackBox.mp4';
 import './NFTDetailView.css';
 
@@ -14,12 +14,12 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
   const navigate = useNavigate();
   const toast = useToast();
   const [nftDetails, setNftDetails] = useState(null);
-  const [priceUsdt, setPriceUsdt] = useState('');
-  const [priceEth, setPriceEth] = useState('');
+  const [priceEno, setPriceEno] = useState('');
   const [totalMinted, setTotalMinted] = useState(0);
   const [maxSupply, setMaxSupply] = useState(0);
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (window.ethereum) {
@@ -67,15 +67,10 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
   const fetchPrices = useCallback(async (nft) => {
     if (!provider) return;
     const nftContract = new ethers.Contract(nft.contractAddress, nftAbi, provider);
-    const usdtPriceBigNumber = await nftContract.NFTPriceInUSDT();
-    const ethPriceBigNumber = await nftContract.getEquivalentETH();
+    const enoPriceBigNumber = await nftContract.NFTPriceInENO();
 
-    const usdtPrice = usdtPriceBigNumber.div(1e6).toString();
-    setPriceUsdt(ethers.utils.formatUnits(usdtPrice, 0));
-
-    let ethPriceString = ethers.utils.formatEther(ethPriceBigNumber);
-    ethPriceString = parseFloat(ethPriceString).toFixed(6);
-    setPriceEth(ethPriceString);
+    const enoPrice = ethers.utils.formatUnits(enoPriceBigNumber, 18);
+    setPriceEno(parseInt(enoPrice)); // Convertir el precio a entero para quitar los decimales
   }, [provider]);
 
   const fetchMintedAndMaxSupply = useCallback(async (nft) => {
@@ -155,52 +150,46 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
       return false;
     }
 
-    if (!ethers.utils.isAddress(nftDetails.usdtContractAddress)) {
-      console.error('Invalid USDT contract address');
-      toast({
-        title: 'Invalid USDT contract address',
-        description: 'The USDT contract address is invalid.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
-      return false;
-    }
-
     return true;
   };
 
-  const buyWithUSDT = async () => {
-    if (!signer || !nftDetails || !validateContractAddresses() || !priceUsdt) {
-      console.error('Price USDT is invalid or empty');
+  const buyWithENO = async () => {
+    if (!signer || !nftDetails || !validateContractAddresses()) {
       toast({
-        title: 'Invalid USDT price',
-        description: 'The USDT price is invalid or not available.',
+        title: 'Invalid NFT Details',
+        description: 'NFT details are invalid or not available.',
         status: 'error',
         duration: 5000,
         isClosable: true,
       });
       return;
     }
+
+    setLoading(true);
+
     try {
       const nftContract = new ethers.Contract(nftDetails.contractAddress, nftAbi, signer);
-      const usdtContract = new ethers.Contract(nftDetails.usdtContractAddress, usdtAbi, signer);
+      const enoTokenAddress = await nftContract.enoToken();
+      const enoContract = new ethers.Contract(enoTokenAddress, enoAbi, signer);
+
+      const priceInENOBigNumber = await nftContract.NFTPriceInENO();
+      const priceInENO = ethers.utils.formatUnits(priceInENOBigNumber, 18);
 
       const address = await signer.getAddress();
-      const priceInUSDT = ethers.utils.parseUnits(priceUsdt, 6);
-      const allowance = await usdtContract.allowance(address, nftDetails.contractAddress);
+      const priceInENOBN = ethers.utils.parseUnits(priceInENO, 18);
+      const allowance = await enoContract.allowance(address, nftDetails.contractAddress);
 
-      if (allowance.lt(priceInUSDT)) {
-        const approveTx = await usdtContract.approve(nftDetails.contractAddress, priceInUSDT);
+      if (allowance.lt(priceInENOBN)) {
+        const approveTx = await enoContract.approve(nftDetails.contractAddress, priceInENOBN);
         await approveTx.wait();
       }
 
-      const buyTx = await nftContract.buyNFTWithUSDT();
+      const buyTx = await nftContract.buyNFTWithENO();
       await buyTx.wait();
 
       toast({
         title: 'Purchase Successful',
-        description: 'You have successfully purchased the NFT with USDT.',
+        description: 'You have successfully purchased the NFT with ENO.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -226,61 +215,9 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
           isClosable: true,
         });
       }
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const buyWithETH = async () => {
-    if (!signer || !nftDetails || !validateContractAddresses() || !priceEth) {
-      console.error('Price ETH is invalid or empty');
-      toast({
-        title: 'Invalid ETH price',
-        description: 'The ETH price is invalid or not available.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    try {
-      const nftContract = new ethers.Contract(nftDetails.contractAddress, nftAbi, signer);
-      const priceInETH = ethers.utils.parseEther(priceEth);
-
-      await nftContract.buyNFTWithETH({ value: priceInETH });
-
-      toast({
-        title: 'Purchase Successful',
-        description: 'You have successfully purchased the NFT with ETH.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
-
-      navigate('/my-nft'); // Redirigir después de la compra exitosa
-    } catch (error) {
-      handleTransactionError(error);
-    }
-  };
-
-  // Función para manejar errores de transacción
-  const handleTransactionError = (error) => {
-    const errorMessage = extractErrorMessage(error);
-
-    toast({
-      title: 'Purchase Cancelled',
-      description: `You cancelled the transaction: ${errorMessage}`,
-      status: 'error',
-      duration: 5000,
-      isClosable: true,
-    });
-  };
-
-  // Función para extraer el mensaje de error relevante
-  const extractErrorMessage = (error) => {
-    if (error.code === 4001) {
-      return 'user rejected transaction';
-    }
-    return 'an unknown error occurred';
   };
 
   if (!nftDetails) {
@@ -289,7 +226,12 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
 
   return (
     <>
-      <div className="nft-detail-container">
+      {loading && (
+        <div className="loader-overlay">
+          <Spinner size="xl" />
+        </div>
+      )}
+      <div className={`nft-detail-container ${loading ? 'blurred' : ''}`}>
         <a href='/launchpad' className='back__button' rel="noopener noreferrer">
           <FontAwesomeIcon icon={faChevronLeft} />
         </a>
@@ -304,15 +246,15 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
           <div className='NFT__description'>
             <div className='NFT__buttons'>
               <p className='NFT__content'>Minted: {totalMinted} / {maxSupply}</p>
-              <p className='NFT__content'>Price: {priceUsdt} ENO</p>
+              <p className='NFT__content'>Price: {priceEno} ENO</p>
             </div>
             <h2 className='about__nft'>ABOUT NFT</h2>
             <p>{nftDetails.description}</p>
           </div>
-          <div className='NFT__btnETH'>
-          <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithUSDT}>
-            Buy with ENO
-          </Button>
+          <div className='NFT__btnENO'>
+            <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithENO} isDisabled={loading}>
+              Buy with ENO
+            </Button>
           </div>
         </div>
       </div>

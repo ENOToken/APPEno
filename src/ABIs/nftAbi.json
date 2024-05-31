@@ -13,7 +13,7 @@
 			},
 			{
 				"internalType": "address",
-				"name": "_usdtTokenAddress",
+				"name": "_enoTokenAddress",
 				"type": "address"
 			}
 		],
@@ -116,7 +116,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "NFTPriceInUSDT",
+		"name": "NFTPriceInENO",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -166,42 +166,9 @@
 	},
 	{
 		"inputs": [],
-		"name": "buyNFTWithETH",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "buyNFTWithUSDT",
+		"name": "buyNFTWithENO",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "checkPriceFeed",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "checkPriceUSDT18",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -231,6 +198,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "enoToken",
+		"outputs": [
+			{
+				"internalType": "contract IERC20",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -244,19 +224,6 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getEquivalentETH",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -467,7 +434,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "setNFTPriceInUSDT",
+		"name": "setNFTPriceInENO",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -613,19 +580,6 @@
 		"name": "transferOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "usdtToken",
-		"outputs": [
-			{
-				"internalType": "contract IERC20",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	}
 ]

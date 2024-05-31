@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useHistory, useState, useEffect, useCallback } from 'react';
 import { Button, useToast } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
-import usdtAbi from '../ABIs/usdtAbi.json';
+import usdtAbi from '../ABIs/enoAbi.json';
 import './NFTPurchaseCard.css';
 
 
@@ -147,8 +147,8 @@ const NFTPurchaseCard = ({ nft }) => {
       />
       <div className='purchase__container'>
       <p className='purchase__title'>{nft.title}</p> 
-      <p className='text__content'>Minted: {totalMinted} | {maxSupply} NFTs</p>
-      <p className='text__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p>
+{/*       <p className='text__content'>Minted: {totalMinted} | {maxSupply} NFTs</p>
+      <p className='text__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p> */}
       </div>
       <a href='/nft-detail'  colorScheme="teal" size="sm" className='getNFT'>
         <button>

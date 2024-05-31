@@ -24,20 +24,18 @@ import {
 const ChampagneCarbon = 'https://storage.googleapis.com/intercellar-assets/Champagne-Carbon.mp4';
 const CoquerelCalvados = 'https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4'
 
-const usdtContractAddress = "0x0997ff490B1cA814C55eB0854A0969431fCDaa1e";
+/* const usdtContractAddress = "0x0997ff490B1cA814C55eB0854A0969431fCDaa1e"; */
 
 export const initialNFTs = [
   {
     title: "Champagne Carbon",
     image: ChampagneCarbon,
-    contractAddress: "0xE37852873468F1e3793b0BCf984FB564a7Fd57dF",
-    usdtContractAddress: usdtContractAddress
+    contractAddress: "0x543eaf118C5B2667f70AFf54860262Eb1c199E9c"
   },
   {
     title: "Coquerel Calvados",
     image: CoquerelCalvados,
-    contractAddress: "0xef5e02fE00208153c234b52ad8b2289484B849C1",
-    usdtContractAddress: usdtContractAddress
+    contractAddress: "0x543eaf118C5B2667f70AFf54860262Eb1c199E9c"
   }
 ];
 
