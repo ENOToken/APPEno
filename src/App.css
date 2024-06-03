@@ -491,6 +491,10 @@ a.button__NFT {
     font-family: var(--grotesk-regular);
 }
 
+.enologo{
+    display: none;
+}
+
 /* ---------- Header ---------- */
 
 .header {
@@ -830,6 +834,13 @@ a.button__NFT {
         font-size: 19px;
     }
 
+    .enologo{
+        display: flex;
+    }
+
+    .enologoNegativo{
+        display: none;
+    }
     /* ---------------------- Icons ---------------------- */
     .social__footer {
         display: flex;

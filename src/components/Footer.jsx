@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import enologo from '../assets/ENOLogo.svg';
-
+import enologoNegativo from "../assets/EnoLogoNegativo.webp";
 
 function Footer() {
    return (
@@ -21,7 +21,8 @@ function Footer() {
       <div className="footer__content">
          <div className="footer__left">
             <div className="logo">
-               <img src={enologo} alt="ENO Logo" />
+               <img src={enologoNegativo} alt="ENO Logo" className='enologo'/>
+               <img src={enologo} alt="ENO Logo" className='enologoNegativo'/>
                <span className='span__footer'>Where friends, families and dreams unite</span>
                <div className="global__icons">
                   <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
