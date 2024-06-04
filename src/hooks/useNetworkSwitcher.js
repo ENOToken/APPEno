@@ -1,23 +1,49 @@
-// hooks/useNetworkSwitcher.js
-import { useState, useCallback } from 'react';
-
-const testnet = true;
-let chain = "0xa4b1";
-
-if (testnet){
-  chain = "0xaa36a7";
-}
+import { useState, useCallback, useEffect } from 'react';
 
 const useNetworkSwitcher = () => {
-  const [error, setError] = useState(null); // Agrega un estado para el error
+  const [error, setError] = useState(null);
+  const [testnet, setTestnet] = useState(false);
+  const [chainId, setChainId] = useState("0xa4b1");
+
+  const detectNetwork = useCallback(async () => {
+    try {
+      const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
+      setChainId(currentChainId);
+      if (currentChainId === "0xaa36a7") {
+        setTestnet(true);
+      } else if (currentChainId === "0xa4b1") {
+        setTestnet(false);
+      }
+    } catch (networkError) {
+      setError('Failed to detect network. Please try again or check your connection.');
+      console.error(networkError);
+    }
+  }, []);
+
+  useEffect(() => {
+    detectNetwork();
+
+    // Listener for network changes
+    const handleChainChanged = () => {
+      detectNetwork();
+      window.location.reload(); // Reload the page to update the state and UI
+    };
+
+    window.ethereum.on('chainChanged', handleChainChanged);
+
+    // Clean up the listener on component unmount
+    return () => {
+      window.ethereum.removeListener('chainChanged', handleChainChanged);
+    };
+  }, [detectNetwork]);
 
   const changeNetwork = useCallback(async () => {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: chain }],
+        params: [{ chainId: chainId }],
       });
-      setError(null); // Limpia el error anterior si el cambio de red es exitoso
+      setError(null);
     } catch (switchError) {
       if (switchError.code === 4902) {
         try {
@@ -26,19 +52,17 @@ const useNetworkSwitcher = () => {
             params: [{ /* Parámetros de la red */ }],
           });
         } catch (addError) {
-          // Maneja el error cuando la red no puede ser agregada
           setError('Error adding the network. Please try again or check your connection.');
           console.error(addError);
         }
       } else {
-        // Maneja otros errores
         setError('Failed to switch networks. Please try again or check your connection.');
       }
       console.error(switchError);
     }
-  }, []);
+  }, [chainId]);
 
-  return { changeNetwork, testnet, error }; // Devuelve el error junto con las otras variables
+  return { changeNetwork, testnet, error };
 };
 
 export default useNetworkSwitcher;

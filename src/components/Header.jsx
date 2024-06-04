@@ -10,8 +10,10 @@ function Header() {
   // Botones que se mostrarán tanto en el menú móvil como en pantallas más grandes
   const navButtons = (
     <>
-      <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link>
+      {/* <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link> */}
       <Link to="/mint-badges" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Badges</Link>
+
+      
     </>
   );
 
@@ -21,9 +23,9 @@ function Header() {
         <img src={enoLogo} alt="ENOLogo" className="logo" />
       </a>
       {testnet && <span className="testnet-indicator">Testnet ON</span>} {/* Muestra un mensaje si testnet es true */}
-      {/* <button className="menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        &#9776;
-      </button>*}
+      <button className="menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        &#9776; {/* Icono de hamburguesa */}
+      </button>
       {/* Overlay para móvil */}
       <div className={`menu-overlay ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(false)}></div>
       {/* Menú para móvil */}

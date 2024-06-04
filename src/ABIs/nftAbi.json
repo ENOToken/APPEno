@@ -2,19 +2,19 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_commissionWallet",
-				"type": "address"
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
 			},
 			{
-				"internalType": "address",
-				"name": "_ownerWallet",
-				"type": "address"
+				"internalType": "string",
+				"name": "symbol",
+				"type": "string"
 			},
 			{
-				"internalType": "address",
-				"name": "_enoTokenAddress",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "maxSupply",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -116,7 +116,33 @@
 	},
 	{
 		"inputs": [],
-		"name": "NFTPriceInENO",
+		"name": "MAX_SUPPLY",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_commonURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_tokenId",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -159,52 +185,6 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "buyNFTWithENO",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "comision",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "commissionWallet",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "enoToken",
-		"outputs": [
-			{
-				"internalType": "contract IERC20",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -254,16 +234,29 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "max_supply",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"internalType": "address[]",
+				"name": "wallets",
+				"type": "address[]"
 			}
 		],
-		"stateMutability": "view",
+		"name": "migrateMintBulk",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "mint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -301,19 +294,6 @@
 			}
 		],
 		"name": "ownerOf",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "ownerWallet",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -373,7 +353,7 @@
 			},
 			{
 				"internalType": "bytes",
-				"name": "data",
+				"name": "_data",
 				"type": "bytes"
 			}
 		],
@@ -403,12 +383,12 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "newComision",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "newURI",
+				"type": "string"
 			}
 		],
-		"name": "setComision",
+		"name": "setCommonURI",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -417,24 +397,11 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "newSupply",
+				"name": "newMaxSupply",
 				"type": "uint256"
 			}
 		],
 		"name": "setMaxSupply",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "newPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "setNFTPriceInENO",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -469,6 +436,13 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "toggleTransfers",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -580,6 +554,19 @@
 		"name": "transferOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "transfersEnabled",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]

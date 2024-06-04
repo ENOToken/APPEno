@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Flex, Button } from '@chakra-ui/react';
 import NFTPurchaseCard from './NFTPurchaseCard';
-import { initialNFTs } from './NFTPurchase'; // Asegúrate de exportar initialNFTs en NFTPurchase.jsx
+import useNetworkSwitcher from '../hooks/useNetworkSwitcher'; // Importa el hook
+import { testnetNFTs, mainnetNFTs } from './NFTPurchase'; // Importa las listas de NFTs
 
 const NFTPurchaseDetails = () => {
   const { contractAddress } = useParams();
   const [nft, setNft] = useState(null);
+  const { testnet } = useNetworkSwitcher(); // Usa el hook para obtener el estado de testnet
 
   useEffect(() => {
+    // Selecciona la lista correcta de NFTs basada en el valor de testnet
+    const nfts = testnet ? testnetNFTs : mainnetNFTs;
     // Encuentra el NFT basado en contractAddress
-    const foundNft = initialNFTs.find(n => n.contractAddress === contractAddress);
+    const foundNft = nfts.find(n => n.contractAddress === contractAddress);
     setNft(foundNft);
-  }, [contractAddress]);
+  }, [contractAddress, testnet]);
 
   if (!nft) {
     return <p>Loading...</p>; // o cualquier otro indicador de carga

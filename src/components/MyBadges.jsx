@@ -13,41 +13,60 @@ import badgeImage from '../assets/badgepariseno.mp4';
 import badgeBlackbox from '../assets/BlackBox.mp4';
 import ImagesDuFuture from '../assets/ImagesDuFuture.mp4'
 import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
+import Blackbox12 from '../assets/BadgeBB2_BAJA.mp4';
+import Unlock2024 from '../assets/UNLOCK.mp4';
 
+// Listas de direcciones de tus contratos NFT para testnet y mainnet
 const nftContractsMainnet = [
-  '0xd36f98e23796BC5D24aAf6108BB73c0bED041150',
-  '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac',
-  '0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a',
-  '0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea',
+  '0x2A06B2c0999Af12C251c55D6E2c67330AeAb3C86',
+  '0xD6C9365273539C7722EAb3BAC3D76dD3b23e6Ff3',
+  '0x8cDff0DF63C816df0d1BbeC7f9e7771915311EDf',
+  '0x3B70F7347Ed816CDE7A5B25c5AA9BdDE753e3966',
+  '0x281d59301C137E25150139da5BE433D15e8e732F',
+  '0xa1b79845a7a704D0877C8a4A80072F8ce422104b',
+  // Añade más según sea necesario para mainnet
 ];
 
 const nftContractsTestnet = [
   '0xA4fFd86B9e9E23e091C6af499F43EF9E18CC62fC',
   '0xd28a4A9e6Ea425025a16F60a8b9531968C9cBD09',
   '0xa38860c7F14383904129D5fB3157bFE06FA67980',
+  // Añade más según sea necesario para testnet
 ];
 
 const nftInfo = {
-  '0xd36f98e23796BC5D24aAf6108BB73c0bED041150': {
-    title: 'Badge Black Box 1.1',
-    videoUrl: badgeBlackbox,
+  '0x2A06B2c0999Af12C251c55D6E2c67330AeAb3C86': {
+    title: 'Badge Unlock Summit 2024',
+    videoUrl: Unlock2024
   },
-  '0xa38860c7F14383904129D5fB3157bFE06FA67980': { 
-    title: 'Badge PBW 2024',
-    videoUrl: badgeImage
+  '0xD6C9365273539C7722EAb3BAC3D76dD3b23e6Ff3': {
+    title: 'Badge Blackbox 1.2',
+    videoUrl: Blackbox12
   },
-  '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac': {
-    title: 'Badge PBW 2024',
-    videoUrl: badgeImage
-  },
-  '0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a': {
-    title: 'Badge Images Du Futur',
-    videoUrl: ImagesDuFuture
-  },
-  '0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea': {
+  '0x8cDff0DF63C816df0d1BbeC7f9e7771915311EDf': {
     title: 'Badge Bosque Real',
     videoUrl: BadgeBosqueReal
   },
+  '0x3B70F7347Ed816CDE7A5B25c5AA9BdDE753e3966': {
+    title: 'Badge Images Du Futur',
+    videoUrl: ImagesDuFuture
+  },
+  '0x281d59301C137E25150139da5BE433D15e8e732F': {
+    title: 'Badge Paris ENO',
+    videoUrl: badgeImage
+  },
+  '0xa1b79845a7a704D0877C8a4A80072F8ce422104b': {
+    title: 'Badge Blackbox 1.1',
+    videoUrl: badgeBlackbox
+  },
+/*   '0xa38860c7F14383904129D5fB3157bFE06FA67980': { //testnet
+    title: 'Badge PBW 2024',
+    videoUrl: badgeImage
+  }, */
+
+
+
+  // Agrega más contratos y su información aquí
 };
 
 function MyBadges() {
@@ -186,8 +205,14 @@ function MyBadges() {
   if (nfts.length === 0) {
     return (
       <div className="container">
-        <h1 className="hero__title">No Badges Found</h1>
+        <h1 className="hero__title">No NFT Badges Found</h1>
+              
         <p>You don't have any badges yet. Interact with the ENO ecosystem and get your ENO badges.</p>
+              <Link to="/mint-badges">
+                <Button colorScheme="teal" size="md" ml="4">
+                  Mint Badges
+                </Button>
+              </Link>
       </div>
     );
   }
@@ -197,10 +222,10 @@ function MyBadges() {
         <div className="container2">
           <Flex justifyContent="center" width="100%" alignItems="center">
             <Flex alignItems="center">
-              <h2 className="hero__title">My Badges</h2>
+              <h1 className="hero__title">My NFT Badges</h1>
               <Link to="/mint-badges">
                 <Button colorScheme="teal" size="md" ml="4">
-                  Mint Badges
+                  Mint NFT Badges
                 </Button>
               </Link>
             </Flex>
