@@ -78,8 +78,10 @@
 }
 
 .video-container {
-    margin-top: 0; /* Asegúrate de que el margen superior esté en 0 */
-    padding-top: 0; /* Asegúrate de que el padding superior esté en 0 */
+    margin-top: 0;
+    /* Asegúrate de que el margen superior esté en 0 */
+    padding-top: 0;
+    /* Asegúrate de que el padding superior esté en 0 */
 }
 
 .NFT__title {
@@ -174,6 +176,13 @@ a.getNFT {
     position: absolute;
     align-items: center;
     z-index: 1;
+    transition: all 0.4s ease-in-out;
+}
+
+.back__button:hover {
+    background-color: var(--golden-kiwi);
+    box-shadow: 0 0 15px 0 var(--golden-kiwi);
+    border: 2px solid var(--golden-kiwi);
 }
 
 .back__button a {
@@ -303,7 +312,7 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     justify-content: center;
 }
 
-.container__NFT__right video{
+.container__NFT__right video {
     display: flex;
     justify-content: center;
     border-radius: 32px;
@@ -338,13 +347,24 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     align-items: center;
     justify-content: center;
     z-index: 9999;
-  }
-  
-  .blurred {
+}
+
+.blurred {
     filter: blur(5px);
     pointer-events: none;
-  }
-  
+}
+
+
+.backButton__Container{
+    display: none;
+}
+.backButton__right{
+    display: none;
+}
+.backButton__left{
+    display: none;
+}
+
 
 /* ------------- Desktop ------------- */
 @media (min-width: 1024px) {
@@ -431,6 +451,36 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
         display: none;
     }
 
+    .backButton__Container{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .backButton__right h2{
+        font-size: 20px;    
+    }
+
+    .back__buttonDesktop {
+        display: flex;
+        font-size: 22px;
+        border-radius: 32px;
+        width: 35px;
+        height: 35px;
+        background-color: var(--main-color);
+        color: var(--black-eno);
+        justify-content: center;
+        align-items: center;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .back__buttonDesktop:hover {
+        background-color: var(--golden-kiwi);
+        box-shadow: 0 0 15px 0 var(--golden-kiwi);
+        border: 2px solid var(--golden-kiwi);
+    }
+
     /* ------------ NFT button -----------  */
 
     button.chakra-button.NFT__btn.color-1.css-moltat,
@@ -464,8 +514,8 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
         border: 2px solid var(--golden-kiwi);
     }
 
-    .NFT__container button:hover{
-        color: var(--main-color)!important;
+    .NFT__container button:hover {
+        color: var(--main-color) !important;
     }
 
     /* ------------- Badges Container ------------- */
@@ -486,7 +536,7 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
         font-family: var(--grotesk-bold);
         margin-right: 10px;
     }
-    
+
     .NFT__btn {
         display: flex;
         flex-direction: row;
@@ -508,27 +558,27 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
         width: 350px;
     }
 
-    .NFT__btn:active{
+    .NFT__btn:active {
         color: var(--main-color);
     }
 
-    .hero__NFT__title{
+    .hero__NFT__title {
         text-align: left;
         color: var(--main-color);
     }
 
-    .text__NFT__subtitle{
+    .text__NFT__subtitle {
         color: var(--main-color);
         font-size: 22px;
         text-align: left;
     }
 
-    .container__NFT__left{
+    .container__NFT__left {
         display: flex;
         flex-direction: column;
         width: 50%;
-        align-items:flex-start;
-    } 
+        align-items: flex-start;
+    }
 
     .container__NFT__right {
         display: flex;
@@ -537,12 +587,19 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
         width: 50%;
     }
 
-    .container__NFT__right video{
+    .container__NFT__right video {
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 32px;
         width: 65%;
     }
-}
 
+    .backButton__Container {
+        display: flex;
+    }
+    .backButton__right,
+    .backButton__left {
+        display: block;
+    }
+}

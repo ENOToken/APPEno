@@ -242,6 +242,20 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
           <div className='NFT__line-container'>
             <p className='NFT__line'></p>
           </div>
+
+          <div className='backButton__Container'>
+            <div className='backButton__left'>
+              <a href='/launchpad' className='back__buttonDesktop' rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </a>
+            </div>
+            <div className='backButton__right' >
+              <a href='/launchpad'>
+              <h2>Back</h2>
+              </a>
+            </div>
+          </div>
+
           <h2 className='NFT__title'>{nftDetails.title}</h2>
           <div className='NFT__description'>
             <div className='NFT__buttons'>
