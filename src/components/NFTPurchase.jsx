@@ -1,7 +1,7 @@
-// src/components/NFTPurchase.jsx
 import React, { useState, useEffect } from 'react';
-import { useToast, Spinner, Flex, Button } from '@chakra-ui/react';
+import { useToast, Button } from '@chakra-ui/react';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
+import { useNetworkSwitcher, chain } from '../hooks/useNetworkSwitcher';
 import { Link } from 'react-router-dom';
 import NFTPurchaseCard from './NFTPurchaseCard';
 import '../App.css';
@@ -20,11 +20,9 @@ import {
   faTelegram,
 } from "@fortawesome/free-brands-svg-icons";
 
-//imagenes
+// Imágenes
 const ChampagneCarbon = 'https://storage.googleapis.com/intercellar-assets/Champagne-Carbon.mp4';
-const CoquerelCalvados = 'https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4'
-
-/* const usdtContractAddress = "0x0997ff490B1cA814C55eB0854A0969431fCDaa1e"; */
+const CoquerelCalvados = 'https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4';
 
 export const initialNFTs = [
   {
@@ -40,15 +38,77 @@ export const initialNFTs = [
 ];
 
 const NFTPurchase = () => {
-  const { isConnected, connectMetaMask } = useMetaMaskConnector();
+  const { isConnected, connectMetaMask, message } = useMetaMaskConnector();
+  const { currentNetwork, changeNetwork, error } = useNetworkSwitcher();
   const toast = useToast();
   const [nfts, setNfts] = useState(initialNFTs);
 
   useEffect(() => {
-    if (!isConnected) {
-      connectMetaMask();
+    if (error) {
+      toast({
+        title: 'INFO',
+        description: error,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
-  }, [isConnected, connectMetaMask]);
+  }, [error, toast]);
+
+  const handleConnect = async () => {
+    try {
+      await connectMetaMask();
+      await changeNetwork();
+    } catch (error) {
+      console.error('Failed to connect MetaMask and switch network:', error);
+    }
+  };
+
+  const renderConnectMessage = () => {
+    if (!isConnected && currentNetwork !== chain) {
+      return 'Please connect your wallet and switch to the correct network.';
+    } else if (!isConnected) {
+      return 'Please connect your wallet.';
+    } else if (currentNetwork !== chain) {
+      return 'Please switch to the correct network.';
+    }
+    return '';
+  };
+
+  const renderConnectButtonLabel = () => {
+    if (!isConnected) {
+      return 'Connect Wallet';
+    } else if (currentNetwork !== chain) {
+      return 'Change Network';
+    }
+    return '';
+  };
+
+  const isMetaMaskInstalled = () => {
+    return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+  };
+
+  if (!isMetaMaskInstalled()) {
+    return (
+      <div className="connect-container">
+        <Button as="a" href="https://metamask.io/download.html" target="_blank" colorScheme="teal" size="lg">
+          Install MetaMask
+        </Button>
+        <p className="install-message">Please install MetaMask to proceed.</p>
+      </div>
+    );
+  }
+
+  if (!isConnected || currentNetwork !== chain) {
+    return (
+      <div className="connect-container">
+        <Button onClick={handleConnect} colorScheme="teal" size="lg">
+          {renderConnectButtonLabel()}
+        </Button>
+        <p className="connect-message">{renderConnectMessage()}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container">

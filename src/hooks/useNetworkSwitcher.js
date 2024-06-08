@@ -1,15 +1,29 @@
-// hooks/useNetworkSwitcher.js
-import { useState, useCallback } from 'react';
+// useNetworkSwitcher.js
+import { useState, useEffect, useCallback } from 'react';
 
-const testnet = true;
-let chain = "0xa4b1";
-
-if (testnet){
-  chain = "0xaa36a7";
-}
+const chain = "0xa4b1"; // Arbitrum
 
 const useNetworkSwitcher = () => {
-  const [error, setError] = useState(null); // Agrega un estado para el error
+  const [currentNetwork, setCurrentNetwork] = useState(null);
+  const [error, setError] = useState(null);
+
+  const checkNetwork = useCallback(async () => {
+    try {
+      if (window.ethereum) {
+        const network = await window.ethereum.request({ method: 'eth_chainId' });
+        setCurrentNetwork(network);
+        console.log(`Check Network - Current Network: ${network}`);
+        if (network !== chain) {
+          setError('Incorrect network. Please switch to the correct network.');
+        } else {
+          setError(null);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to check network:', error);
+      setError('Failed to check network.');
+    }
+  }, []);
 
   const changeNetwork = useCallback(async () => {
     try {
@@ -17,28 +31,49 @@ const useNetworkSwitcher = () => {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: chain }],
       });
-      setError(null); // Limpia el error anterior si el cambio de red es exitoso
+      checkNetwork(); // Ensure state updates after network change
     } catch (switchError) {
       if (switchError.code === 4902) {
         try {
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
-            params: [{ /* Parámetros de la red */ }],
+            params: [{ /* Network parameters */ }],
           });
+          checkNetwork(); // Ensure state updates after adding network
         } catch (addError) {
-          // Maneja el error cuando la red no puede ser agregada
           setError('Error adding the network. Please try again or check your connection.');
           console.error(addError);
         }
       } else {
-        // Maneja otros errores
         setError('Failed to switch networks. Please try again or check your connection.');
+        console.error(switchError);
       }
-      console.error(switchError);
     }
-  }, []);
+  }, [checkNetwork]);
 
-  return { changeNetwork, testnet, error }; // Devuelve el error junto con las otras variables
+  useEffect(() => {
+    checkNetwork();
+
+    // Add listener for network changes
+    const handleChainChanged = (networkId) => {
+      console.log('Network changed');
+      setCurrentNetwork(networkId);
+      console.log(`Updated Network: ${networkId}`);
+    };
+
+    if (window.ethereum) {
+      window.ethereum.on('chainChanged', handleChainChanged);
+    }
+
+    // Cleanup listener on component unmount
+    return () => {
+      if (window.ethereum) {
+        window.ethereum.removeListener('chainChanged', handleChainChanged);
+      }
+    };
+  }, [checkNetwork]);
+
+  return { currentNetwork, changeNetwork, error };
 };
 
-export default useNetworkSwitcher;
+export { useNetworkSwitcher, chain };

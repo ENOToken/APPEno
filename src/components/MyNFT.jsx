@@ -1,26 +1,21 @@
-//MyBadges.jsx
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import NFTCard from './NFTCard';
-import nftAbi from '../ABIs/nftAbi.json';
 import erc721ABI from '../ABIs/mintBadgeParisABI.json';
-import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
+import { useNetworkSwitcher, chain } from '../hooks/useNetworkSwitcher';
+
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
-import { useToast, Spinner, Flex, Button } from '@chakra-ui/react'
-
-
+import { useToast, Spinner, Flex, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import badgeImage from '../assets/badgepariseno.mp4';
 import badgeBlackbox from '../assets/BlackBox.mp4';
-import ImagesDuFuture from '../assets/ImagesDuFuture.mp4'
+import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
 import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
 
 const ChampagneCarbon = 'https://storage.googleapis.com/intercellar-assets/Champagne-Carbon.mp4';
-const CoquerelCalvados = 'https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4'
+const CoquerelCalvados = 'https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4';
 
-
-// Listas de direcciones de tus contratos NFT para testnet y mainnet
 const nftContractsMainnet = [
   // '0xE37852873468F1e3793b0BCf984FB564a7Fd57dF',
   // '0xef5e02fE00208153c234b52ad8b2289484B849C1',
@@ -36,7 +31,6 @@ const nftInfo = {
     title: 'Champagne Carbon',
     videoUrl: ChampagneCarbon,
   },
-
   '0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c': {
     title: 'Coquerel Calvados',
     videoUrl: CoquerelCalvados,
@@ -45,7 +39,7 @@ const nftInfo = {
 
 function MyBadges() {
   const [nfts, setNfts] = useState([]);
-  const { changeNetwork, testnet, error } = useNetworkSwitcher();
+  const { currentNetwork, changeNetwork, testnet, error } = useNetworkSwitcher();
   const { isConnected, connectMetaMask, message } = useMetaMaskConnector();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -66,7 +60,7 @@ function MyBadges() {
   useEffect(() => {
     if (error) {
       toast({
-        title: 'Network Error',
+        title: 'INFO',
         description: error,
         status: 'error',
         duration: 5000,
@@ -75,25 +69,44 @@ function MyBadges() {
     }
   }, [error, toast]);
 
-
-  useEffect(() => {
-    if (window.ethereum) {
-      connectMetaMask(); 
+  const handleConnect = async () => {
+    try {
+      await changeNetwork();
+      await connectMetaMask();
+    } catch (error) {
+      console.error('Failed to connect MetaMask and switch network:', error);
     }
-  }, [connectMetaMask]);
+  };
 
-  useEffect(() => {
-    changeNetwork();
-    console.log(testnet ? "Estamos en testnet" : "Estamos en mainnet");
-  }, [changeNetwork, testnet]);
+  const renderConnectMessage = () => {
+    if (!isConnected && currentNetwork !== chain) {
+      return 'Please connect your wallet and switch to the correct network.';
+    } else if (!isConnected) {
+      return 'Please connect your wallet.';
+    } else if (currentNetwork !== chain) {
+      return 'Please switch to the correct network.';
+    }
+    return '';
+  };
 
-  useEffect(() => {
+  const renderConnectButtonLabel = () => {
     if (!isConnected) {
-      connectMetaMask();
-    } else {
+      return 'Connect Wallet';
+    } else if (currentNetwork !== chain) {
+      return 'Change Network';
+    }
+    return '';
+  };
+
+  const isMetaMaskInstalled = () => {
+    return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+  };
+
+  useEffect(() => {
+    if (isConnected && currentNetwork === chain) {
       loadNFTs();
     }
-  }, [isConnected, connectMetaMask]);
+  }, [isConnected, currentNetwork]);
 
   async function loadNFTs() {
     setIsLoading(true);
@@ -108,7 +121,7 @@ function MyBadges() {
         return;
       }
 
-      if (window.ethereum) {
+      if (isMetaMaskInstalled()) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
@@ -124,19 +137,27 @@ function MyBadges() {
 
           for (let i = 0; i < balance.toNumber(); i++) {
             const tokenId = await contract.tokenOfOwnerByIndex(address, i);
-            const nftData = nftInfo[contractAddress]; // Usa la información predefinida
+            const nftData = nftInfo[contractAddress];
 
             nftsTemp.push({
               videoUrl: nftData.videoUrl,
-              title: nftData.title, // Usa el título
+              title: nftData.title,
               contractAddress,
-              tokenId: tokenId.toString()
+              tokenId: tokenId.toString(),
             });
           }
         }
 
         console.log(`NFTs cargados:`, nftsTemp);
         setNfts(nftsTemp);
+      } else {
+        toast({
+          title: "MetaMask not installed",
+          description: "Please install MetaMask to load your NFTs.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
       }
     } catch (error) {
       console.error("Error al cargar NFTs:", error);
@@ -152,11 +173,24 @@ function MyBadges() {
     }
   }
 
-  if (!isConnected) {
+  if (!isMetaMaskInstalled()) {
     return (
-      <div className="container">
-        <h2 className="hero__title">Connect to MetaMask</h2>
-        <button onClick={connectMetaMask} className="hero__btn color-1">Connect Wallet</button>
+      <div className="install-metamask-container">
+        <Button as="a" href="https://metamask.io/download.html" target="_blank" colorScheme="teal" size="lg">
+          Install MetaMask
+        </Button>
+        <p className="install-message">Please install MetaMask to proceed.</p>
+      </div>
+    );
+  }
+
+  if (!isConnected || currentNetwork !== chain) {
+    return (
+      <div className="connect-container">
+        <Button onClick={handleConnect} colorScheme="teal" size="lg">
+          {renderConnectButtonLabel()}
+        </Button>
+        <p className="connect-message">{renderConnectMessage()}</p>
       </div>
     );
   }
@@ -170,7 +204,6 @@ function MyBadges() {
     );
   }
 
-  // Verifica si el array de NFTs está vacío y muestra un mensaje en ese caso
   if (nfts.length === 0) {
     return (
       <div className="container">
@@ -179,8 +212,6 @@ function MyBadges() {
       </div>
     );
   }
-
-
 
   return (
     <>
@@ -203,7 +234,6 @@ function MyBadges() {
         </div>
       </div>
     </>
-
   );
 }
 

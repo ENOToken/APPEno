@@ -1,22 +1,70 @@
-import { useState, useCallback } from 'react';
+//useMetaMaskConnector.js
+
+import { useState, useEffect, useCallback } from 'react';
 
 const useMetaMaskConnector = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const [message, setMessage] = useState(''); // Agregar estado de mensaje
+  const [message, setMessage] = useState('');
 
-  const connectMetaMask = useCallback(async () => {
+  const checkConnection = useCallback(async () => {
     try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      setIsConnected(true);
-      /* setMessage('Connected to MetaMask successfully.'); // Establecer mensaje de éxito */
+      if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          setIsConnected(true);
+          setMessage('Connected to MetaMask successfully.');
+        } else {
+          setIsConnected(false);
+          setMessage('MetaMask is not connected.');
+        }
+      } else {
+        setIsConnected(false);
+        setMessage('MetaMask is not installed.');
+      }
     } catch (error) {
-      console.error('Failed to connect MetaMask:', error);
+      console.error('Failed to check MetaMask connection:', error);
       setIsConnected(false);
-      setMessage('Failed to connect MetaMask. Please try again.'); // Establecer mensaje de error
+      setMessage('Failed to check MetaMask connection.');
     }
   }, []);
 
-  return { isConnected, connectMetaMask, message }; // Devolver mensaje
+  const connectMetaMask = useCallback(async () => {
+    try {
+      if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setIsConnected(accounts.length > 0);
+        setMessage(accounts.length > 0 ? 'Connected to MetaMask successfully.' : 'MetaMask is not connected.');
+      } else {
+        setIsConnected(false);
+        setMessage('MetaMask is not installed.');
+      }
+    } catch (error) {
+      console.error('Failed to connect MetaMask:', error);
+      setIsConnected(false);
+      setMessage('Failed to connect MetaMask. Please try again.');
+    }
+  }, []);
+
+  useEffect(() => {
+    checkConnection();
+
+    // Add event listeners
+    if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+      window.ethereum.on('accountsChanged', checkConnection);
+      window.ethereum.on('disconnect', () => {
+        setIsConnected(false);
+        setMessage('MetaMask is not connected.');
+      });
+
+      // Cleanup event listeners on component unmount
+      return () => {
+        window.ethereum.removeListener('accountsChanged', checkConnection);
+        window.ethereum.removeListener('disconnect', checkConnection);
+      };
+    }
+  }, [checkConnection]);
+
+  return { isConnected, connectMetaMask, message };
 };
 
 export default useMetaMaskConnector;

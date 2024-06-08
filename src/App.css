@@ -177,7 +177,6 @@ a {
 }
 
 
-/* Estilos para el encabezado y el botón de 'My Badges' */
 .site-header {
     width: 100%;
     padding: 1rem 2rem;
@@ -185,6 +184,21 @@ a {
     overflow: visible;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Asegura que esté centrado respecto al header */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wallet-section {
+    display: flex;
     align-items: center;
 }
 
@@ -554,6 +568,20 @@ a.button__NFT {
     font-size: 15px;
     font-family: var(--grotesk-regular);
 }
+
+.connect-container, .install-metamask-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+  }
+  
+  .connect-message {
+    margin-top: 10px;
+    color: red; /* O cualquier color que prefieras */
+  }
+  
 
 
 

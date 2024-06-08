@@ -1,3 +1,5 @@
+//NFTPurchaseDetails.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Flex, Button } from '@chakra-ui/react';

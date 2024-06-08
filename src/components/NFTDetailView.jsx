@@ -22,7 +22,7 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (window.ethereum) {
+    if (window.ethereum && window.ethereum.isMetaMask) {
       const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(web3Provider);
       window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {

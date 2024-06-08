@@ -1,25 +1,29 @@
-//MyBadges.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
 import NFTCard from './NFTCard';
 import erc721ABI from '../ABIs/mintBadgeParisABI.json';
-import useNetworkSwitcher from '../hooks/useNetworkSwitcher';
+import { useNetworkSwitcher, chain } from '../hooks/useNetworkSwitcher';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
 import { useToast, Spinner, Flex, Button } from '@chakra-ui/react';
-
-import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
+import { Link } from 'react-router-dom';
 
 import badgeImage from '../assets/badgepariseno.mp4';
 import badgeBlackbox from '../assets/BlackBox.mp4';
-import ImagesDuFuture from '../assets/ImagesDuFuture.mp4'
+import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
 import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
+import Blackbox12 from '../assets/BadgeBB2_BAJA.mp4';
+import Unlock2024 from '../assets/UNLOCK.mp4';
 
 const nftContractsMainnet = [
-  '0xd36f98e23796BC5D24aAf6108BB73c0bED041150',
-  '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac',
-  '0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a',
-  '0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea',
+  '0x2A06B2c0999Af12C251c55D6E2c67330AeAb3C86',
+  '0xD6C9365273539C7722EAb3BAC3D76dD3b23e6Ff3',
+  '0x8cDff0DF63C816df0d1BbeC7f9e7771915311EDf',
+  '0x3B70F7347Ed816CDE7A5B25c5AA9BdDE753e3966',
+  '0x281d59301C137E25150139da5BE433D15e8e732F',
+  '0xa1b79845a7a704D0877C8a4A80072F8ce422104b',
+  // Añade más según sea necesario para mainnet
 ];
+
 
 const nftContractsTestnet = [
   '0xA4fFd86B9e9E23e091C6af499F43EF9E18CC62fC',
@@ -28,38 +32,40 @@ const nftContractsTestnet = [
 ];
 
 const nftInfo = {
-  '0xd36f98e23796BC5D24aAf6108BB73c0bED041150': {
-    title: 'Badge Black Box 1.1',
-    videoUrl: badgeBlackbox,
+  '0x2A06B2c0999Af12C251c55D6E2c67330AeAb3C86': {
+    title: 'Badge Unlock Summit 2024',
+    videoUrl: Unlock2024
   },
-  '0xa38860c7F14383904129D5fB3157bFE06FA67980': { 
-    title: 'Badge PBW 2024',
-    videoUrl: badgeImage
+  '0xD6C9365273539C7722EAb3BAC3D76dD3b23e6Ff3': {
+    title: 'Badge Blackbox 1.2',
+    videoUrl: Blackbox12
   },
-  '0xAe737D827cE3997822169A18CC761F2f60BEC9Ac': {
-    title: 'Badge PBW 2024',
-    videoUrl: badgeImage
+  '0x8cDff0DF63C816df0d1BbeC7f9e7771915311EDf': {
+    title: 'Badge Bosque Real',
+    videoUrl: BadgeBosqueReal
   },
-  '0x0A5CEB58E8A6C5a03cD41A2eaa7498B18092450a': {
+  '0x3B70F7347Ed816CDE7A5B25c5AA9BdDE753e3966': {
     title: 'Badge Images Du Futur',
     videoUrl: ImagesDuFuture
   },
-  '0x7F4622Ba8574d061649aCA13F639713D7c42d7Ea': {
-    title: 'Badge Bosque Real',
-    videoUrl: BadgeBosqueReal
+  '0x281d59301C137E25150139da5BE433D15e8e732F': {
+    title: 'Badge Paris ENO',
+    videoUrl: badgeImage
+  },
+  '0xa1b79845a7a704D0877C8a4A80072F8ce422104b': {
+    title: 'Badge Blackbox 1.1',
+    videoUrl: badgeBlackbox
   },
 };
 
 function MyBadges() {
   const [nfts, setNfts] = useState([]);
-  const { changeNetwork, testnet, error } = useNetworkSwitcher();
+  const { currentNetwork, changeNetwork, testnet, error } = useNetworkSwitcher();
   const { isConnected, connectMetaMask, message } = useMetaMaskConnector();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Selecciona la lista de contratos según si estás en testnet o mainnet
   const nftContracts = testnet ? nftContractsTestnet : nftContractsMainnet;
-
 
   useEffect(() => {
     if (message) {
@@ -76,7 +82,7 @@ function MyBadges() {
   useEffect(() => {
     if (error) {
       toast({
-        title: 'Network Error',
+        title: 'INFO',
         description: error,
         status: 'error',
         duration: 5000,
@@ -85,74 +91,101 @@ function MyBadges() {
     }
   }, [error, toast]);
 
-
-  useEffect(() => {
-    if (window.ethereum) {
-      connectMetaMask(); // Intenta conectar con MetaMask al cargar el componente
+  const handleConnect = async () => {
+    try {
+      await connectMetaMask();
+      await changeNetwork();
+    } catch (error) {
+      console.error('Failed to connect MetaMask and switch network:', error);
     }
-  }, [connectMetaMask]);
+  };
 
-  useEffect(() => {
-    changeNetwork();
-    console.log(testnet ? "Estamos en testnet" : "Estamos en mainnet");
-  }, [changeNetwork, testnet]);
+  const renderConnectMessage = () => {
+    if (!isConnected && currentNetwork !== chain) {
+      return 'Please connect your wallet and switch to the correct network.';
+    } else if (!isConnected) {
+      return 'Please connect your wallet.';
+    } else if (currentNetwork !== chain) {
+      return 'Please switch to the correct network.';
+    }
+    return '';
+  };
 
-  useEffect(() => {
+  const renderConnectButtonLabel = () => {
     if (!isConnected) {
-      connectMetaMask();
-    } else {
+      return 'Connect Wallet';
+    } else if (currentNetwork !== chain) {
+      return 'Change Network';
+    }
+    return '';
+  };
+
+  const isMetaMaskInstalled = () => {
+    return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+  };
+
+  useEffect(() => {
+    if (isConnected && currentNetwork === chain) {
       loadNFTs();
     }
-  }, [isConnected, connectMetaMask]);
+  }, [isConnected, currentNetwork]);
 
   async function loadNFTs() {
     setIsLoading(true);
-    console.log("Cargando NFTs...");
+    console.log("Loading NFTs...");
 
     try {
       const validContracts = nftContracts.filter(address => address);
-      console.log(`Contratos válidos: ${validContracts}`);
+      console.log(`Valid Contracts: ${validContracts}`);
 
       if (!validContracts.length) {
-        console.log("No hay contratos NFT especificados para la red actual.");
+        console.log("No NFT contracts specified for the current network.");
         return;
       }
 
-      if (window.ethereum) {
+      if (isMetaMaskInstalled()) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
-        console.log(`Dirección del firmante: ${address}`);
+        console.log(`Signer Address: ${address}`);
         const nftsTemp = [];
 
         for (const contractAddress of validContracts) {
-          console.log(`Procesando contrato: ${contractAddress}`);
+          console.log(`Processing Contract: ${contractAddress}`);
           const contract = new ethers.Contract(contractAddress, erc721ABI, provider);
 
           const balance = await contract.balanceOf(address);
-          console.log(`Balance para el contrato ${contractAddress}: ${balance.toNumber()}`);
+          console.log(`Balance for Contract ${contractAddress}: ${balance.toNumber()}`);
 
           for (let i = 0; i < balance.toNumber(); i++) {
             const tokenId = await contract.tokenOfOwnerByIndex(address, i);
-            const nftData = nftInfo[contractAddress]; // Usa la información predefinida
+            const nftData = nftInfo[contractAddress]; // Use predefined information
 
             nftsTemp.push({
-              videoUrl: nftData.videoUrl, // Usa la URL del video
-              title: nftData.title, // Usa el título
+              videoUrl: nftData.videoUrl,
+              title: nftData.title, // Use the title
               contractAddress,
               tokenId: tokenId.toString()
             });
           }
         }
 
-        console.log(`NFTs cargados:`, nftsTemp);
+        console.log(`Loaded NFTs:`, nftsTemp);
         setNfts(nftsTemp);
+      } else {
+        toast({
+          title: "MetaMask not installed",
+          description: "Please install MetaMask to load your NFTs.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      console.error("Error al cargar NFTs:", error);
+      console.error("Error loading NFTs:", error);
       toast({
         title: "Error",
-        description: "Error al cargar NFTs. Por favor verifica tu conexión e inténtalo de nuevo.",
+        description: "Error loading NFTs. Please check your connection and try again.",
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -160,15 +193,26 @@ function MyBadges() {
     } finally {
       setIsLoading(false);
     }
-}
+  }
 
-  
-
-  if (!isConnected) {
+  if (!isMetaMaskInstalled()) {
     return (
-      <div className="container">
-        <h1 className="hero__title">Connect to MetaMask</h1>
-        <button onClick={connectMetaMask} className="hero__btn color-1">Connect Wallet</button>
+      <div className="install-metamask-container">
+        <Button as="a" href="https://metamask.io/download.html" target="_blank" colorScheme="teal" size="lg">
+          Install MetaMask
+        </Button>
+        <p className="install-message">Please install MetaMask to proceed.</p>
+      </div>
+    );
+  }
+
+  if (!isConnected || currentNetwork !== chain) {
+    return (
+      <div className="connect-container">
+        <Button onClick={handleConnect} colorScheme="teal" size="lg">
+          {renderConnectButtonLabel()}
+        </Button>
+        <p className="connect-message">{renderConnectMessage()}</p>
       </div>
     );
   }
@@ -180,9 +224,8 @@ function MyBadges() {
         <Spinner size="xl" />
       </div>
     );
-  }  
+  }
 
-  // Verifica si el array de NFTs está vacío y muestra un mensaje en ese caso
   if (nfts.length === 0) {
     return (
       <div className="container">
@@ -194,26 +237,25 @@ function MyBadges() {
 
   return (
     <>
-        <div className="container2">
-          <Flex justifyContent="center" width="100%" alignItems="center">
-            <Flex alignItems="center">
-              <h2 className="hero__title">My Badges</h2>
-              <Link to="/mint-badges">
-                <Button colorScheme="teal" size="md" ml="4">
-                  Mint Badges
-                </Button>
-              </Link>
-            </Flex>
+      <div className="container2">
+        <Flex justifyContent="center" width="100%" alignItems="center">
+          <Flex alignItems="center">
+            <h2 className="hero__title">My Badges</h2>
+            <Link to="/mint-badges">
+              <Button colorScheme="teal" size="md" ml="4">
+                Mint Badges
+              </Button>
+            </Link>
           </Flex>
-            
-            <div className="nft-grid">
-                {nfts.map((nft, index) => (
-                    <NFTCard key={index} nft={nft} />
-                ))}
-            </div>
+        </Flex>
+          
+        <div className="nft-grid">
+          {nfts.map((nft, index) => (
+            <NFTCard key={index} nft={nft} />
+          ))}
         </div>
+      </div>
     </>
-    
   );
 }
 
