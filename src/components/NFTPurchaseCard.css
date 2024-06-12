@@ -58,7 +58,7 @@
 
 .purchase__container {
     display: flex;
-    width: 91%;
+    width: 90%;
     flex-direction: column;
     align-items: flex-start;
 }
