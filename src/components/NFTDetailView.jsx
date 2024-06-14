@@ -6,7 +6,8 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
 import enoAbi from '../ABIs/enoAbi.json';
-import demo from '../assets/BlackBox.mp4';
+import badgesNFT from '../assets/badgesNFT.mp4';
+import badgesNFTBlanco from '../assets/badgesNFTBlanco.mp4';
 import './NFTDetailView.css';
 
 const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible }) => {
@@ -265,29 +266,39 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
             <h2 className='about__nft'>ABOUT NFT</h2>
             <p>{nftDetails.description}</p>
           </div>
+          <div className='NFT__ContainerBtn'>
           <div className='NFT__btnENO'>
             <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithENO} isDisabled={loading}>
               Buy with ENO
             </Button>
           </div>
+          </div>
         </div>
       </div>
 
       {/* ======= What Are Eno Badges - Video ======= */}
-      <div className="badges__container">
-        <div className="container__NFT__left">
-          <h2 className="hero__NFT__title">What are ENO Badges?</h2>
-          <p className="text__NFT__subtitle">ENO‘s Badges are NFTs that verify your participation in an activity within our social ecosystem.</p>
-          <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer" className='NFT__container'>
-            <button className="NFT__btn">
+      <section className="newspaper">
+        <div className="newspaper__left">
+          <h2 className="hero__title">What are ENO Badges?</h2>
+          <p className="text__subtitle">ENO‘s Badges are NFTs that verify your participation in an activity within our social ecosystem.</p>
+          <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer" className='button__NFT-desktop'>
+            <button className="hero__btn-alternate color-1">
               Read More in Whitepaper
             </button>
           </a>
         </div>
-        <div className="container__NFT__right">
-          <video src={demo} autoPlay loop muted></video>
+        <div className="newspaper__right">
+          <div className='backBadges'>
+            <video src={badgesNFT} autoPlay loop muted className='layer badges-desktop'></video>
+            <video src={badgesNFTBlanco} autoPlay loop muted className='layer badges-mobile'></video>
+          </div>
         </div>
-      </div>
+        <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer" className='button__NFT-mobile'>
+            <button className="hero__btn color-1">
+              Read More in Whitepaper
+            </button>
+          </a>
+      </section>
     </>
   );
 };

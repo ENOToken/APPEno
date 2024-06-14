@@ -5,20 +5,8 @@ import { useNetworkSwitcher, chain } from '../hooks/useNetworkSwitcher';
 import { Link } from 'react-router-dom';
 import NFTPurchaseCard from './NFTPurchaseCard';
 import '../App.css';
-import demo from '../assets/BlackBox.mp4';
-import enologo from '../assets/ENOLogo.svg';
-
-/* ============ FONT A W E S O M E ============ */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faYoutube,
-  faLinkedin,
-  faXTwitter,
-  faInstagram,
-  faDiscord,
-  faTelegram,
-} from "@fortawesome/free-brands-svg-icons";
+import './NFTPurchase.css'
+import badgesNFT from '../assets/badgesNFT.mp4';
 
 // Imágenes
 const ChampagneCarbon = 'https://storage.googleapis.com/intercellar-assets/Champagne-Carbon.mp4';
@@ -129,18 +117,20 @@ const NFTPurchase = () => {
       </div>
 
       {/* ======= What Are Eno Badges - Video ======= */}
-      <section className="newspaper">
-        <div className="newspaper__left">
+      <section className="EnoBadges">
+        <div className="EnoBadges__left">
           <h2 className="hero__title">What are ENO Badges?</h2>
           <p className="text__subtitle">ENO‘s Badges are NFTs that verify your participation in an activity within our social ecosystem.</p>
           <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer" className='button__NFT'>
-            <button className="hero__btn color-1">
+            <button className="hero__btn-alternate color-1">
               Read More in Whitepaper
             </button>
           </a>
         </div>
-        <div className="newspaper__right">
-          <video src={demo} autoPlay loop muted></video>
+        <div className="EnoBadges__right">
+          <div className='backBadges'>
+            <video src={badgesNFT} autoPlay loop muted className='layer'></video>
+          </div>
         </div>
       </section>
     </div>
