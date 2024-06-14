@@ -24,7 +24,7 @@ const NFTPurchaseDetails = () => {
     <div>
         <Flex justifyContent="center" width="100%" alignItems="center">
         <Flex alignItems="center">
-            <h1 className="hero__title">{nft.title}</h1>
+            <h2 className="hero__title">{nft.title}</h2>
             <Link to="/launchpad">
             <Button colorScheme="teal" size="md" ml="4">
                 Launchpad

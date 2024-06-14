@@ -79,9 +79,7 @@
 
 .video-container {
     margin-top: 0;
-    /* Asegúrate de que el margen superior esté en 0 */
     padding-top: 0;
-    /* Asegúrate de que el padding superior esté en 0 */
 }
 
 .NFT__title {
@@ -96,6 +94,12 @@
 .NFT__description {
     color: var(--black-eno);
     font-size: 16px;
+}
+
+.NFT__ContainerBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nft-detail-title {}
@@ -231,6 +235,33 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     border: 2px solid var(--golden-kiwi);
 }
 
+
+button.hero__btn.color-1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: 300% 100%;
+    background-color: transparent;
+    border: 2px solid var(--black-eno);
+    cursor: pointer;
+    color: var(--black-eno);
+    font-size: 25px;
+    font-weight: 800;
+    font-family: var(--grotesk-regular);
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.4s ease-in-out;
+    outline: none;
+    padding: 10px 0;
+    width: 350px;
+}
+
+button.hero__btn.color-1:hover{
+    border: 2px solid var(--golden-kiwi);
+    color: var(--main-color);
+}
 /* -------------  NFT Button------------- */
 
 .badges__container {
@@ -288,7 +319,7 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     justify-content: center;
 }
 
-/* ------------- Badges Container T ------------- */
+/* ------------- Badges Container ------------- */
 
 .about__nft {
     font-size: 22px;
@@ -346,14 +377,13 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 1;
 }
 
 .blurred {
     filter: blur(5px);
     pointer-events: none;
 }
-
 
 .backButton__Container{
     display: none;
@@ -365,6 +395,25 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     display: none;
 }
 
+.newspaper{
+    background-color: var(--main-color);
+    color: var(--black-eno);
+    padding: 30px;
+}
+
+.newspaper h2 {
+    color: var(--black-eno);
+}
+
+.badges-mobile {
+    margin-top: 30px;
+    display: inline;
+    width: 85%;
+}
+
+.badges-desktop {
+    display: none;
+}
 
 /* ------------- Desktop ------------- */
 @media (min-width: 1024px) {
@@ -601,5 +650,44 @@ button.chakra-button.NFT__btn.color-1.css-moltat:hover {
     .backButton__right,
     .backButton__left {
         display: block;
+    }
+
+    .newspaper{
+        background-color: initial;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 100px 0;
+        width: 100%;
+    }
+
+    .newspaper h2{
+        color: var(--main-color);
+    }
+
+    .backBadges{
+        align-items: center;
+        display: grid;
+        justify-items: center;
+        margin: 0 auto;
+        max-width: 400px;
+        background: url(/src/assets/badgesNFT.png) no-repeat center center;
+        background-size: contain;
+    }
+    
+    .layer {
+        background: none ;
+        height: auto ;
+        padding: 0 ;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .badges-desktop {
+        display: inline; 
+    }
+    video.layer.badges-mobile {
+        display: none; 
     }
 }

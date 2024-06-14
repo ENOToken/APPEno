@@ -1,0 +1,231 @@
+:root {
+    --legion-blue: #0a2a36;
+    --shady-glade: #02735e;
+    --button-content: #14735e;
+    --black-eno: #040f13;
+    --black-eno-mid: #727272;
+    --bleached-aqua: #bde0e2;
+    --chalk-violet: #9183a4;
+    --chalk-violet-strong: #894cdf;
+    --contract-color: #009268;
+    --golden-kiwi: #f2d541;
+    --main-color: #ffffff;
+    --button-hover: #049a6d;
+    --blue-vortex: #101a29;
+    --section-title: 25px;
+    --section-subtitle: 20px;
+    --text--subtitle: 22px;
+    --typeface: "Stop Normal TypeFace", sans-serif;
+    --grotesk-regular: "Grotesk Regular", sans-serif;
+    --grotesk-semi-bold: "Grotesk Semi Bold", sans-serif;
+    --grotesk-bold: "Grotesk Bold", sans-serif;
+
+    /* z-index */
+    --z-fixed: 100;
+}
+
+/* ---------- Newspaper ---------- */
+.EnoBadges {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.newspaper__right {
+    display: flex;
+    justify-content: center;
+}
+
+a.button__NFT{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.button__NFT-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.button__NFT-desktop {
+    display: none;
+}
+
+.hero__btn-alternate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: 300% 100%;
+    background-color: transparent;
+    border: 2px solid var(--main-color);
+    border-radius: 50px;
+    color: var(--main-color);
+    cursor: pointer;
+    font-family: var(--grotesk-regular);
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 40px;
+    outline: none;
+    padding: 10px 0;
+    text-decoration: none;
+    transition: all 0.4s ease-in-out;
+    width: 350px;    
+}
+
+.hero__btn-alternate:hover {
+    background-position: 100% 0;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    color: var(--main-color);
+}
+
+.hero__btn-alternate.color-1:hover {
+    background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
+    box-shadow: 0 0 15px 0 var(--golden-kiwi);
+    border: 2px solid var(--golden-kiwi);
+}
+
+
+.EnoBadgesNFT {
+    display: grid;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 90%;
+    justify-items: center;
+    margin: 50px auto;
+    background: url('/src/assets/badgesNFT.png') 0% 0% / contain no-repeat;
+}
+
+.backBadges{
+    display: flex;
+    justify-content: center;
+    width: 85%;
+    margin-top: 30px;
+}
+/* ---------------- tablet ---------------- */
+
+/* ---------------- tablet Vertical ---------------- */
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+/* ---------------- tablet Horizontal ---------------- */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .hero__title h2 {
+        text-align: left;
+    }
+
+    .hero__title {
+        font-size: 25px;
+        text-align: left !important;
+    }
+
+    .hero__btn-alternate {
+        font-size: 18px;
+        width: 250px;
+        border: 2px solid var(--main-color);
+    }
+
+    .text__subtitle {
+        font-size: 16px;
+    }
+}
+
+/* ---------------- Desktop ---------------- */
+@media (min-width: 1024px) {
+    /* ---------------- NFT Right & Left ---------------- */
+
+    .EnoBadges {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 100px 0;
+        width: 100%;
+    }
+
+    .EnoBadges video {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 0;
+    }
+
+    .EnoBadges__right {
+        width: 35%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .EnoBadges__left {
+        display: flex;
+        width: 30%;
+        flex-direction: column;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .EnoBadges button {
+        margin-top: 20px;
+    }
+
+    .EnoBadges p {
+        font-size: var(--text--subtitle);
+    }
+
+    .text__subtitle {
+        font-size: 22px;
+        font-family: var(--grotesk-regular);
+        color: var(--main-color);
+    }
+
+    .EnoBadgesNFT {
+        display: grid;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+        justify-items: center;
+        margin: 0px auto;
+        background: url('/src/assets/badgesNFT.png') 0% 0% / contain no-repeat;
+    }
+
+    .backBadges {
+        align-items: center;
+        display: grid;
+        justify-items: center;
+        margin: 0 auto;
+        background-repeat: no-repeat;
+        max-width: 300px;
+        background: url(/src/assets/badgesNFT.png) no-repeat center center;
+        background-size: cover; 
+      }
+
+    .layer {
+        background: none !important;
+        height: auto !important;
+        padding: 0 !important;
+        width: 100%;
+        z-index: -1;
+    }
+
+    .hero__btn-alternate {
+        font-size: 22px;
+        width: 350px;
+        border: 2px solid var(--main-color);
+        color: var(--main-color);
+    }
+
+    a.button__NFT-desktop {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    a.button__NFT-mobile {
+        display: none;
+    }
+}

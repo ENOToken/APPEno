@@ -170,18 +170,20 @@ function MintBadge() {
     <div className="container">
       <Flex justifyContent="center" width="100%" alignItems="center">
         <Flex alignItems="center">
-          <h1 className="hero__title">Mint Your Badges</h1>
+          <div className='container__mint'>
+          <h2 className="hero__title">Mint Your Badges</h2>
           <Link to="/my-badges">
             <Button colorScheme="teal" size="md" ml="4">
               My Badges
             </Button>
           </Link>
+          </div>
         </Flex>
       </Flex>
 
-      <div className="nft-grid">
+      <div className="nft-grid-list">
         {badgesToMint.map(badge => (
-          <BadgeMintCard key={badge.contractAddress} badge={badge} mintFunction={mintNFT} />
+          <BadgeMintCard key={badge.contractAddress} badge={badge} mintFunction={mintNFT} className="grid-items" />
         ))}
       </div>
     </div>
