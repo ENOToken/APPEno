@@ -1,5 +1,6 @@
 // NFTCard.jsx
 import React from 'react';
+import './NFTCard.css'
 
 function NFTCard({ nft }) {
   // Decide si el contenido es un video basándose en la URL (por ejemplo, si termina en .mp4)
@@ -23,9 +24,9 @@ function NFTCard({ nft }) {
         <img src={nft.videoUrl} alt={nft.title || "NFT"} className="nft-image" />
       )}
       <div className="nft-info">
+        </div>
         {nft.title && <h5 className="nft-name">{nft.title}</h5>}
         {nft.tokenId && <p className="nft-token-id">Token ID: {nft.tokenId}</p>}
-      </div>
     </div>
   );
 }

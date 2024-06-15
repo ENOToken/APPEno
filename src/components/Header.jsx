@@ -1,21 +1,44 @@
-//Header.jsx
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
 import enoLogo from '../assets/ENOLogo.svg';
-import { useNetworkSwitcher, chain } from '../hooks/useNetworkSwitcher';
-
+import { useNetworkSwitcher } from '../hooks/useNetworkSwitcher';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
+import useENOBalance from '../hooks/useENOBalance';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { changeNetwork, testnet } = useNetworkSwitcher();
   const { isConnected, connectMetaMask, message } = useMetaMaskConnector();
+  const balance = useENOBalance(window.ethereum?.selectedAddress);
+  const toast = useToast();
 
-  // Función para formatear la dirección de la wallet
+  // Formatear la dirección de la wallet
   const formatWalletAddress = (address) => {
     if (!address) return '';
-    return `${address.substring(0, 4)}...${address.substring(address.length - 4)}`;
+    return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+  };
+
+  // Copiar la dirección de la wallet
+  const copyToClipboard = (address) => {
+    navigator.clipboard.writeText(address)
+      .then(() => {
+        toast({
+          title: 'Wallet address copied',
+          description: 'The wallet address has been copied to clipboard.',
+          status: 'success',
+          duration: 5000,
+        });
+      })
+      .catch((err) => {
+        console.error('Failed to copy wallet address: ', err);
+        toast({
+          title: 'Failed to copy',
+          description: 'An error occurred while copying the wallet address.',
+          status: 'error',
+          duration: 5000,
+        });
+      });
   };
 
   // Botones de navegación
@@ -45,15 +68,16 @@ function Header() {
       {/* Sección de conexión a MetaMask */}
       <div className="wallet-section">
         {isConnected ? (
-          <div className="wallet-address">
-            {formatWalletAddress(window.ethereum.selectedAddress)}
+          <div className="wallet-container" onClick={() => copyToClipboard(window.ethereum.selectedAddress)}>
+            <div className="wallet-info">
+              <span className="wallet-address">{formatWalletAddress(window.ethereum.selectedAddress)}</span>
+              <span className="wallet-balance">{balance} ENO</span>
+            </div>
           </div>
         ) : (
-          <>
-          </>
-/*           <button onClick={connectMetaMask} className="connect-btn">
+          <button onClick={connectMetaMask} className="connect-btn">
             Connect Wallet
-          </button> */
+          </button>
         )}
       </div>
     </header>

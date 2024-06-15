@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { ethers } from 'ethers';
 import contractABI from '../ABIs/mintBadgeParisABI.json';
 import { useNetworkSwitcher, chain } from '../hooks/useNetworkSwitcher';
@@ -14,6 +14,8 @@ import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
 import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
 import Blackbox12 from '../assets/BadgeBB2_BAJA.mp4';
 import Unlock2024 from '../assets/UNLOCK.mp4';
+
+import badgesNFT from '../assets/badgesNFT.mp4';
 
 function MintBadge() {
   const { currentNetwork, changeNetwork, testnet, error } = useNetworkSwitcher();
@@ -62,27 +64,42 @@ function MintBadge() {
   ];
 
   const badgesToMint = testnet ? badgesTestnet : badgesMainnet;
+  const badgesRef = useRef(badgesToMint);
 
-  const isMetaMaskInstalled = () => {
-    return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
-  };
+  const [badgeData, setBadgeData] = useState({});
+
+  useEffect(() => {
+    const fetchBadgeData = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const data = {};
+      for (const badge of badgesRef.current) {
+        try {
+          const contract = new ethers.Contract(badge.contractAddress, contractABI, provider);
+          const tokenId = await contract._tokenId();
+          const maxSupply = await contract.MAX_SUPPLY();
+          console.log(`Badge: ${badge.title}, tokenId: ${tokenId}, maxSupply: ${maxSupply}`);
+          data[badge.contractAddress] = {
+            totalSupply: tokenId.toNumber() - 1,
+            maxSupply: maxSupply.toNumber(),
+          };
+        } catch (error) {
+          console.error(`Error fetching data for badge ${badge.title}:`, error);
+        }
+      }
+      setBadgeData(data);
+    };
+
+    fetchBadgeData(); // Fetch immediately on mount
+    const interval = setInterval(fetchBadgeData, 30000); // Fetch every 30 seconds
+
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, []); // Only run once on mount
 
   const mintNFT = useCallback(async (contractAddress) => {
     if (!isConnected) {
       connectMetaMask();
     } else {
       try {
-        if (!isMetaMaskInstalled()) {
-          toast({
-            title: 'MetaMask not installed',
-            description: 'Please install MetaMask to proceed.',
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          });
-          return;
-        }
-
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const nftContract = new ethers.Contract(contractAddress, contractABI, signer);
@@ -144,6 +161,10 @@ function MintBadge() {
     return '';
   };
 
+  const isMetaMaskInstalled = () => {
+    return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+  };
+
   if (!isMetaMaskInstalled()) {
     return (
       <div className="install-metamask-container">
@@ -170,20 +191,46 @@ function MintBadge() {
     <div className="container">
       <Flex justifyContent="center" width="100%" alignItems="center">
         <Flex alignItems="center">
-          <h1 className="hero__title">Mint Your Badges</h1>
-          <Link to="/my-badges">
-            <Button colorScheme="teal" size="md" ml="4">
-              My Badges
-            </Button>
-          </Link>
+          <div className='container__mint'>
+            <h2 className="hero__title">Mint Your NFT Badges</h2>
+            <Link to="/my-badges">
+              <Button colorScheme="teal" size="md" ml="4">
+                My NFT Badges
+              </Button>
+            </Link>
+          </div>
         </Flex>
       </Flex>
 
-      <div className="nft-grid">
+      <div className="nft-grid-list">
         {badgesToMint.map(badge => (
-          <BadgeMintCard key={badge.contractAddress} badge={badge} mintFunction={mintNFT} />
+          <BadgeMintCard
+            key={badge.contractAddress}
+            badge={badge}
+            badgeData={badgeData[badge.contractAddress] || { totalSupply: 0, maxSupply: 0 }}
+            mintFunction={mintNFT}
+            className="grid-items"
+          />
         ))}
       </div>
+
+      {/* ======= What Are Eno Badges - Video ======= */}
+      <section className="EnoBadges">
+        <div className="EnoBadges__left">
+          <h2 className="hero__title">What are ENO Badges?</h2>
+          <p className="text__subtitle">ENO‘s Badges are NFTs that verify your participation in an activity within our social ecosystem.</p>
+          <a href="https://docs.enotoken.io/eno-digital-assets/nft-badges" target="_blank" rel="noopener noreferrer" className='button__NFT'>
+            <button className="hero__btn-alternate color-1">
+              Read More in Whitepaper
+            </button>
+          </a>
+        </div>
+        <div className="EnoBadges__right">
+          <div className='backBadges'>
+            <video src={badgesNFT} autoPlay loop muted className='layer'></video>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
