@@ -255,7 +255,8 @@ button.hero__btn.color-1{
     transition: all 0.4s ease-in-out;
     outline: none;
     padding: 10px 0;
-    width: 350px;
+    width: 310px;
+    padding-bottom: 5px;
 }
 
 button.hero__btn.color-1:hover{

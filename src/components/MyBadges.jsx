@@ -15,6 +15,8 @@ import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
 import Blackbox12 from '../assets/BadgeBB2_BAJA.mp4';
 import Unlock2024 from '../assets/UNLOCK.mp4';
 
+import badgesNFT from '../assets/badgesNFT.mp4';
+
 const nftContractsMainnet = [
   '0x2A06B2c0999Af12C251c55D6E2c67330AeAb3C86',
   '0xD6C9365273539C7722EAb3BAC3D76dD3b23e6Ff3',
@@ -174,10 +176,10 @@ const MyBadges = () => {
     <div className="container">
       <Flex justifyContent="center" width="100%" alignItems="center">
         <Flex alignItems="center">
-          <h2 className="hero__title">My Badges</h2>
+          <h2 className="hero__title">My NFT Badges</h2>
           <Link to="/mint-badges">
             <Button colorScheme="teal" size="md" ml="4">
-              Mint Badges
+              Mint NFT Badges
             </Button>
           </Link>
         </Flex>
@@ -188,6 +190,24 @@ const MyBadges = () => {
           <NFTCard key={index} nft={nft} />
         ))}
       </div>
+
+      {/* ======= What Are Eno Badges - Video ======= */}
+      <section className="EnoBadges">
+        <div className="EnoBadges__left">
+          <h2 className="hero__title">What are ENO Badges?</h2>
+          <p className="text__subtitle">ENO‘s Badges are NFTs that verify your participation in an activity within our social ecosystem.</p>
+          <a href="https://docs.enotoken.io/eno-digital-assets/nft-badges" target="_blank" rel="noopener noreferrer" className='button__NFT'>
+            <button className="hero__btn-alternate color-1">
+              Read More in Whitepaper
+            </button>
+          </a>
+        </div>
+        <div className="EnoBadges__right">
+          <div className='backBadges'>
+            <video src={badgesNFT} autoPlay loop muted className='layer'></video>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

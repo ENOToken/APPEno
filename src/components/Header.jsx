@@ -4,11 +4,13 @@ import { useToast } from '@chakra-ui/react';
 import enoLogo from '../assets/ENOLogo.svg';
 import { useNetworkSwitcher } from '../hooks/useNetworkSwitcher';
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
+import useENOBalance from '../hooks/useENOBalance';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { changeNetwork, testnet } = useNetworkSwitcher();
-  const { isConnected, connectMetaMask, message, balance } = useMetaMaskConnector();
+  const { isConnected, connectMetaMask, message } = useMetaMaskConnector();
+  const balance = useENOBalance(window.ethereum?.selectedAddress);
   const toast = useToast();
 
   // Formatear la dirección de la wallet
@@ -42,7 +44,7 @@ function Header() {
   // Botones de navegación
   const navButtons = (
     <>
-      <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link>
+      {/* <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link> */}
       <Link to="/mint-badges" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Badges</Link>
     </>
   );

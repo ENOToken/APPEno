@@ -1,4 +1,5 @@
 // useNetworkSwitcher.js
+
 import { useState, useEffect, useCallback } from 'react';
 
 const chain = "0xa4b1"; // Arbitrum
