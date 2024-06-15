@@ -24,17 +24,17 @@ function App() {
         <Routes>
           <Route path="/mint-badges" element={<MintBadge />} />
           <Route path="/my-badges" element={<MyBadges />} />
-          <Route path="/my-nft" element={<MyNFT />} />
+{/*           <Route path="/my-nft" element={<MyNFT />} />
           <Route path="/nft/:contractAddress" element={<NFTPurchaseDetails />} />
-          <Route path="/launchpad" element={<Launchpad />} />
+          <Route path="/launchpad" element={<Launchpad />} /> */}
           <Route path="/" element={<Navigate replace to="/mint-badges" />} />
-          <Route path="/nft-detail/:nftId" element={
+{/*           <Route path="/nft-detail/:nftId" element={
             <NFTDetailView 
               setHeaderVisible={setHeaderVisible} 
               setFooterVisible={setFooterVisible} 
               setNavBarVisible={setNavBarVisible} 
             />
-          } /> {/* Nueva ruta */}
+          } />  */}{/* Nueva ruta */}
         </Routes>
         {navBarVisible && <NavBar />}
         {footerVisible && <Footer />}
