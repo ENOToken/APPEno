@@ -227,55 +227,6 @@ a {
     
 }
 
-/* ---------------------- NFTS ---------------------- */
-
-.nft-card {
-    border: 1px solid #eaeaea;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    position: relative;
-    width: 300px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nft-card:hover {
-    transform: translateY(-5px);
-}
-
-.nft-media,
-.nft-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-}
-
-.nft-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: var(--button-content);
-    color: var(--main-color);
-    font-size: 20px;
-    padding: 10px;
-    display: none;
-}
-
-.nft-card:hover .nft-info {
-    display: block;
-}
-
-.nft-name,
-.nft-description {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
 
 /* ---------- MENU ---------- */
 

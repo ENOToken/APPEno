@@ -1,0 +1,109 @@
+:root {
+    --mainColor: #092b37;
+    --legion-blue: #0a2a36;
+    --shady-glade: #02735e;
+    --button-content: #14735e;
+    --black-eno: #040f13;
+    --black-eno-mid: #727272;
+    --bleached-aqua: #bde0e2;
+    --chalk-violet: #9183a4;
+    --chalk-violet-strong: #894cdf;
+    --contract-color: #009268;
+    --golden-kiwi: #f2d541;
+    --main-color: #ffffff;
+    --button-hover: #049a6d;
+    --blue-vortex: #101a29;
+    --section-title: 25px;
+    --section-subtitle: 20px;
+    --text--subtitle: 22px;
+    --typeface: "Stop Normal TypeFace", sans-serif;
+    --grotesk-regular: "Grotesk Regular", sans-serif;
+    --grotesk-semi-bold: "Grotesk Semi Bold", sans-serif;
+    --grotesk-bold: "Grotesk Bold", sans-serif;
+
+    /* z-index */
+    --z-fixed: 100;
+}
+
+/* ---------------------- NFTS ---------------------- */
+
+.nft-card {
+    border: 1px solid var(--main-color);
+    border-radius: 16px;
+    color: var(--black-eno);
+    padding: 16px;
+    width: 100%;
+    max-width: 350px;
+    margin: 35px auto;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+    transition: transform 0.3s ease;
+}
+
+.nft-card video {
+    border-radius: 16px;
+    width: 100%;
+    height: auto;
+}
+
+.nft-media,
+.nft-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.nft-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--button-content);
+    color: var(--main-color);
+    font-size: 20px;
+    padding: 10px;
+    display: none;
+}
+
+.nft-name,
+.nft-description {
+    color: var(--black-eno);
+    font-family: var(--grotesk-semi-bold);
+    font-size: 22px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.nft-token-id {
+    color: var(--black-eno);
+    font-size: 20px;
+    font-family: var(--grotesk-semi-bold);
+}
+
+.nft-grid-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    row-gap: 5px;
+}
+
+@media (max-width: 1024px) {
+    .nft-grid-list {
+        grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas más pequeñas */
+    }
+
+    .nft-card{
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .nft-grid-list {
+        grid-template-columns: 1fr; /* Una columna en pantallas muy pequeñas */
+    }
+}
