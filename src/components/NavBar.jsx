@@ -19,12 +19,12 @@ const NavBar = () => {
               </a>
             </li>
 
-            <li className="nav__item">
+            {/* <li className="nav__item">
               <a href="/launchpad" className="nav__link">
                 <FontAwesomeIcon icon={faThLarge} size="2x" />
                 <span className="nav__name">Launchpad</span>
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>
