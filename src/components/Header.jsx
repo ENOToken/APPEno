@@ -44,7 +44,7 @@ function Header() {
   // Botones de navegación
   const navButtons = (
     <>
-      {/* <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link> */}
+      <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link>
       <Link to="/mint-badges" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Badges</Link>
     </>
   );

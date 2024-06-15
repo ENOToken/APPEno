@@ -27,7 +27,7 @@ function App() {
           <Route path="/my-nft" element={<MyNFT />} />
           <Route path="/nft/:contractAddress" element={<NFTPurchaseDetails />} />
           <Route path="/launchpad" element={<Launchpad />} />
-          <Route path="/" element={<Navigate replace to="/mint-badges" />} />
+          <Route path="/" element={<Navigate replace to="/launchpad" />} />
           <Route path="/nft-detail/:nftId" element={
             <NFTDetailView 
               setHeaderVisible={setHeaderVisible} 
