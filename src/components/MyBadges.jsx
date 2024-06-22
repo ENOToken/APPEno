@@ -135,16 +135,16 @@ const MyBadges = () => {
   };
 
   const isMetaMaskInstalled = () => {
-    return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+    return typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined';
   };
 
   if (!isMetaMaskInstalled()) {
     return (
       <div className="install-metamask-container">
         <Button as="a" href="https://metamask.io/download.html" target="_blank" colorScheme="teal" size="lg">
-          Install MetaMask
+          Install Wallet
         </Button>
-        <p className="install-message">Please install MetaMask to proceed.</p>
+        <p className="install-message">Please install a web3 compatible wallet to proceed.</p>
       </div>
     );
   }

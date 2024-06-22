@@ -12,6 +12,8 @@ const NFTPurchaseCard = ({ nft }) => {
   const [priceEth, setPriceEth] = useState('');
   const [totalMinted, setTotalMinted] = useState(0);
   const [maxSupply, setMaxSupply] = useState(0);
+  const [saleStartTime, setSaleStartTime] = useState(null);
+  const [timeLeft, setTimeLeft] = useState({});
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -26,18 +28,32 @@ const NFTPurchaseCard = ({ nft }) => {
 
   const fetchMintedAndMaxSupply = useCallback(async () => {
     if (!provider) return;
-
+  
     try {
       const nftContract = new ethers.Contract(nft.contractAddress, nftAbi, provider);
       const totalMintedBigNumber = await nftContract.totalSupply();
       const maxSupplyNumber = await nftContract.max_supply();
-
+      const saleStartTimeNumber = await nftContract.saleStartTime();
+      const nftPriceInENOBigNumber = await nftContract.NFTPriceInENO();
+  
+      console.log("NFT Price in ENO:", nftPriceInENOBigNumber);
+  
       setTotalMinted(totalMintedBigNumber.toNumber());
       setMaxSupply(maxSupplyNumber.toNumber());
+      setSaleStartTime(saleStartTimeNumber.toNumber());
+      setPriceUsdt(ethers.utils.formatUnits(nftPriceInENOBigNumber, 18)); // Convertir el BigNumber a string con 18 decimales
+  
+      const currentTime = Math.floor(Date.now() / 1000);
+      if (saleStartTimeNumber.toNumber() > currentTime) {
+        setTimeLeft(calculateTimeLeft(saleStartTimeNumber.toNumber()));
+      }
     } catch (error) {
       console.error('Error fetching minted and max supply:', error);
     }
   }, [nft.contractAddress, provider]);
+  
+  
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +65,37 @@ const NFTPurchaseCard = ({ nft }) => {
 
     return () => clearInterval(intervalId);
   }, [fetchMintedAndMaxSupply]);
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      if (saleStartTime) {
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (saleStartTime > currentTime) {
+          setTimeLeft(calculateTimeLeft(saleStartTime));
+        } else {
+          setTimeLeft({});
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [saleStartTime]);
+
+  const calculateTimeLeft = (startTime) => {
+    const now = Math.floor(Date.now() / 1000);
+    const difference = startTime - now;
+
+    if (difference > 0) {
+      return {
+        days: Math.floor(difference / (60 * 60 * 24)),
+        hours: Math.floor((difference % (60 * 60 * 24)) / (60 * 60)),
+        minutes: Math.floor((difference % (60 * 60)) / 60),
+        seconds: Math.floor(difference % 60),
+      };
+    } else {
+      return {};
+    }
+  };
 
   const buyWithUSDT = async () => {
     if (!provider) {
@@ -143,21 +190,30 @@ const NFTPurchaseCard = ({ nft }) => {
 
   return (
     <div className="nft-purchase-card" onClick={handleCardClick}>
-      <video
-        src={nft.video}
-        alt="NFT Video"
-        autoPlay
-        muted
-        loop
-      />
+      <div className={`nft-video-container ${Object.keys(timeLeft).length !== 0 ? 'blur' : ''}`}>
+        <video
+          src={nft.video}
+          alt="NFT Video"
+          autoPlay
+          muted
+          loop
+        />
+        {Object.keys(timeLeft).length !== 0 && (
+          <div className="countdown-overlay">
+            <div className="countdown-timer">
+              {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+            </div>
+          </div>
+        )}
+      </div>
       <div className='purchase__container'>
         <p className='purchase__title'>{nft.title}</p>
         <div>
           <div className='purchase__details-main'>
             <div className='purchase__container-details'>
               <div className='purchase__left-details'>
-              <img src={ENOCoin} alt="Eno Price" className='purchase__image' />
-              <span className='purchase__eno-price'>{totalMinted} ENO</span>
+                <img src={ENOCoin} alt="Eno Price" className='purchase__image' />
+                <span className='purchase__eno-price'>{parseFloat(priceUsdt).toFixed(2)} ENO</span>
               </div>
 
               <div className='purchase__right-details'>
@@ -168,11 +224,18 @@ const NFTPurchaseCard = ({ nft }) => {
         </div>
         <p className='purchase__description'>{nft.descriptionShort}</p>
       </div>
-      <a href='/nft-detail' colorScheme="teal" size="sm" className='getNFT'>
-        <button className='hero__btn-mint color-1'>
+      {Object.keys(timeLeft).length === 0 ? (
+        <a href='/nft-detail' colorScheme="teal" size="sm" className='getNFT'>
+          <button className='hero__btn-mint color-1'>
+            Get NFT
+          </button>
+        </a>
+      ) : (
+        <button className='hero__btn-mint color-1 disabled' disabled>
           Get NFT
         </button>
-      </a>
+      )}
+
     </div>
   );
 };
