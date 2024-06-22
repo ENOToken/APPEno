@@ -1,3 +1,4 @@
+/*==================== VARIABLES ====================*/
 :root {
     --legion-blue: #0a2a36;
     --shady-glade: #02735e;
@@ -19,17 +20,13 @@
     --grotesk-regular: "Grotesk Regular", sans-serif;
     --grotesk-semi-bold: "Grotesk Semi Bold", sans-serif;
     --grotesk-bold: "Grotesk Bold", sans-serif;
+    --grotesk-medium: "Grotesk Medium", sans-serif;
 
     /* z-index */
     --z-fixed: 100;
 }
 
-*,
-*:before,
-*:after {
-    box-sizing: border-box;
-}
-
+/*==================== FONTS ====================*/
 @font-face {
     font-family: "Stop Normal TypeFace";
     src: url("../fonts/Stop Normal TypeFace.ttf");
@@ -50,26 +47,41 @@
     src: url("../fonts/FoundersGrotesk-Bold.ttf");
 }
 
+@font-face {
+    font-family: "Grotesk Semi Bold";
+    src: url("../fonts/FoundersGrotesk-Medium.ttf");
+}
 
-.purchase__title{
+/*==================== BASE ====================*/
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+/*==================== PURCHASE CARD ====================*/
+.purchase__title {
     font-size: 24px;
-    font-family: var(--grotesk-bold);
+    font-family: var(--grotesk-semi-bold);
 }
 
 .purchase__container {
+    width: 95%;
+    text-align: left;
     display: flex;
-    width: 90%;
     flex-direction: column;
-    align-items: flex-start;
+    height: 100%;
 }
 
-.text__content{
+.text__content {
     color: var(--black-eno-mid);
 }
 
 .nft-purchase-card {
-    border: 1px solid #ccc;
-    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--bleached-aqua);
+    border-radius: 22px;
     color: var(--black-eno);
     padding: 16px;
     width: 350px;
@@ -78,26 +90,166 @@
     margin-top: 35px;
     background: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
     align-items: center;
     row-gap: 15px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .nft-purchase-card:hover {
+    border-color: var(--button-content);
     transform: translate(0, -15px);
+}
+
+p.purchase__description {
+    font-size: 16px;
+    font-family: var(--grotesk-regular);
+    margin-bottom: 0px;
+    line-height: 17px;
+    color: var(--black-eno-mid);
+}
+
+p.purchase__minted {
+    font-family: var(--grotesk-regular);
+    font-size: 20px;
+    color: var(--button-content);
+    font-weight: 600;
 }
 
 .nft-purchase-card video {
     border-radius: 16px;
-    max-width: 100%;
+    width: 100%;
 }
 
 .nft-purchase-card button {
     width: 100%;
-    height: 45px;
     background-color: var(--shady-glade);
-    border-radius: 16px;
+    border-radius: 32px;
     margin-top: 4px;
+    padding: 10px 0;
+}
+
+@media (max-width: 767px) {
+    .purchase__container-details {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .purchase__left-details,
+    .purchase__right-details  {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    p.purchase__minted-details{
+        font-family: var(--grotesk-regular);
+        font-size: 20px;
+        color: var(--button-content);
+        font-weight: 600;
+        margin-top: 2px;
+    }
+
+    span.purchase__eno-price{
+        font-family: var(--grotesk-regular);
+        font-size: 20px;
+        color: var(--black-eno-mid);
+        font-weight: 200;
+        margin-top: 5px;
+    }
+
+    .purchase__left-details img{
+        margin-right: 10px;
+        width: 25px;        
+        height: 25px;
+        font-size: 16px;
+        font-family: var(--grotesk-regular);
+        color: var(--black-eno-mid);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .purchase__container-details {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .purchase__left-details,
+    .purchase__right-details {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    p.purchase__minted-details {
+        font-family: var(--grotesk-regular);
+        font-size: 20px;
+        color: var(--button-content);
+        font-weight: 600;
+        margin-top: 2px;
+    }
+
+    span.purchase__eno-price {
+        font-family: var(--grotesk-regular);
+        font-size: 20px;
+        color: var(--black-eno-mid);
+        font-weight: 200;
+        margin-top: 5px;
+    }
+
+    .purchase__left-details img {
+        margin-right: 10px;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        font-family: var(--grotesk-regular);
+        color: var(--black-eno-mid);
+    }
+}
+
+@media (min-width: 1024px) {
+    .purchase__container-details {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .purchase__left-details,
+    .purchase__right-details {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    p.purchase__minted-details {
+        font-family: var(--grotesk-regular);
+        font-size: 20px;
+        color: var(--button-content);
+        font-weight: 600;
+        margin-top: 2px;
+    }
+
+    span.purchase__eno-price {
+        font-family: var(--grotesk-regular);
+        font-size: 20px;
+        color: var(--black-eno-mid);
+        font-weight: 200;
+        margin-top: 5px;
+    }
+
+    .purchase__left-details img {
+        margin-right: 10px;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        font-family: var(--grotesk-regular);
+        color: var(--black-eno-mid);
+    }
 }

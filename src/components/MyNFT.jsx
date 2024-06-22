@@ -30,6 +30,7 @@ const nftInfo = {
   '0x543eaf118C5B2667f70AFf54860262Eb1c199E9c': {
     title: 'Champagne Carbon',
     videoUrl: ChampagneCarbon,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
   },
   '0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c': {
     title: 'Coquerel Calvados',
@@ -142,6 +143,7 @@ function MyBadges() {
             nftsTemp.push({
               videoUrl: nftData.videoUrl,
               title: nftData.title,
+              description: nftData.description,  
               contractAddress,
               tokenId: tokenId.toString(),
             });
@@ -220,7 +222,7 @@ function MyBadges() {
           <Flex alignItems="center">
             <h2 className="hero__title">My NFT's</h2>
             <Link to="/launchpad">
-              <Button colorScheme="teal" size="md" ml="4">
+              <Button colorScheme="teal" size="md" ml="4" className='css-70qvj9'>
                 Mint Launchpad
               </Button>
             </Link>

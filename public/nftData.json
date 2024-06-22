@@ -1,18 +1,47 @@
 {
   "champagne-carbon": {
     "contractAddress": "0x543eaf118C5B2667f70AFf54860262Eb1c199E9c",
-    "usdtContractAddress":"0x006Af508aE98c1E510bc37f94F4436bDFB76D2dD",
+    "usdtContractAddress": "0x006Af508aE98c1E510bc37f94F4436bDFB76D2dD",
     "title": "Champagne Carbon",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "descriptionShort": "Experience the luxury of Champagne Carbon, perfect for any celebration.",
+    "descriptionLong": "Champagne Carbon offers a luxurious experience with its sparkling effervescence and rich flavors. Crafted with meticulous attention to detail, this champagne is ideal for grand events and special occasions. Celebrate in style with a drink that embodies elegance and sophistication.",
     "buttonLabel": "Acquire",
     "video": "https://storage.googleapis.com/intercellar-assets/Champagne-Carbon.mp4"
   },
   "coquerel-calvados": {
     "contractAddress": "0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c",
-    "usdtContractAddress":"0x006Af508aE98c1E510bc37f94F4436bDFB76D2dD",
+    "usdtContractAddress": "0x006Af508aE98c1E510bc37f94F4436bDFB76D2dD",
     "title": "Coquerel Calvados",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.",
+    "descriptionShort": "Indulge in the rich and smooth flavors of Coquerel Calvados.",
+    "descriptionLong": "Coquerel Calvados is a testament to exquisite craftsmanship, offering a rich and smooth flavor profile that delights the senses. Made from the finest apples and aged to perfection, this calvados is perfect for those who appreciate the finer things in life. Enjoy a drink that is both sophisticated and satisfying.",
     "buttonLabel": "Acquire",
     "video": "https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4"
+  },
+  "White Bottle": {
+    "contractAddress": "0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c",
+    "usdtContractAddress": "0x006Af508aE98c1E510bc37f94F4436bDFB76D2dD",
+    "title": "White Bottle",
+    "descriptionShort": "Discover the elegance and purity of the White Bottle.",
+    "descriptionLong": "The White Bottle stands out with its elegant design and pure taste. Perfect for any occasion, this bottle offers a refined drinking experience that is both refreshing and sophisticated. Enjoy a drink that embodies simplicity and elegance.",
+    "buttonLabel": "Acquire",
+    "video": "https://storage.googleapis.com/intercellar-assets/video-white-bottle.mp4"
+  },
+  "Ducru Beaucaillou": {
+    "contractAddress": "0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c",
+    "usdtContractAddress": "0x006Af508aE98c1E510bc37f94F4436bDFB76D2dD",
+    "title": "Ducru Beaucaillou",
+    "descriptionShort": "Experience the richness and depth of Ducru Beaucaillou.",
+    "descriptionLong": "Ducru Beaucaillou offers a rich and complex flavor profile, perfect for connoisseurs. This wine is known for its depth and character, making it an ideal choice for special occasions and fine dining. Enjoy a glass of Ducru Beaucaillou and savor the sophisticated flavors that it brings.",
+    "buttonLabel": "Acquire",
+    "video": "https://storage.googleapis.com/intercellar-assets/Ducru%20Beaucaillou%20Animation.mp4"
+  },
+  "ENO Barrique": {
+    "contractAddress": "0x29dEBB128D2CDE5DaC7963D36R344667aD88c6c",
+    "usdtContractAddress": "0x006Af508aE98c1E510bc37f94F4436bDFB76D2dD",
+    "title": "ENO Barrique",
+    "descriptionShort": "Indulge in the robust and full-bodied flavors of ENO Barrique.",
+    "descriptionLong": "ENO Barrique is a robust and full-bodied wine, perfect for those who appreciate bold flavors. Aged to perfection in oak barrels, this wine offers a rich and complex taste that is both satisfying and memorable. Enjoy a drink that brings a touch of sophistication to any occasion.",
+    "buttonLabel": "Acquire",
+    "video": "https://storage.googleapis.com/intercellar-assets/video-barrique.mp4"
   }
 }

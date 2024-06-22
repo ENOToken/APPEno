@@ -8,6 +8,7 @@ import useENOBalance from '../hooks/useENOBalance';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeButton, setActiveButton] = useState(null); // Estado para el botón activo
   const { changeNetwork, testnet } = useNetworkSwitcher();
   const { isConnected, connectMetaMask, message } = useMetaMaskConnector();
   const balance = useENOBalance(window.ethereum?.selectedAddress);
@@ -44,14 +45,26 @@ function Header() {
   // Botones de navegación
   const navButtons = (
     <>
-      <Link to="/launchpad" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Launchpad</Link>
-      <Link to="/mint-badges" className="secondary-btn" onClick={() => setIsMenuOpen(false)}>Badges</Link>
+      <Link 
+        to="/launchpad" 
+        className={`navigation-btn ${activeButton === 'launchpad' ? 'active' : ''}`}
+        onClick={() => setActiveButton('launchpad')}
+      >
+        Launchpad
+      </Link>
+      <Link 
+        to="/mint-badges" 
+        className={`navigation-btn ${activeButton === 'mint-badges' ? 'active' : ''}`}
+        onClick={() => setActiveButton('mint-badges')}
+      >
+        Badges
+      </Link>
     </>
   );
 
   return (
     <header className="site-header">
-      <a href="./" rel="noreferrer" target="_blank">
+      <a href="/launchpad" rel="noreferrer">
         <img src={enoLogo} alt="ENOLogo" className="logo" />
       </a>
       {testnet && <span className="testnet-indicator">Testnet ON</span>}

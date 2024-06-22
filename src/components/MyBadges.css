@@ -1,7 +1,9 @@
+/*==================== VARIABLES ====================*/
 :root {
     --legion-blue: #0a2a36;
     --shady-glade: #02735e;
     --button-content: #14735e;
+    --legion-light-blue: #0022ca;
     --black-eno: #040f13;
     --black-eno-mid: #727272;
     --bleached-aqua: #bde0e2;
@@ -24,8 +26,9 @@
     --z-fixed: 100;
 }
 
+/*==================== BADGE MINT CARD ====================*/
 .badge-mint-card {
-    border: 1px solid #ccc;
+    border: 2px solid var(--bleached-aqua);
     border-radius: 16px;
     color: var(--black-eno);
     padding: 16px;
@@ -43,11 +46,17 @@
     transition: transform 0.3s ease;
 }
 
+.badge-mint-card:hover {
+    transform: translate(0, -15px);
+    border: 2px solid var(--button-content);
+}
+
 .nft-preview {
     width: 100%;
     border-radius: 16px;
 }
 
+/*==================== BUTTONS ====================*/
 .hero__btn-mint {
     display: flex;
     flex-direction: row;
@@ -57,41 +66,40 @@
     background-size: 300% 100%;
     background-color: var(--button-content);
     border: 2px solid var(--main-color);
-    border-radius: 50px;
+    border-radius: 32px;
     color: var(--main-color);
     cursor: pointer;
     font-family: var(--grotesk-regular);
     font-size: 22px;
     font-weight: 800;
-    margin-top: 20px;
     outline: none;
     padding: 10px 0;
     text-decoration: none;
     transition: all 0.4s ease-in-out;
-    width: 300px;
+    width: 100%;
 }
 
 .hero__btn-mint:hover {
     background-position: 100% 0;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
     color: var(--main-color);
 }
 
 .hero__btn-mint.color-1:hover {
-    background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
+    background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--blue-vortex));
     box-shadow: 0 0 15px 0 var(--golden-kiwi);
     border: 2px solid var(--golden-kiwi);
 }
 
+/*==================== NFT GRID LIST ====================*/
 .nft-grid-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    padding: 20px;
+    padding: 0 20px;
 }
 
+/*==================== MEDIA QUERIES ====================*/
 @media (max-width: 1024px) and (min-width: 768px) {
     .nft-grid-list {
         grid-template-columns: repeat(2, 1fr); 

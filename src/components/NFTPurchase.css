@@ -1,3 +1,4 @@
+/*==================== VARIABLES ====================*/
 :root {
     --legion-blue: #0a2a36;
     --shady-glade: #02735e;
@@ -24,7 +25,10 @@
     --z-fixed: 100;
 }
 
-/* ---------- Newspaper ---------- */
+/*==================== FONTS ====================*/
+/* No se especificaron fuentes personalizadas adicionales */
+
+/*==================== ENO BADGES ====================*/
 .EnoBadges {
     display: flex;
     align-items: center;
@@ -38,7 +42,7 @@
     justify-content: center;
 }
 
-a.button__NFT{
+a.button__NFT {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,8 +83,6 @@ a.button__NFT-desktop {
 
 .hero__btn-alternate:hover {
     background-position: 100% 0;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
     color: var(--main-color);
 }
@@ -91,10 +93,8 @@ a.button__NFT-desktop {
     border: 2px solid var(--golden-kiwi);
 }
 
-
 .EnoBadgesNFT {
     display: grid;
-    -webkit-box-align: center;
     align-items: center;
     width: 90%;
     justify-items: center;
@@ -102,18 +102,18 @@ a.button__NFT-desktop {
     background: url('/src/assets/badgesNFT.png') 0% 0% / contain no-repeat;
 }
 
-.backBadges{
+.backBadges {
     display: flex;
     justify-content: center;
     width: 85%;
     margin-top: 30px;
 }
-/* ---------------- tablet ---------------- */
 
-/* ---------------- tablet Vertical ---------------- */
+/*==================== MEDIA QUERIES ====================*/
+/* Tablet Vertical */
 @media (min-width: 768px) and (max-width: 1024px) {}
 
-/* ---------------- tablet Horizontal ---------------- */
+/* Tablet Horizontal */
 @media (min-width: 1024px) and (max-width: 1366px) {
     .hero__title h2 {
         text-align: left;
@@ -135,10 +135,8 @@ a.button__NFT-desktop {
     }
 }
 
-/* ---------------- Desktop ---------------- */
+/* Desktop */
 @media (min-width: 1024px) {
-    /* ---------------- NFT Right & Left ---------------- */
-
     .EnoBadges {
         display: flex;
         flex-direction: row;
@@ -185,7 +183,6 @@ a.button__NFT-desktop {
 
     .EnoBadgesNFT {
         display: grid;
-        -webkit-box-align: center;
         align-items: center;
         width: 100%;
         justify-items: center;
@@ -202,7 +199,7 @@ a.button__NFT-desktop {
         max-width: 300px;
         background: url(/src/assets/badgesNFT.png) no-repeat center center;
         background-size: cover; 
-      }
+    }
 
     .layer {
         background: none !important;

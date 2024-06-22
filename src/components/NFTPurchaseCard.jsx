@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, useToast } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
 import usdtAbi from '../ABIs/enoAbi.json';
 import './NFTPurchaseCard.css';
+import ENOCoin from '../assets/ENOPrice.webp';
 
 const NFTPurchaseCard = ({ nft }) => {
   const [priceUsdt, setPriceUsdt] = useState('');
@@ -26,12 +27,16 @@ const NFTPurchaseCard = ({ nft }) => {
   const fetchMintedAndMaxSupply = useCallback(async () => {
     if (!provider) return;
 
-    const nftContract = new ethers.Contract(nft.contractAddress, nftAbi, provider);
-    const totalMintedBigNumber = await nftContract.totalSupply();
-    const maxSupplyNumber = await nftContract.max_supply();
+    try {
+      const nftContract = new ethers.Contract(nft.contractAddress, nftAbi, provider);
+      const totalMintedBigNumber = await nftContract.totalSupply();
+      const maxSupplyNumber = await nftContract.max_supply();
 
-    setTotalMinted(totalMintedBigNumber.toNumber());
-    setMaxSupply(maxSupplyNumber.toNumber());
+      setTotalMinted(totalMintedBigNumber.toNumber());
+      setMaxSupply(maxSupplyNumber.toNumber());
+    } catch (error) {
+      console.error('Error fetching minted and max supply:', error);
+    }
   }, [nft.contractAddress, provider]);
 
   useEffect(() => {
@@ -139,29 +144,35 @@ const NFTPurchaseCard = ({ nft }) => {
   return (
     <div className="nft-purchase-card" onClick={handleCardClick}>
       <video
-        src={nft.image}
+        src={nft.video}
         alt="NFT Video"
         autoPlay
         muted
         loop
-        style={{ maxWidth: '300px', width: '100%' }}
       />
       <div className='purchase__container'>
         <p className='purchase__title'>{nft.title}</p>
-        {/* <p className='text__content'>Minted: {totalMinted} | {maxSupply} NFTs</p>
-        <p className='text__content'>Price: {priceUsdt} USDT | {priceEth} ETH</p> */}
+        <div>
+          <div className='purchase__details-main'>
+            <div className='purchase__container-details'>
+              <div className='purchase__left-details'>
+              <img src={ENOCoin} alt="Eno Price" className='purchase__image' />
+              <span className='purchase__eno-price'>{totalMinted} ENO</span>
+              </div>
+
+              <div className='purchase__right-details'>
+                <p className='purchase__minted-details'>{totalMinted} Editions Released</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p className='purchase__description'>{nft.descriptionShort}</p>
       </div>
       <a href='/nft-detail' colorScheme="teal" size="sm" className='getNFT'>
-        <button>
+        <button className='hero__btn-mint color-1'>
           Get NFT
         </button>
       </a>
-      {/* <Button colorScheme="teal" size="sm" onClick={buyWithUSDT}>
-        Buy with USDT
-      </Button>
-      <Button colorScheme="teal" size="sm" onClick={buyWithETH}>
-        Buy with ETH
-      </Button> */}
     </div>
   );
 };

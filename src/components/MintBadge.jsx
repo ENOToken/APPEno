@@ -6,6 +6,7 @@ import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
 import { useToast, Button, Flex } from '@chakra-ui/react';
 import BadgeMintCard from './BadgeMintCard';
 import { Link } from 'react-router-dom';
+import './MintBadge.css';
 
 // Imágenes
 import badgeImage from '../assets/badgepariseno.mp4';
@@ -14,7 +15,6 @@ import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
 import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4';
 import Blackbox12 from '../assets/BadgeBB2_BAJA.mp4';
 import Unlock2024 from '../assets/UNLOCK.mp4';
-
 import badgesNFT from '../assets/badgesNFT.mp4';
 
 function MintBadge() {
@@ -24,34 +24,40 @@ function MintBadge() {
 
   const badgesMainnet = [
     {
-      title: "Badge Unlock Summit 2024",
+      title: "Unlock Summit 2024",
       videoUrl: Unlock2024,
       contractAddress: "0x2A06B2c0999Af12C251c55D6E2c67330AeAb3C86",
+      description: "This badge celebrates our participation in the Unlock Summit 2024, an event that brought together leaders and visionaries to shape the future of web 3.0 technology.",
     },
     {
-      title: "Badge Blackbox 1.2",
+      title: "Blackbox 1.2",
       videoUrl: Blackbox12,
       contractAddress: "0xD6C9365273539C7722EAb3BAC3D76dD3b23e6Ff3",
+      description: "This is the commemorative badge of Blackbox 1.2, designed to extend the experience of the Unlock Summit and promote networking in a relaxed environment.",
     },
     {
-      title: "Badge Bosque Real",
+      title: "Bosque Real",
       videoUrl: BadgeBosqueReal,
       contractAddress: "0x8cDff0DF63C816df0d1BbeC7f9e7771915311EDf",
+      description: "This badge symbolizes the innovative partnership between ENO and Bosque Real, a milestone in the Mexican real estate market.",
     },
     {
-      title: "Badge Images Du Futur",
+      title: "Images Du Futur",
       videoUrl: ImagesDuFuture,
       contractAddress: "0x3B70F7347Ed816CDE7A5B25c5AA9BdDE753e3966",
+      description: "This badge certifies your participation in Images Du Futur, an artistic exploration where technology and art intertwine to foresee the future.",
     },
     {
-      title: "Badge Paris ENO",
+      title: "Paris ENO",
       videoUrl: badgeImage,
       contractAddress: "0x281d59301C137E25150139da5BE433D15e8e732F",
+      description: "This badge commemorates our attendance at Paris Blockchain Week and symbolizes our commitment to technological revolutions in the blockchain field.",
     },
     {
-      title: "Badge Blackbox 1.1",
+      title: "Blackbox 1.1",
       videoUrl: badgeBlackbox,
       contractAddress: "0xa1b79845a7a704D0877C8a4A80072F8ce422104b",
+      description: "This badge is historic as it was the first badge awarded within the ENO ecosystem.",
     },
   ];
 

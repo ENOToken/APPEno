@@ -1,3 +1,4 @@
+/*==================== VARIABLES ====================*/
 :root {
     --legion-blue: #0a2a36;
     --shady-glade: #02735e;
@@ -24,6 +25,77 @@
     --z-fixed: 100;
 }
 
+/*==================== BADGE MINT CARD ====================*/
+.hero__title {
+    color: var(--main-color);
+    font-size: 35px;
+    text-align: center !important;
+    font-family: var(--grotesk-bold);
+    /* background-image: linear-gradient(to right, var(--chalk-violet) 30%, var(--bleached-aqua) 40%, var(--contract-color) 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+
+.hero__btn:focus {
+    outline: none;
+}
+
+.hero__btn a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.hero__btn:hover {
+    background-position: 100% 0;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.hero__btn.color-1 {
+    background-color: transparent;
+    border: 2px solid #fff;
+}
+
+.hero__btn.color-1:hover {
+    background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
+    box-shadow: 0 0 15px 0 var(--golden-kiwi);
+    border: 2px solid var(--golden-kiwi);
+}
+
+.hero__btn {
+    cursor: pointer;
+    border: none;
+    background-size: 300% 100%;
+    width: 350px;
+    font-size: 25px;
+    font-weight: 800;
+    font-family: var(--grotesk-bold);
+    color: var(--main-color);
+    padding: 12px 0;
+    padding-top: 16px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.connect-container,
+.install-metamask-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.connect-message {
+    margin-top: 10px;
+    color: red;
+}
+
 .badge-mint-card {
     border: 1px solid #ccc;
     border-radius: 16px;
@@ -48,6 +120,8 @@
     border-radius: 16px;
 }
 
+/*==================== BUTTONS ====================*/
+
 .hero__btn-mint {
     display: flex;
     flex-direction: row;
@@ -57,13 +131,12 @@
     background-size: 300% 100%;
     background-color: var(--button-content);
     border: 2px solid var(--main-color);
-    border-radius: 50px;
+    border-radius: 32px;
     color: var(--main-color);
     cursor: pointer;
     font-family: var(--grotesk-regular);
     font-size: 22px;
     font-weight: 800;
-    margin-top: 20px;
     outline: none;
     padding: 10px 0;
     text-decoration: none;
@@ -73,8 +146,6 @@
 
 .hero__btn-mint:hover {
     background-position: 100% 0;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
     color: var(--main-color);
 }
@@ -85,6 +156,7 @@
     border: 2px solid var(--golden-kiwi);
 }
 
+/*==================== NFT GRID LIST ====================*/
 .nft-grid-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Tres columnas */
@@ -92,9 +164,14 @@
     row-gap: 5px;
 }
 
+/*==================== MEDIA QUERIES ====================*/
 @media (max-width: 1024px) {
     .nft-grid-list {
         grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas más pequeñas */
+    }
+
+    .hero__btn-alternate {
+        background-color: var(--button-hover);
     }
 }
 
