@@ -252,7 +252,7 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
             </div>
             <div className='backButton__right' >
               <a href='/launchpad'>
-              <h2>Back</h2>
+                <h2>Back to Launchpad</h2>
               </a>
             </div>
           </div>
@@ -260,18 +260,20 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
           <h2 className='NFT__title'>{nftDetails.title}</h2>
           <div className='NFT__description'>
             <div className='NFT__buttons'>
-              <p className='NFT__content'>Minted: {totalMinted} / {maxSupply}</p>
-              <p className='NFT__content'>Price: {priceEno} ENO</p>
+              <div className='NFT__content'>
+                <p className='EnoMinted'>{totalMinted} Editions Released</p>
+                <p className='EnoPrice'>{priceEno} ENO</p>
+              </div>
             </div>
             <h2 className='about__nft'>ABOUT NFT</h2>
-            <p>{nftDetails.description}</p>
+            <p className='details__nft' >{nftDetails.descriptionLong}</p>
           </div>
           <div className='NFT__ContainerBtn'>
-          <div className='NFT__btnENO'>
-            <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithENO} isDisabled={loading}>
-              Buy with ENO
-            </Button>
-          </div>
+            <div className='NFT__btnENO'>
+              <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithENO} isDisabled={loading}>
+                Buy with ENO
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -294,10 +296,10 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
           </div>
         </div>
         <a href="https://docs.enotoken.io/" target="_blank" rel="noopener noreferrer" className='button__NFT-mobile'>
-            <button className="hero__btn color-1">
-              Read More in Whitepaper
-            </button>
-          </a>
+          <button className="hero__btn color-1">
+            Read More in Whitepaper
+          </button>
+        </a>
       </section>
     </>
   );

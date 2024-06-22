@@ -14,6 +14,7 @@ import {
 
 import enologo from '../assets/ENOLogo.svg';
 import enologoNegativo from "../assets/EnoLogoNegativo.webp";
+import './Footer.css';
 
 function Footer() {
    return (

@@ -1,0 +1,994 @@
+:root {
+    --mainColor: #092b37;
+    --legion-blue: #0a2a36;
+    --shady-glade: #02735e;
+    --button-content: #14735e;
+    --black-eno: #040f13;
+    --black-eno-mid: #727272;
+    --bleached-aqua: #bde0e2;
+    --chalk-violet: #9183a4;
+    --chalk-violet-strong: #894cdf;
+    --contract-color: #009268;
+    --golden-kiwi: #f2d541;
+    --main-color: #ffffff;
+    --button-hover: #049a6d;
+    --blue-vortex: #101a29;
+    --section-title: 25px;
+    --section-subtitle: 20px;
+    --text--subtitle: 22px;
+    --typeface: "Stop Normal TypeFace", sans-serif;
+    --grotesk-regular: "Grotesk Regular", sans-serif;
+    --grotesk-semi-bold: "Grotesk Semi Bold", sans-serif;
+    --grotesk-bold: "Grotesk Bold", sans-serif;
+
+    /* z-index */
+
+    --z-fixed: 100;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+
+@font-face {
+    font-family: "Stop Normal TypeFace";
+    src: url("./fonts/Stop Normal TypeFace.ttf");
+}
+
+@font-face {
+    font-family: "Grotesk Regular";
+    src: url("./fonts/FoundersGrotesk-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Grotesk Semi Bold";
+    src: url("./fonts/FoundersGrotesk-Semibold.ttf");
+}
+
+@font-face {
+    font-family: "Grotesk Bold";
+    src: url("./fonts/FoundersGrotesk-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Grotesk Semi Bold";
+    src: url("./fonts/FoundersGrotesk-Medium.ttf");
+}
+
+iframe {
+    display: none;
+}
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    color: var(--main-color);
+    font-family: 'Arial', sans-serif;
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+html,
+body.chakra-ui-light {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--mainColor);
+    /* background-image: linear-gradient(to bottom, #021b29 0%, #033140 25%, #03475e 50%, #033140 75%, #021b29 100%); */
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.nft-preview {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+
+.hero__title {
+    color: var(--main-color);
+    font-size: 35px;
+    text-align: center !important;
+    font-family: var(--grotesk-bold);
+    /* background-image: linear-gradient(to right, var(--chalk-violet) 30%, var(--bleached-aqua) 40%, var(--contract-color) 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+
+.hero__btn {
+    cursor: pointer;
+    border: none;
+    background-size: 300% 100%;
+    width: 350px;
+    font-size: 25px;
+    font-weight: 800;
+    font-family: var(--grotesk-bold);
+    color: var(--main-color);
+    padding: 12px 0;
+    padding-top: 16px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.hero__btn a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.hero__btn:hover {
+    background-position: 100% 0;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.hero__btn:focus {
+    outline: none;
+}
+
+.hero__btn.color-1 {
+    background-color: transparent;
+    border: 2px solid #fff;
+}
+
+.hero__btn.color-1:hover {
+    background-image: linear-gradient(to right, var(--button-hover), var(--bleached-aqua), var(--legion-blue));
+    box-shadow: 0 0 15px 0 var(--golden-kiwi);
+    border: 2px solid var(--golden-kiwi);
+}
+
+
+.site-header {
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: transparent;
+    overflow: visible;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-buttons {
+    display: flex;
+    margin-right: 2rem;
+    gap: 10px;
+}
+
+/* ---------------------- GRID ---------------------- */
+
+.nft-grid {
+    display: grid;
+    gap: 60px;
+    padding: 20px;
+}
+
+
+/* ---------- MENU ---------- */
+
+
+.menu-btn {
+    display: none;
+}
+
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -50%;
+    width: 50%;
+    height: 100%;
+    background: #021b299e;
+    backdrop-filter: blur(21px);
+    transition: right 0.3s ease;
+    z-index: 100;
+}
+
+
+.mobile-menu.open,
+.menu-overlay.open {
+    display: block;
+    transition: right 0.3s ease;
+    /* Transición suave cuando se abre el menú */
+
+    opacity: 1;
+    right: 0;
+}
+
+.mobile-menu .navigation-btn {
+    display: block;
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 10px 0;
+    padding-top: 15px;
+    background: var(--contract-color);
+    color: var(--main-color);
+    border-radius: 25px;
+    text-align: center;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    border: none;
+    text-decoration: none;
+}
+
+.menu-btn {
+    z-index: 101;
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    color: var(--main-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu-btn:hover {
+    color: var(--golden-kiwi);
+    /* Cambia el color al pasar el mouse */
+}
+
+/* Estilos para el overlay para mejorar la usabilidad en dispositivos táctiles */
+.menu-overlay.open {
+    cursor: pointer;
+    /* Cambia el cursor para indicar que puede hacer clic */
+}
+
+
+.nft-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* Esto coloca el contenido del contenedor en una columna vertical */
+}
+
+/* ---------- Footer ---------- */
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.logo img {
+    padding: 15px 0;
+    width: 30%;
+}
+
+.span__footer {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px 0;
+}
+
+.global__icons {
+    display: flex;
+    justify-content: space-around;
+    font-size: 22px;
+    width: 80%;
+}
+
+.global__icons a {
+    display: flex;
+    justify-content: center;
+    background-color: var(--main-color);
+    width: 40px;
+    height: 38px;
+    border-radius: 32px;
+    color: var(--black-eno);
+    font-size: .9em;
+    align-items: center;
+    transition: all 0.4s ease-in-out;
+}
+
+.global__icons a:hover {
+    background-color: var(--golden-kiwi);
+    color: var(--black-eno);
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    transform: scale(1.1);
+}
+
+.footer__left {
+    display: flex;
+    justify-content: center;
+}
+
+.footer__right {
+    display: flex;
+    flex-direction: row;
+    padding: 1.8em;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.social__footer {
+    display: flex;
+    gap: 3rem;
+    justify-content: space-around;
+}
+
+.footer__link {
+    font-weight: 900;
+    font-size: 18px;
+    font-family: var(--grotesk-bold);
+}
+
+.socials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--grotesk-regular);
+}
+
+.enologo {
+    display: none;
+}
+
+/* ---------- Header ---------- */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--main-color);
+    z-index: var(--z-fixed);
+    transition: .4s;
+    text-decoration: none;
+    list-style: none;
+}
+
+/* Nav */
+.element {
+    max-width: 968px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.NavBar {
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav__list,
+.nav__link {
+    display: flex;
+}
+
+.nav__link {
+    flex-direction: column;
+    align-items: center;
+    row-gap: .25rem;
+    color: var(--black-eno);
+    font-family: var(--grotesk-regular);
+    font-size: 16px;
+    transition: all 0.4s ease-in-out;
+
+}
+
+.nav__link:hover {
+    color: var(--black-eno-mid);
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav__list {
+    justify-content: space-around;
+}
+
+.nav__name {
+    font-size: 15px;
+    font-family: var(--grotesk-regular);
+}
+
+.connect-container,
+.install-metamask-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.connect-message {
+    margin-top: 10px;
+    color: red;
+}
+
+.header-center {
+    display: none;
+}
+
+/* NFT Badges  */
+
+.backBadges {
+    display: flex;
+    justify-content: center;
+}
+
+/* Buttons */
+
+.css-70qvj9 {
+    display: flex;
+    flex-direction: column;
+}
+
+.css-70qvj9 button {
+    background-color: var(--button-content);
+    border-radius: 32px;
+    padding: 0 20px;
+}
+
+.css-12oms9m {
+    background-color: var(--button-content) !important;
+    border-radius: 32px !important;
+    padding: 0 20px;
+}
+
+/* End Buttons */
+
+
+.wallet-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-color);
+    color: var(--black-eno);
+    font-family: var(--grotesk-semi-bold);
+    width: 50%;
+    border-radius: 32px;
+    padding: 5px 15px;
+}
+
+.wallet-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.wallet-balance {
+    display: flex;
+    justify-content: center;
+    color: var(--button-hover);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 350px) {
+    .container {
+        width: 90%;
+        margin-top: 0px;
+    }
+
+    .hero__title {
+        font-size: 35px !important;
+    }
+
+    .hero__btn {
+        width: 230px !important;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    button {
+        font-size: 1.2em;
+    }
+
+    .footer__content {
+        margin-bottom: 100px;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 767px) {
+    .footer__content {
+        margin-bottom: 100px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .menu-btn {
+        display: block;
+    }
+
+    .header-buttons {
+        display: none;
+    }
+
+    .mobile-menu .navigation-btn {
+        display: block;
+        margin: 1rem 0;
+    }
+
+    .nft-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero__btn {
+        width: 330px !important;
+    }
+
+    /* ------------- Nav ------------- */
+    .nav__menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: var(--main-color);
+        width: 100%;
+        height: 6rem;
+        padding: 0 1rem;
+        display: grid;
+        align-content: center;
+        border-radius: 1.25rem 1.25rem 0 0;
+        transition: .4s;
+        -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px -1px 10px 0px rgba(0, 0, 0, 0.75);
+    }
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    .container {
+        width: 80%;
+        margin: 40px auto;
+    }
+
+    .hero__title {
+        font-size: 30px !important;
+    }
+
+    .hero__btn {
+        width: 300px !important;
+    }
+
+    .nft-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        padding: 20px;
+    }
+
+    .nft-card {
+        width: 250px;
+        height: 250px;
+    }
+
+    .nav__list {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .nav__link {
+        font-size: 14px;
+    }
+
+    .footer__content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 100px;
+    }
+
+    .logo img {
+        width: 40%;
+    }
+
+    .footer__right {
+        row-gap: 20px;
+        align-items: center;
+        width: 45%;
+    }
+
+    .footer__left {
+        display: flex;
+        justify-content: center;
+        padding: 50px 0;
+        width: 45%;
+    }
+
+    .social__footer {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .footer__link {
+        font-size: 16px;
+    }
+
+    /* ------------- Nav ------------- */
+    .nav__menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: var(--main-color);
+        box-shadow: 0 -1px 12px hsla(var(--hue), var(--sat), 15%, 0.15);
+        width: 100%;
+        height: 6rem;
+        padding: 0 1rem;
+        display: grid;
+        align-content: center;
+        border-radius: 1.25rem 1.25rem 0 0;
+        transition: .4s;
+    }
+
+
+    .wallet-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--main-color);
+        color: var(--black-eno);
+        font-family: var(--grotesk-semi-bold);
+        width: 20%;
+        border-radius: 32px;
+        padding: 5px 15px;
+    }
+
+    .wallet-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wallet-balance {
+        display: flex;
+        justify-content: center;
+        color: var(--button-hover);
+    }
+}
+
+/* ------------- Desktop ------------- */
+@media (min-width: 1024px) {
+    .hero__container {
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .newspaper button {
+        margin-top: 20px;
+    }
+
+    .newspaper p {
+        font-size: var(--text--subtitle);
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nft-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    /* ---------------- Header ---------------- */
+
+
+    .navigation-btn {
+        font-family: var(--grotesk-semi-bold);
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: visible;
+        padding: 0.5rem 1rem;
+        padding-top: 12px;
+        font-size: 18px;
+        color: var(--main-color);
+        border-radius: 2rem;
+        cursor: pointer;
+        z-index: 1;
+        text-decoration: none;
+    }
+
+    .navigation-btn:hover {
+        color: var(--black-eno);
+        background-color: var(--main-color);
+    }
+
+    .navigation-btn.active {
+        background-color: var(--main-color);
+        color: black;
+        border-radius: 32px;
+    }
+
+    /* ---------------- NFT Right & Left ---------------- */
+
+    .newspaper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 130px 0;
+    }
+
+    .newspaper video {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 0;
+    }
+
+    .newspaper__right {
+        width: 35%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .newspaper__left {
+        display: flex;
+        width: 30%;
+        flex-direction: column;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .newspaper button {
+        margin-top: 20px;
+    }
+
+    .newspaper p {
+        font-size: var(--text--subtitle);
+    }
+
+    .text__subtitle {
+        font-size: 22px;
+        font-family: var(--grotesk-regular);
+        color: var(--main-color);
+    }
+
+    .backBadges {
+        display: grid;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 80%;
+        justify-items: center;
+        margin: 0px auto;
+        background: url('/src/assets/badgesNFT.png') 0% 0% / contain no-repeat;
+    }
+
+    .layer {
+        height: auto;
+        padding: 0px;
+        background: none;
+        width: 100%;
+        z-index: -1;
+    }
+
+    /* ----------------- Footer ----------------- */
+
+    .global__icons {
+        display: flex;
+        align-items: end;
+    }
+
+    .footer__content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 80%;
+        background-color: var(--main-color);
+        justify-content: space-around;
+        padding: 30px 0;
+    }
+
+    .logo {
+        row-gap: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo img {
+        width: 40%;
+    }
+
+    .footer__left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--black-eno);
+        height: 250px;
+    }
+
+    .footer__right {
+        row-gap: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .span__footer {
+        font-family: var(--grotesk-bold);
+        color: var(--black-eno);
+        font-size: 19px;
+    }
+
+    .enologo {
+        display: flex;
+    }
+
+    .enologoNegativo {
+        display: none;
+    }
+
+    /* ---------------------- Icons ---------------------- */
+    .social__footer {
+        display: flex;
+        gap: 25px;
+    }
+
+    .social__footer {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .footer__link p {
+        font-family: var(--text--subtitle);
+        font-size: 1px;
+    }
+
+    .global__icons {
+        display: flex;
+        justify-content: flex-start;
+        font-size: 16px;
+        gap: 10px;
+    }
+
+    .global__icons a {
+        display: flex;
+        justify-content: center;
+        background-color: var(--black-eno);
+        width: 38px;
+        height: 30px;
+        border-radius: 32px;
+        color: var(--main-color);
+        font-size: 1.2em;
+        align-items: center;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .global__icons a:hover {
+        background-color: var(--golden-kiwi);
+        color: var(--black-eno);
+        -o-transition: all 0.4s ease-in-out;
+        -webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+    }
+
+    .footer__link {
+        display: flex;
+        flex-direction: column;
+        color: var(--black-eno);
+        font-family: var(--grotesk-bold);
+        font-size: 1.3em;
+    }
+
+    .name__link {
+        display: flex;
+        color: var(--black-eno);
+        font-family: var(--grotesk-regular);
+        font-size: 1.1em;
+        justify-content: center;
+    }
+
+    .NavBar {
+        display: none;
+    }
+
+    /* Launchpad */
+    .css-70qvj9 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .css-12oms9m {
+        background-color: var(--button-content) !important;
+        border-radius: 18px !important;
+    }
+
+    /* Header */
+    .header-center {
+        flex: 1;
+        gap: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        /* Asegura que esté centrado respecto al header */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .wallet-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--main-color);
+        color: var(--black-eno);
+        font-family: var(--grotesk-semi-bold);
+        width: 10%;
+        border-radius: 32px;
+        padding: 5px 15px;
+    }
+
+    .wallet-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wallet-balance {
+        display: flex;
+        justify-content: center;
+        color: var(--button-hover);
+    }
+
+}

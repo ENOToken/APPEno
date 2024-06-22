@@ -34,28 +34,34 @@ const nftContractsTestnet = [
 
 const nftInfo = {
   '0x2A06B2c0999Af12C251c55D6E2c67330AeAb3C86': {
-    title: 'Badge Unlock Summit 2024',
+    title: 'Unlock Summit 2024',
     videoUrl: Unlock2024,
+    description: "This badge celebrates our participation in the Unlock Summit 2024, an event that brought together leaders and visionaries to shape the future of web 3.0 technology.",
   },
   '0xD6C9365273539C7722EAb3BAC3D76dD3b23e6Ff3': {
-    title: 'Badge Blackbox 1.2',
+    title: 'Blackbox 1.2',
     videoUrl: Blackbox12,
+    description: "This is the commemorative badge of Blackbox 1.2, designed to extend the experience of the Unlock Summit and promote networking in a relaxed environment.",
   },
   '0x8cDff0DF63C816df0d1BbeC7f9e7771915311EDf': {
-    title: 'Badge Bosque Real',
+    title: 'Bosque Real',
     videoUrl: BadgeBosqueReal,
+    description: "This badge symbolizes the innovative partnership between ENO and Bosque Real, a milestone in the Mexican real estate market.",
   },
   '0x3B70F7347Ed816CDE7A5B25c5AA9BdDE753e3966': {
-    title: 'Badge Images Du Futur',
+    title: 'Images Du Futur',
     videoUrl: ImagesDuFuture,
+    description: "This badge certifies your participation in Images Du Futur, an artistic exploration where technology and art intertwine to foresee the future.",
   },
   '0x281d59301C137E25150139da5BE433D15e8e732F': {
-    title: 'Badge Paris ENO',
+    title: 'Paris ENO',
     videoUrl: badgeImage,
+    description: "This badge commemorates our attendance at Paris Blockchain Week and symbolizes our commitment to technological revolutions in the blockchain field.",
   },
   '0xa1b79845a7a704D0877C8a4A80072F8ce422104b': {
-    title: 'Badge Blackbox 1.1',
+    title: 'Blackbox 1.1',
     videoUrl: badgeBlackbox,
+    description: "This badge is historic as it was the first badge awarded within the ENO ecosystem.",
   },
 };
 
@@ -129,16 +135,16 @@ const MyBadges = () => {
   };
 
   const isMetaMaskInstalled = () => {
-    return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+    return typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined';
   };
 
   if (!isMetaMaskInstalled()) {
     return (
       <div className="install-metamask-container">
         <Button as="a" href="https://metamask.io/download.html" target="_blank" colorScheme="teal" size="lg">
-          Install MetaMask
+          Install Wallet
         </Button>
-        <p className="install-message">Please install MetaMask to proceed.</p>
+        <p className="install-message">Please install a web3 compatible wallet to proceed.</p>
       </div>
     );
   }
