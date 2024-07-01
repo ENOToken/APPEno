@@ -106,7 +106,6 @@ a {
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    margin: 50px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 16px;
@@ -114,6 +113,15 @@ a {
     backdrop-filter: blur(5px);
     flex-direction: column;
     align-items: center;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(var(--contract-color), var(--chalk-violet));
+	border-radius: 16px;
 }
 
 
@@ -540,9 +548,7 @@ a {
 }
 
 @media (min-width: 350px) and (max-width: 767px) {
-    .footer__content {
-        margin-bottom: 100px;
-    }
+
 }
 
 @media (max-width: 767px) {
@@ -583,9 +589,10 @@ a {
         transition: .4s;
         -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
-        box-shadow: 0px -1px 10px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.30);
     }
 }
+
 /* ---------- Tablet ---------- */
 @media (min-width: 768px) and (max-width: 1023px) {
 
@@ -697,6 +704,7 @@ a {
         color: var(--button-hover);
     }
 }
+
 /* ------------- Desktop ------------- */
 @media (min-width: 1024px) {
 
@@ -857,6 +865,14 @@ a {
     .css-12oms9m {
         background-color: var(--button-content) !important;
         border-radius: 18px !important;
+    }
+
+    .css-12oms9m:hover {
+        border: 2px solid var(--golden-kiwi);
+        -webkit-box-shadow: 0px 0px 48px -6px rgba(242, 213, 65, 0.75);
+        -moz-box-shadow: 0px 0px 48px -6px rgba(242, 213, 65, 0.75);
+        box-shadow: 0px 0px 48px -6px rgba(242, 213, 65, 0.75);
+        
     }
 
     /* Header */

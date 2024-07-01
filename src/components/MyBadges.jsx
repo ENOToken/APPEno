@@ -163,7 +163,7 @@ const MyBadges = () => {
   if (isLoading) {
     return (
       <div className="container">
-        <h1 className="hero__title">Loading...</h1>
+        <h2 className="hero__title">Loading...</h2>
         <Spinner size="xl" />
       </div>
     );
@@ -172,7 +172,7 @@ const MyBadges = () => {
   if (nfts.length === 0) {
     return (
       <div className="container">
-        <h1 className="hero__title">No Badges Found</h1>
+        <h2 className="hero__title">No Badges Found</h2>
         <p>You don't have any badges yet. Interact with the ENO ecosystem and get your ENO badges.</p>
       </div>
     );

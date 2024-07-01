@@ -26,28 +26,25 @@ function Footer() {
                <img src={enologo} alt="ENO Logo" className='enologoNegativo'/>
                <span className='span__footer'>Where friends, families and dreams unite</span>
                <div className="global__icons">
-                  <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
+                  <a href="https://t.me/EnoToken" target="_blank" rel="noopener noreferrer">
                      <FontAwesomeIcon icon={faTelegram} />
                   </a>
-                  <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
+                  <a href="https://discord.com/invite/3eZewHzJU5" target="_blank" rel="noopener noreferrer">
                      <FontAwesomeIcon icon={faDiscord} />
                   </a>
-                  <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
-                     <FontAwesomeIcon icon={faRedditAlien} />
-                  </a>
-                  <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
+                  <a href="https://x.com/Enotoken" target="_blank" rel="noopener noreferrer">
                      <FontAwesomeIcon icon={faXTwitter} />
                   </a>
-                  <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
+                  <a href="https://mx.linkedin.com/company/enotoken" target="_blank" rel="noopener noreferrer">
                      <FontAwesomeIcon icon={faLinkedinIn} />
                   </a>
                   <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
                      <FontAwesomeIcon icon={faYoutube} />
                   </a>
-                  <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.instagram.com/enotoken/?utm_medium=copy_link" target="_blank" rel="noopener noreferrer">
                      <FontAwesomeIcon icon={faInstagram} />
                   </a>
-                  <a href="https://www.youtube.com/channel/UClFLsvU78zRxuI-q4_WT4-g/videos" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.facebook.com/ENOtoken" target="_blank" rel="noopener noreferrer">
                      <FontAwesomeIcon icon={faFacebook} />
                   </a>
                </div>
@@ -61,19 +58,19 @@ function Footer() {
                      {/* Support | Discord */}
                      <div className="socials">
                         <p className='footer__link'>Support</p>
-                        <a className='name__link'>Discord</a>
+                        <a href='https://discord.com/invite/3eZewHzJU5' className='name__link' target='_blank'>Discord</a>
                      </div>
 
                      {/* Learn | Medium */}
                      <div className="socials">
                         <p className='footer__link'>Learn</p>
-                        <a className='name__link'>Medium</a>
+                        <a href='https://docs.enotoken.io/' className='name__link' target='_blank'>Whitepaper</a>
                      </div>
 
                      {/* News | Blog */}
                      <div className="socials">
                         <p className='footer__link'>News</p>
-                        <a className='name__link'>Blog</a>
+                        <a href='https://blog.enotoken.io/' className='name__link' target='_blank'>Blog</a>
                      </div>
 
                   </div>

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useToast, Button } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NFTPurchaseCard from './NFTPurchaseCard';
 import badgesNFT from '../assets/badgesNFT.mp4'; // Asegúrate de importar el archivo de video correctamente
 import '../App.css';
 import './NFTPurchase.css';
 import nftAbi from '../ABIs/nftAbi.json';
 
-
 const NFTPurchase = () => {
   const toast = useToast();
   const [nfts, setNfts] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNFTData = async () => {
@@ -113,6 +113,10 @@ const NFTPurchase = () => {
     );
   }
 
+  const handleGetNFTClick = (nftId) => {
+    navigate(`/nft-detail/${nftId}`);
+  };
+
   return (
     <div className="container">
       <h2 className="hero__title">Discover our NFT Collection</h2>
@@ -125,9 +129,11 @@ const NFTPurchase = () => {
 
       <div className="nft-grid">
         {nfts.map((nft) => (
-          <Link to={`/nft-detail/${nft.id}`} key={nft.contractAddress}>
-            <NFTPurchaseCard key={nft.contractAddress} nft={nft} />
-          </Link>
+          <NFTPurchaseCard
+            key={nft.contractAddress}
+            nft={nft}
+            onGetNFTClick={() => handleGetNFTClick(nft.id)}
+          />
         ))}
       </div>
 

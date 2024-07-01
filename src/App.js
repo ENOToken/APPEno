@@ -9,7 +9,7 @@ import NFTPurchaseDetails from './components/NFTPurchaseDetails';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
-import NFTDetailView from './components/NFTDetailView'; // Importa el nuevo componente
+import NFTDetailView from './components/NFTDetailView'; 
 import { ChakraProvider } from '@chakra-ui/react';
 
 function App() {

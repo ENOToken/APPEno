@@ -126,6 +126,7 @@ p.purchase__minted {
     border-radius: 32px;
     margin-top: 4px;
     padding: 10px 0;
+    padding-bottom: 5px;
 }
 
 .nft-video-container {
@@ -135,36 +136,36 @@ p.purchase__minted {
 .nft-video-container.blur video {
     filter: blur(10px);
 }
-  
+
 .countdown-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0);
     padding: 10px;
     border-radius: 5px;
     color: white;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .hero__btn-mint.color-1:disabled {
     background-color: grey;
     cursor: not-allowed;
     pointer-events: none;
-  }
-  
-  .hero__btn-wrapper {
+}
+
+.hero__btn-wrapper {
     display: inline-block;
-  }
-  
-  .hero__btn-wrapper:disabled {
+}
+
+.hero__btn-wrapper:disabled {
     background-color: grey;
-  }
-  
-  .hero__btn-wrapper:hover:disabled {
+}
+
+.hero__btn-wrapper:hover:disabled {
     background-color: black;
-  }
+}
 
 @media (max-width: 767px) {
     .purchase__container-details {
@@ -176,13 +177,13 @@ p.purchase__minted {
     }
 
     .purchase__left-details,
-    .purchase__right-details  {
+    .purchase__right-details {
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    
-    p.purchase__minted-details{
+
+    p.purchase__minted-details {
         font-family: var(--grotesk-regular);
         font-size: 20px;
         color: var(--button-content);
@@ -190,7 +191,7 @@ p.purchase__minted {
         margin-top: 2px;
     }
 
-    span.purchase__eno-price{
+    span.purchase__eno-price {
         font-family: var(--grotesk-regular);
         font-size: 20px;
         color: var(--black-eno-mid);
@@ -198,9 +199,9 @@ p.purchase__minted {
         margin-top: 5px;
     }
 
-    .purchase__left-details img{
+    .purchase__left-details img {
         margin-right: 10px;
-        width: 25px;        
+        width: 25px;
         height: 25px;
         font-size: 16px;
         font-family: var(--grotesk-regular);
@@ -293,21 +294,20 @@ p.purchase__minted {
 }
 
 .nft-video-container {
-  position: relative;
+    position: relative;
 }
 
 .nft-video-container.blur video {
-  filter: blur(10px);
+    filter: blur(10px);
 }
 
 .countdown-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  border-radius: 5px;
-  color: white;
-  font-size: 20px;
+    position: absolute;
+    width: 80%;
+    padding-top: 20px;
+    border-radius: 32px;
+	background: linear-gradient(var(--contract-color), var(--chalk-violet));
+    color: var(--main-color);
+    font-size: 32px;
+    font-family: var(--grotesk-bold);
 }

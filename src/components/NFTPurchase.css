@@ -109,6 +109,19 @@ a.button__NFT-desktop {
     margin-top: 30px;
 }
 
+/* /*==================== ENO Coin /*==================== */
+
+p.EnoPrice{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.EnoPrice img{
+    width: 25px;
+    height: 25px;
+}
+
 /*==================== MEDIA QUERIES ====================*/
 /* Tablet Vertical */
 @media (min-width: 768px) and (max-width: 1024px) {}
@@ -169,6 +182,7 @@ a.button__NFT-desktop {
 
     .EnoBadges button {
         margin-top: 20px;
+        padding-bottom: 5px;
     }
 
     .EnoBadges p {
@@ -225,4 +239,22 @@ a.button__NFT-desktop {
     a.button__NFT-mobile {
         display: none;
     }
+
+    .EnoMinted{
+        display: flex;
+        align-self: center;
+    }
+
+    .EnoPrice img{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        width: 50px;
+        height: 50px;
+        border: 5px solid var(--black-eno-mid);
+        border-radius: 32px;
+        background-color: var(--black-eno-mid);
+    
+    }
+    
 }

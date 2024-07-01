@@ -3,48 +3,30 @@ import { ethers } from 'ethers';
 import NFTCard from './NFTCard';
 import erc721ABI from '../ABIs/mintBadgeParisABI.json';
 import { useNetworkSwitcher, chain } from '../hooks/useNetworkSwitcher';
-
 import useMetaMaskConnector from '../hooks/useMetaMaskConnector';
 import { useToast, Spinner, Flex, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import './MyNFT.css';
 
-/* import badgeImage from '../assets/badgepariseno.mp4';
-import badgeBlackbox from '../assets/BlackBox.mp4';
-import ImagesDuFuture from '../assets/ImagesDuFuture.mp4';
-import BadgeBosqueReal from '../assets/BadgeBosqueReal.mp4'; */
-
-const ChampagneCarbon = 'https://storage.googleapis.com/intercellar-assets/Champagne-Carbon.mp4';
-const CoquerelCalvados = 'https://storage.googleapis.com/intercellar-assets/Coquerel%20fixed.mp4';
-
-const nftContractsMainnet = [
-  // '0xE37852873468F1e3793b0BCf984FB564a7Fd57dF',
-  // '0xef5e02fE00208153c234b52ad8b2289484B849C1',
-];
-
-const nftContractsTestnet = [
-  '0x543eaf118C5B2667f70AFf54860262Eb1c199E9c',
-  '0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c',
-];
-
-const nftInfo = {
-  '0x543eaf118C5B2667f70AFf54860262Eb1c199E9c': {
-    title: 'Champagne Carbon',
-    videoUrl: ChampagneCarbon,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-  },
-  '0x29dEBB128D2CDE5DaC7963D36E3D44667aD88c6c': {
-    title: 'Coquerel Calvados',
-    videoUrl: CoquerelCalvados,
-  },
-};
-
-function MyBadges() {
+function MyNFTs() {
   const [nfts, setNfts] = useState([]);
+  const [nftContracts, setNftContracts] = useState([]);
+  const [nftInfo, setNftInfo] = useState({});
   const { currentNetwork, changeNetwork, testnet, error } = useNetworkSwitcher();
   const { isConnected, connectMetaMask, message } = useMetaMaskConnector();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const nftContracts = testnet ? nftContractsTestnet : nftContractsMainnet;
+
+  useEffect(() => {
+    fetch('/nftData.json')
+      .then(response => response.json())
+      .then(data => {
+        const contracts = Object.values(data).map(nft => nft.contractAddress);
+        setNftContracts(testnet ? contracts : contracts);
+        setNftInfo(data);
+      })
+      .catch(error => console.error('Error fetching NFT data:', error));
+  }, [testnet]);
 
   useEffect(() => {
     if (message) {
@@ -107,7 +89,7 @@ function MyBadges() {
     if (isConnected && currentNetwork === chain) {
       loadNFTs();
     }
-  }, [isConnected, currentNetwork]);
+  }, [isConnected, currentNetwork, nftContracts, nftInfo]);
 
   async function loadNFTs() {
     setIsLoading(true);
@@ -138,15 +120,17 @@ function MyBadges() {
 
           for (let i = 0; i < balance.toNumber(); i++) {
             const tokenId = await contract.tokenOfOwnerByIndex(address, i);
-            const nftData = nftInfo[contractAddress];
+            const nftData = Object.values(nftInfo).find(info => info.contractAddress === contractAddress);
 
-            nftsTemp.push({
-              videoUrl: nftData.videoUrl,
-              title: nftData.title,
-              description: nftData.description,  
-              contractAddress,
-              tokenId: tokenId.toString(),
-            });
+            if (nftData) {
+              nftsTemp.push({
+                videoUrl: nftData.video,
+                title: nftData.title,
+                description: nftData.descriptionShort,
+                contractAddress,
+                tokenId: tokenId.toString(),
+              });
+            }
           }
         }
 
@@ -217,10 +201,10 @@ function MyBadges() {
 
   return (
     <>
-      <div className="container2">
+      <div className="containerNFT">
         <Flex justifyContent="center" width="100%" alignItems="center">
           <Flex alignItems="center">
-            <h2 className="hero__title">My NFT's</h2>
+            <h2 className="hero__title">My NFTs</h2>
             <Link to="/launchpad">
               <Button colorScheme="teal" size="md" ml="4" className='css-70qvj9'>
                 Mint Launchpad
@@ -229,7 +213,7 @@ function MyBadges() {
           </Flex>
         </Flex>
 
-        <div className="nft-grid">
+        <div className="nft-gridNFT">
           {nfts.map((nft, index) => (
             <NFTCard key={index} nft={nft} />
           ))}
@@ -239,4 +223,4 @@ function MyBadges() {
   );
 }
 
-export default MyBadges;
+export default MyNFTs;

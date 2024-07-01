@@ -4,10 +4,13 @@ import { Button, useToast, Spinner } from '@chakra-ui/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { ethers } from 'ethers';
+import { Box } from '@chakra-ui/react'
 import nftAbi from '../ABIs/nftAbi.json';
 import enoAbi from '../ABIs/enoAbi.json';
 import badgesNFT from '../assets/badgesNFT.mp4';
 import badgesNFTBlanco from '../assets/badgesNFTBlanco.mp4';
+import ENOCoin from '../assets/ENOPrice.webp';
+import Loader from '../assets/LoadingMachine.mp4';
 import './NFTDetailView.css';
 
 const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible }) => {
@@ -16,6 +19,7 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
   const toast = useToast();
   const [nftDetails, setNftDetails] = useState(null);
   const [priceEno, setPriceEno] = useState('');
+  const [priceUsdt, setPriceUsdt] = useState('');
   const [totalMinted, setTotalMinted] = useState(0);
   const [maxSupply, setMaxSupply] = useState(0);
   const [provider, setProvider] = useState(null);
@@ -70,8 +74,7 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
     const nftContract = new ethers.Contract(nft.contractAddress, nftAbi, provider);
     const enoPriceBigNumber = await nftContract.NFTPriceInENO();
 
-    const enoPrice = ethers.utils.formatUnits(enoPriceBigNumber, 18);
-    setPriceEno(parseInt(enoPrice)); // Convertir el precio a entero para quitar los decimales
+    setPriceEno( ethers.utils.formatUnits(enoPriceBigNumber, 18)); // Convertir el precio a entero para quitar los decimales
   }, [provider]);
 
   const fetchMintedAndMaxSupply = useCallback(async (nft) => {
@@ -228,10 +231,15 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
   return (
     <>
       {loading && (
-        <div className="loader-overlay">
-          <Spinner size="xl" />
-        </div>
+      <div className="container loader-overlay">
+      <h2 className="hero__title">Loading...</h2>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <video src={Loader} autoPlay loop muted width="350px" height="200px"></video>
+      </Box>
+    </div>
       )}
+
+
       <div className={`nft-detail-container ${loading ? 'blurred' : ''}`}>
         <a href='/launchpad' className='back__button' rel="noopener noreferrer">
           <FontAwesomeIcon icon={faChevronLeft} />
@@ -259,18 +267,23 @@ const NFTDetailView = ({ setHeaderVisible, setFooterVisible, setNavBarVisible })
 
           <h2 className='NFT__title'>{nftDetails.title}</h2>
           <div className='NFT__description'>
-            <div className='NFT__buttons'>
-              <div className='NFT__content'>
-                <p className='EnoMinted'>{totalMinted} Editions Released</p>
-                <p className='EnoPrice'>{priceEno} ENO</p>
-              </div>
-            </div>
             <h2 className='about__nft'>ABOUT NFT</h2>
-            <p className='details__nft' >{nftDetails.descriptionLong}</p>
+            <p className='details__nft'>{nftDetails.descriptionLong}</p>
+          </div>
+          <div className='NFT__buttons'>
+            <div className='NFT__content'>
+              <p className='EnoPrice'>
+                <img src={ENOCoin} alt="Eno Price" className='purchase__image' />{priceEno} ENO 
+              </p>
+            </div>
           </div>
           <div className='NFT__ContainerBtn'>
             <div className='NFT__btnENO'>
-              <Button className="NFT__btn color-1" colorScheme="teal" size="sm" onClick={buyWithENO} isDisabled={loading}>
+              <Button className="NFT__btn color-1" 
+              colorScheme="teal" 
+              size="sm" 
+              onClick={buyWithENO} 
+              isDisabled={loading}>
                 Buy with ENO
               </Button>
             </div>

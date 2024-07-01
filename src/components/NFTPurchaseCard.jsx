@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import nftAbi from '../ABIs/nftAbi.json';
@@ -7,7 +6,7 @@ import usdtAbi from '../ABIs/enoAbi.json';
 import './NFTPurchaseCard.css';
 import ENOCoin from '../assets/ENOPrice.webp';
 
-const NFTPurchaseCard = ({ nft }) => {
+const NFTPurchaseCard = ({ nft, onGetNFTClick }) => {
   const [priceUsdt, setPriceUsdt] = useState('');
   const [priceEth, setPriceEth] = useState('');
   const [totalMinted, setTotalMinted] = useState(0);
@@ -15,7 +14,6 @@ const NFTPurchaseCard = ({ nft }) => {
   const [saleStartTime, setSaleStartTime] = useState(null);
   const [timeLeft, setTimeLeft] = useState({});
   const toast = useToast();
-  const navigate = useNavigate();
 
   const initializeProvider = () => {
     if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
@@ -28,21 +26,21 @@ const NFTPurchaseCard = ({ nft }) => {
 
   const fetchMintedAndMaxSupply = useCallback(async () => {
     if (!provider) return;
-  
+
     try {
       const nftContract = new ethers.Contract(nft.contractAddress, nftAbi, provider);
       const totalMintedBigNumber = await nftContract.totalSupply();
       const maxSupplyNumber = await nftContract.max_supply();
       const saleStartTimeNumber = await nftContract.saleStartTime();
       const nftPriceInENOBigNumber = await nftContract.NFTPriceInENO();
-  
+
       console.log("NFT Price in ENO:", nftPriceInENOBigNumber);
-  
+
       setTotalMinted(totalMintedBigNumber.toNumber());
       setMaxSupply(maxSupplyNumber.toNumber());
       setSaleStartTime(saleStartTimeNumber.toNumber());
       setPriceUsdt(ethers.utils.formatUnits(nftPriceInENOBigNumber, 18)); // Convertir el BigNumber a string con 18 decimales
-  
+
       const currentTime = Math.floor(Date.now() / 1000);
       if (saleStartTimeNumber.toNumber() > currentTime) {
         setTimeLeft(calculateTimeLeft(saleStartTimeNumber.toNumber()));
@@ -51,9 +49,6 @@ const NFTPurchaseCard = ({ nft }) => {
       console.error('Error fetching minted and max supply:', error);
     }
   }, [nft.contractAddress, provider]);
-  
-  
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -180,16 +175,12 @@ const NFTPurchaseCard = ({ nft }) => {
     }
   };
 
-  const handleCardClick = () => {
-    navigate(`/nft/${nft.id}`);
-  };
-
   if (!provider) {
     return <div>Please install MetaMask to view this content.</div>;
   }
 
   return (
-    <div className="nft-purchase-card" onClick={handleCardClick}>
+    <div className="nft-purchase-card">
       <div className={`nft-video-container ${Object.keys(timeLeft).length !== 0 ? 'blur' : ''}`}>
         <video
           src={nft.video}
@@ -225,17 +216,14 @@ const NFTPurchaseCard = ({ nft }) => {
         <p className='purchase__description'>{nft.descriptionShort}</p>
       </div>
       {Object.keys(timeLeft).length === 0 ? (
-        <a href='/nft-detail' colorScheme="teal" size="sm" className='getNFT'>
-          <button className='hero__btn-mint color-1'>
-            Get NFT
-          </button>
-        </a>
-      ) : (
-        <button className='hero__btn-mint color-1 disabled' disabled>
+        <button className='hero__btn-mint color-1' onClick={onGetNFTClick}>
           Get NFT
         </button>
+      ) : (
+        <button className='hero__btn-mint color-1 disabled' disabled>
+          Coming Soon
+        </button>
       )}
-
     </div>
   );
 };
